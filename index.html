@@ -104,6 +104,9 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--white);}
 .ibar{padding:8px 12px;border-top:1px solid #D0D8FF;display:flex;gap:8px;align-items:flex-end;flex-shrink:0;background:#F5F7FF;}
 textarea{flex:1;border:1.5px solid var(--border);border-radius:12px;padding:9px 13px;font-size:13px;font-family:inherit;resize:none;outline:none;max-height:80px;background:var(--surf);transition:border-color .2s,background .2s;}
 textarea:focus{border-color:var(--blue);background:#fff;}
+.mbtn{width:38px;height:38px;border-radius:50%;border:none;background:var(--surf2);color:var(--t1);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .2s;}
+.mbtn svg{width:20px;height:20px;fill:currentColor;}
+.mbtn.active{background:var(--rose);color:#fff;animation:pulse 1s infinite;}
 .sbtn{width:38px;height:38px;border-radius:50%;background:var(--g-blue);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 3px 10px rgba(76,110,245,.3);transition:all .15s;}
 .sbtn:active{transform:scale(.9);}
 .sbtn svg{width:16px;height:16px;fill:#fff;}
@@ -307,7 +310,10 @@ input[type=range]{flex:1;height:4px;border-radius:2px;outline:none;cursor:pointe
   .ibar{padding:16px 32px;gap:14px;}
   textarea{font-size:21px;padding:18px 22px;}
   .hint{font-size:14px;}
-  .sbtn{width:56px;height:56px;}
+  .mbtn{width:38px;height:38px;border-radius:50%;border:none;background:var(--surf2);color:var(--t1);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .2s;}
+.mbtn svg{width:20px;height:20px;fill:currentColor;}
+.mbtn.active{background:var(--rose);color:#fff;animation:pulse 1s infinite;}
+.sbtn{width:56px;height:56px;}
   .faq-top{font-size:20px;padding:20px 22px;}
   .faq-rank{width:36px;height:36px;font-size:16px;}
   .pw{padding:28px 48px;}
@@ -449,7 +455,10 @@ input[type=range]{flex:1;height:4px;border-radius:2px;outline:none;cursor:pointe
   }
   textarea{font-size:14px !important;padding:10px 15px !important;}
   .hint{font-size:11px !important;background:#fff !important;padding:4px 48px 8px !important;color:#9DA3BE !important;flex-shrink:0 !important;}
-  .sbtn{width:42px !important;height:42px !important;}
+  .mbtn{width:38px;height:38px;border-radius:50%;border:none;background:var(--surf2);color:var(--t1);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .2s;}
+.mbtn svg{width:20px;height:20px;fill:currentColor;}
+.mbtn.active{background:var(--rose);color:#fff;animation:pulse 1s infinite;}
+.sbtn{width:42px !important;height:42px !important;}
   .faq-top{font-size:13px !important;padding:10px 13px !important;}
   .faq-rank{width:22px !important;height:22px !important;font-size:10px !important;}
 
@@ -669,6 +678,7 @@ input[type=range]{flex:1;height:4px;border-radius:2px;outline:none;cursor:pointe
       </div>
     </div>
     <div class="ibar">
+      <button class="mbtn" id="micBtn" onclick="toggleMic()" title="음성 입력"><svg viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm-1 1.93c-3.94-.49-7-3.86-7-7.93H2c0 4.42 3.05 8.13 7 9.28V20h2v-2.09c.34-.05.67-.12 1-.2v-2.06c-.32.09-.65.15-1 .15zm2-1.93c1.66 0 3-1.34 3-3v-.28l-6-6V11c0 1.66 1.34 3 3 3z"/></svg></button>
       <textarea id="txtin" rows="1" placeholder="궁금한 점을 입력하세요..." onkeydown="hk(event)" oninput="ar(this)"></textarea>
       <button class="sbtn" onclick="send()"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></button>
     </div>
@@ -1730,6 +1740,45 @@ function renderMealContent(day){
   });
 }
 
+
+/* STT - Web Speech API */
+let recognition=null;
+let isListening=false;
+function toggleMic(){
+  if(!('webkitSpeechRecognition' in window||'SpeechRecognition' in window)){
+    alert('이 브라우저는 음성 인식을 지원하지 않아요. Chrome을 사용해주세요.');
+    return;
+  }
+  if(isListening){stopMic();return;}
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  recognition=new SR();
+  recognition.lang='ko-KR';
+  recognition.interimResults=true;
+  recognition.continuous=false;
+  recognition.onstart=()=>{
+    isListening=true;
+    document.getElementById('micBtn').classList.add('active');
+    document.getElementById('txtin').placeholder='듣고 있어요...';
+  };
+  recognition.onresult=(e)=>{
+    const t=Array.from(e.results).map(r=>r[0].transcript).join('');
+    document.getElementById('txtin').value=t;
+    ar(document.getElementById('txtin'));
+  };
+  recognition.onend=()=>{
+    stopMic();
+    const val=document.getElementById('txtin').value.trim();
+    if(val)send();
+  };
+  recognition.onerror=()=>stopMic();
+  recognition.start();
+}
+function stopMic(){
+  isListening=false;
+  document.getElementById('micBtn').classList.remove('active');
+  document.getElementById('txtin').placeholder='궁금한 점을 입력하세요...';
+  if(recognition){recognition.stop();recognition=null;}
+}
 </script>
 </body>
 </html>
