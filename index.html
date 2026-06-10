@@ -531,6 +531,7 @@ input[type=range]{flex:1;height:4px;border-radius:2px;outline:none;cursor:pointe
   .splash-btn{max-width:400px !important;font-size:16px !important;padding:17px !important;}
 }
 </style>
+<script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
 <div class="splash" id="splash">
@@ -1835,7 +1836,11 @@ let recognition=null;
 let isListening=false;
 function toggleMic(){
   if(!('webkitSpeechRecognition' in window||'SpeechRecognition' in window)){
-    alert('이 브라우저는 음성 인식을 지원하지 않아요. Chrome을 사용해주세요.');
+    const t=document.createElement('div');
+    t.textContent='🎤 음성 인식은 Chrome에서만 지원돼요';
+    t.style.cssText='position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:#333;color:#fff;padding:10px 18px;border-radius:20px;font-size:13px;z-index:9999;animation:fadeIn .3s ease';
+    document.body.appendChild(t);
+    setTimeout(()=>t.remove(),2500);
     return;
   }
   if(isListening){stopMic();return;}
