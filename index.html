@@ -908,11 +908,16 @@ input[type=range]{flex:1;height:4px;border-radius:2px;outline:none;cursor:pointe
           <div style="display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,var(--blue),var(--indigo));border-radius:20px;padding:4px 10px;margin-bottom:12px;">
             <span style="font-size:10px;font-weight:700;color:#fff;">🤖 AI 이미지 자동 분류</span>
           </div>
-          <div id="vision-upload" class="vision-upload" onclick="document.getElementById('pf').click()">
-            <div style="font-size:28px;margin-bottom:6px;">📷</div>
-            <div style="font-size:12px;font-weight:700;color:var(--blue);">사진을 찍거나 업로드하세요</div>
-            <div style="font-size:11px;color:var(--t2);margin-top:3px;">AI가 문제 유형을 자동으로 분석합니다</div>
+          <div style="display:flex;gap:8px;margin-bottom:4px;">
+            <button onclick="document.getElementById('pf-camera').click()" style="flex:1;padding:14px 8px;background:#EEF2FF;border:1.5px solid #BAC8FF;border-radius:14px;cursor:pointer;font-size:12px;font-weight:700;color:var(--blue);">
+              <div style="font-size:24px;margin-bottom:4px;">📸</div>카메라로 찍기
+            </button>
+            <button onclick="document.getElementById('pf').click()" style="flex:1;padding:14px 8px;background:#F3F0FF;border:1.5px solid #D0BFFF;border-radius:14px;cursor:pointer;font-size:12px;font-weight:700;color:#6C5CE7;">
+              <div style="font-size:24px;margin-bottom:4px;">🖼️</div>앨범에서 올리기
+            </button>
           </div>
+          <div style="font-size:11px;color:var(--t2);text-align:center;margin-bottom:8px;">AI가 문제 유형을 자동으로 분석합니다</div>
+          <input type="file" id="pf-camera" accept="image/*" capture="environment" style="display:none" onchange="analyzeImg(this)">
           <input type="file" id="pf" accept="image/*" style="display:none" onchange="analyzeImg(this)">
           <div id="vision-result" style="display:none;margin:10px 0;"></div>
           <div style="font-size:12px;font-weight:700;color:var(--t1);margin:10px 0 6px;">또는 직접 선택</div>
