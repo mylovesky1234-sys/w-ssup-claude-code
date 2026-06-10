@@ -1261,12 +1261,31 @@ function ragSearch(q){
   return `😅 정확히 일치하는 답변을 찾지 못했어요.\n\n혹시 이런 내용을 찾으시나요?\n\n✅ 출석 처리 방법\n🎓 수료 기준·수료증\n🚌 셔틀버스 시간표\n💳 교육비·환급 절차\n📶 Wi-Fi 비밀번호\n🏠 숙소·기숙사 안내\n🅿️ 주차·오는 길\n\n위 키워드로 다시 물어봐 주시거나,\n📞 담당 사무실: 봉사관 206호 / 031-490-1294`;
 }
 
-function send(){
+let chatHistory=[];
+async function send(){
   const inp=document.getElementById('txtin');
   const t=inp.value.trim();if(!t)return;
   inp.value='';inp.style.height='auto';
   addU(t);showT();
-  setTimeout(()=>{rmT();addB(ragSearch(t));},600);
+  try{
+    const res=await fetch('/api/chat',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({message:t,history:chatHistory})
+    });
+    const data=await res.json();
+    rmT();
+    if(data.reply){
+      chatHistory.push({role:'user',content:t});
+      chatHistory.push({role:'assistant',content:data.reply});
+      if(chatHistory.length>20)chatHistory=chatHistory.slice(-20);
+      addB(data.reply);
+    }else{
+      addB(ragSearch(t));
+    }
+  }catch(e){
+    rmT();addB(ragSearch(t));
+  }
 }
 
 /* PICK 슬라이더 */
