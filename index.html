@@ -568,8 +568,13 @@ input[type=range]{flex:1;height:4px;border-radius:2px;outline:none;cursor:pointe
     <p style="font-size:13px;font-weight:700;color:var(--t1);">TALK + PICK + VIEW =&nbsp;<span style="color:#4C6EF5;">현장 불편 ZERO 🎯</span></p>
   </div>
 
-  <button class="splash-btn" onclick="closeSplash()">숲 계정으로 시작하기</button>
-  <p style="font-size:11px;color:var(--t2);text-align:center;margin-top:12px;position:relative;z-index:1;line-height:1.6;">실제 서비스에서는 숲(SSUP) 계정 로그인 후 이용 가능합니다.</p>
+  <div style="position:relative;z-index:1;width:100%;max-width:360px;animation:fadeIn .7s .45s ease both;">
+    <input id="uname-input" type="text" maxlength="10" placeholder="이름을 입력하세요 (예: 홍길동)"
+      style="width:100%;padding:14px 18px;border:1.5px solid #C5D0FF;border-radius:16px;font-size:14px;font-weight:600;color:var(--t0);background:#fff;box-sizing:border-box;outline:none;margin-bottom:10px;font-family:'Pretendard','Noto Sans KR',sans-serif;"
+      onkeydown="if(event.key==='Enter')startWithName()">
+    <button class="splash-btn" onclick="startWithName()">시작하기 →</button>
+    <p style="font-size:11px;color:var(--t2);text-align:center;margin-top:10px;line-height:1.6;">이름을 입력하면 개인화된 인사를 받을 수 있어요 😊</p>
+  </div>
 </div>
 <div class="app">
 
@@ -644,7 +649,7 @@ input[type=range]{flex:1;height:4px;border-radius:2px;outline:none;cursor:pointe
       <div class="mrow">
         <div class="bico">🤖</div>
         <div class="bwrap">
-          <div class="bbl bot">안녕하세요 😊 저는 <strong>왓썹(W-SSUP)</strong>이에요!<br>연수 신청·교육비·교통편 등 궁금한 점이라면 무엇이든 24시간 도와드릴게요!</div>
+          <div class="bbl bot" id="bot-greet">안녕하세요 😊 저는 <strong>왓썹(W-SSUP)</strong>이에요!<br>연수 신청·교육비·교통편 등 궁금한 점이라면 무엇이든 24시간 도와드릴게요!</div>
           <div class="ichips">
             <button class="ich b" onclick="sq('어떤 걸 도와줄 수 있어?')">무엇을 도와드릴까요?</button>
             <button class="ich a" onclick="go('pick',document.querySelectorAll('.tab')[1])">✦ 강좌 추천</button>
@@ -877,9 +882,9 @@ input[type=range]{flex:1;height:4px;border-radius:2px;outline:none;cursor:pointe
             <button onclick="navigator.clipboard.writeText('1234512345').then(()=>alert('복사됐어요! 😊'))" style="background:var(--blue);color:#fff;border:none;border-radius:10px;padding:8px 14px;font-size:12px;font-weight:700;cursor:pointer;">복사</button>
           </div>
           <div class="amenity-grid">
-            <div class="amenity"><div class="amenity-ico">🍳</div><div class="amenity-nm">조식</div><div class="amenity-hrs">07:30~09:00</div></div>
-            <div class="amenity"><div class="amenity-ico">🍱</div><div class="amenity-nm">중식</div><div class="amenity-hrs">11:30~13:30</div></div>
-            <div class="amenity"><div class="amenity-ico">🍜</div><div class="amenity-nm">석식</div><div class="amenity-hrs">17:30~19:00</div></div>
+            <div class="amenity" onclick="showMealFor('b')" style="cursor:pointer;position:relative;"><div class="amenity-ico">🍳</div><div class="amenity-nm">조식</div><div class="amenity-hrs">07:30~09:00</div><div style="position:absolute;top:4px;right:6px;font-size:9px;color:var(--blue);font-weight:700;">메뉴 ›</div></div>
+            <div class="amenity" onclick="showMealFor('l')" style="cursor:pointer;position:relative;"><div class="amenity-ico">🍱</div><div class="amenity-nm">중식</div><div class="amenity-hrs">11:30~13:30</div><div style="position:absolute;top:4px;right:6px;font-size:9px;color:var(--blue);font-weight:700;">메뉴 ›</div></div>
+            <div class="amenity" onclick="showMealFor('d')" style="cursor:pointer;position:relative;"><div class="amenity-ico">🍜</div><div class="amenity-nm">석식</div><div class="amenity-hrs">17:30~19:00</div><div style="position:absolute;top:4px;right:6px;font-size:9px;color:var(--blue);font-weight:700;">메뉴 ›</div></div>
             <div class="amenity"><div class="amenity-ico">☕</div><div class="amenity-nm">카페(월~목)</div><div class="amenity-hrs">08:00~18:30</div></div>
             <div class="amenity"><div class="amenity-ico">☕</div><div class="amenity-nm">카페(금)</div><div class="amenity-hrs">08:00~15:30</div></div>
             <div class="amenity"><div class="amenity-ico">🛒</div><div class="amenity-nm">무인매점</div><div class="amenity-hrs">24시간</div></div>
@@ -1093,6 +1098,14 @@ const MEAL_DATA = {
 
 function openModal(id){document.getElementById('modal-'+id).classList.add('show');}
 function closeModal(id){document.getElementById('modal-'+id).classList.remove('show');}
+function showMealFor(type){
+  initMealModal();
+  openModal('meal');
+  setTimeout(()=>{
+    const el=document.getElementById('meal-sec-'+type);
+    if(el) el.scrollIntoView({behavior:'smooth',block:'center'});
+  },150);
+}
 
 /* TALK */
 let hist=[];
@@ -1718,11 +1731,19 @@ function stopQR(){
 }
 
 /* 초기화 */
-function closeSplash(){
+function startWithName(){
+  const raw=document.getElementById('uname-input').value.trim();
+  const name=raw||'';
+  if(name) localStorage.setItem('w_username',name);
   const s=document.getElementById('splash');
   s.classList.add('hide');
   setTimeout(()=>{s.style.display='none';},400);
+  if(name){
+    const greet=document.getElementById('bot-greet');
+    if(greet) greet.innerHTML=`안녕하세요, <strong>${name}</strong>님 😊 저는 <strong>왓썹(W-SSUP)</strong>이에요!<br>연수 신청·교육비·교통편 등 궁금한 점이라면 무엇이든 24시간 도와드릴게요!`;
+  }
 }
+function closeSplash(){startWithName();}
 window.addEventListener('DOMContentLoaded',()=>{
   initMealModal();
   uyr(1); uyr2(5);
@@ -1790,9 +1811,9 @@ function renderMealContent(day){
     : '';
   const todayBadge=isToday?'<span style="background:#E11D48;color:#fff;border-radius:10px;padding:2px 8px;margin-right:6px;font-size:10px;">오늘</span>':'';
   const meals=[
-    {ico:'🌅',nm:'조식',time:'07:30~09:00',menu:data.b,bg:'#FFFBEB',border:'#F59F00',tc:'#B45309'},
-    {ico:'☀️',nm:'중식',time:'11:30~13:30',menu:data.l,bg:'#EFF6FF',border:'#3B82F6',tc:'#1D4ED8'},
-    {ico:'🌙',nm:'석식',time:'17:30~19:00',menu:data.d,bg:'#F5F3FF',border:'#7C3AED',tc:'#5B21B6'}
+    {ico:'🌅',nm:'조식',time:'07:30~09:00',menu:data.b,bg:'#FFFBEB',border:'#F59F00',tc:'#B45309',key:'b'},
+    {ico:'☀️',nm:'중식',time:'11:30~13:30',menu:data.l,bg:'#EFF6FF',border:'#3B82F6',tc:'#1D4ED8',key:'l'},
+    {ico:'🌙',nm:'석식',time:'17:30~19:00',menu:data.d,bg:'#F5F3FF',border:'#7C3AED',tc:'#5B21B6',key:'d'}
   ];
   const el=document.getElementById('meal-content');
   if(!el)return;
@@ -1805,7 +1826,7 @@ function renderMealContent(day){
         const items=m.menu.split(' / ');
         const isNone=m.menu.startsWith('미제공');
         return `
-        <div style="border-radius:14px;overflow:hidden;border:1.5px solid ${m.border}30;box-shadow:0 2px 8px rgba(0,0,0,.06);">
+        <div id="meal-sec-${m.key}" style="border-radius:14px;overflow:hidden;border:1.5px solid ${m.border}30;box-shadow:0 2px 8px rgba(0,0,0,.06);">
           <div style="background:${m.border};padding:8px 14px;display:flex;align-items:center;justify-content:space-between;">
             <div style="font-size:13px;font-weight:800;color:#fff;">${m.ico} ${m.nm}</div>
             <div style="font-size:10px;color:rgba(255,255,255,.85);font-weight:600;">${m.time}</div>
