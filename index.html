@@ -625,7 +625,7 @@ input[type=range]{flex:1;height:4px;border-radius:2px;outline:none;cursor:pointe
   </div>
 
   <div style="position:relative;z-index:1;width:100%;max-width:360px;animation:fadeIn .7s .45s ease both;">
-    <input id="uname-input" type="text" maxlength="10" placeholder="이름을 입력하세요 (예: 진공이)"
+    <input id="uname-input" type="text" maxlength="10" placeholder="이름을 입력하세요" value="진공이"
       style="width:100%;padding:14px 18px;border:1.5px solid #C5D0FF;border-radius:16px;font-size:14px;font-weight:600;color:var(--t0);background:#fff;box-sizing:border-box;outline:none;margin-bottom:10px;font-family:'Pretendard','Noto Sans KR',sans-serif;"
       onkeydown="if(event.key==='Enter')startWithName()">
     <button class="splash-btn" onclick="startWithName()">시작하기 →</button>
@@ -2055,7 +2055,7 @@ function doWayfind(query){
 /* 초기화 */
 function startWithName(){
   const raw=document.getElementById('uname-input').value.trim();
-  const name=raw||'연수생';
+  const name=raw||'진공이';
   localStorage.setItem('w_username',name);
   const s=document.getElementById('splash');
   s.classList.add('hide');
