@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -530,6 +530,62 @@ input[type=range]{flex:1;height:4px;border-radius:2px;outline:none;cursor:pointe
   .splash-card-desc{font-size:12px !important;}
   .splash-btn{max-width:400px !important;font-size:16px !important;padding:17px !important;}
 }
+
+/* ── TALK 고도화: 메시지 액션 버튼 ── */
+.msg-actions{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px;}
+.mact{padding:4px 10px;border-radius:16px;border:1.5px solid var(--border);background:#fff;font-size:11px;font-weight:700;color:var(--t1);cursor:pointer;transition:all .15s;white-space:nowrap;}
+.mact:hover{background:var(--blue-lt);border-color:#BAC8FF;color:var(--blue);}
+.mact.active{background:var(--blue);color:#fff;border-color:var(--blue);}
+.lang-row{display:flex;gap:5px;margin-top:5px;flex-wrap:wrap;}
+.lbtn{padding:4px 9px;border-radius:14px;border:1.5px solid var(--border);background:#fff;font-size:11px;font-weight:700;color:var(--t1);cursor:pointer;transition:all .15s;}
+.lbtn.on{background:var(--blue-lt);border-color:#BAC8FF;color:var(--blue);}
+/* 민원 접수 카드 */
+.complaint-prompt{background:linear-gradient(135deg,#FFF0F6,#F3F0FF);border:1.5px solid #FCC2D7;border-radius:16px;padding:14px;margin-top:6px;}
+.complaint-btns{display:flex;gap:8px;margin-top:10px;}
+.cb-yes{flex:1;padding:10px;background:linear-gradient(135deg,var(--pink),var(--rose));color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;}
+.cb-no{flex:1;padding:10px;background:var(--surf2);color:var(--t1);border:1.5px solid var(--border);border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;}
+.complaint-done{background:var(--teal-lt);border-radius:12px;padding:12px;text-align:center;margin-top:6px;font-size:13px;font-weight:700;color:var(--teal);}
+/* PICK 자연어 입력 */
+.nl-pick-box{background:linear-gradient(135deg,#F3F0FF,#EEF2FF);border-radius:16px;padding:14px;margin-bottom:14px;border:1.5px solid #D0BFFF;}
+.nl-pick-ta{width:100%;padding:10px 13px;border:1.5px solid #D0BFFF;border-radius:12px;font-size:13px;font-family:inherit;resize:none;height:72px;outline:none;background:#fff;transition:border-color .2s;margin:8px 0;}
+.nl-pick-ta:focus{border-color:var(--indigo);}
+.nl-pbtn{width:100%;padding:12px;background:var(--g-purple);color:#fff;border:none;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 3px 12px rgba(112,72,232,.25);}
+/* PICK 추천 사유 */
+.pick-reason{background:#F8F7FF;border-radius:10px;padding:8px 10px;font-size:11px;color:#5A3FA0;line-height:1.6;margin:6px 0;border-left:3px solid var(--indigo);}
+/* PICK 로드맵 강화 */
+.roadmap-card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:16px;box-shadow:var(--sh);}
+.rm-title{font-size:13px;font-weight:800;color:var(--t0);margin-bottom:12px;display:flex;align-items:center;gap:6px;}
+.rm-steps{display:flex;flex-direction:column;gap:0;}
+.rm-step{display:flex;align-items:flex-start;gap:10px;padding:10px 0;}
+.rm-step:not(:last-child){border-bottom:1px dashed var(--border);}
+.rm-circle{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#fff;flex-shrink:0;font-family:'Outfit',sans-serif;box-shadow:0 2px 8px rgba(0,0,0,.12);}
+.rm-info{flex:1;}
+.rm-lv{font-size:12px;font-weight:700;color:var(--t0);}
+.rm-desc{font-size:11px;color:var(--t2);margin-top:2px;}
+.rm-cur{font-size:11px;font-weight:700;color:var(--blue);margin-top:3px;}
+.rm-arrow{text-align:center;font-size:14px;color:var(--t2);padding:2px 0;}
+/* VIEW AI 길찾기 */
+.wayfind-card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:16px;box-shadow:var(--sh);}
+.wf-input-row{display:flex;gap:8px;margin-top:8px;}
+.wf-input{flex:1;padding:10px 13px;border:1.5px solid var(--border);border-radius:12px;font-size:13px;font-family:inherit;outline:none;background:var(--surf);transition:border-color .2s;}
+.wf-input:focus{border-color:var(--teal);background:#fff;}
+.wf-btn{padding:10px 14px;background:var(--g-teal);color:#fff;border:none;border-radius:12px;font-size:12px;font-weight:700;cursor:pointer;flex-shrink:0;white-space:nowrap;}
+.wf-result{margin-top:12px;display:none;}
+.wf-step{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);}
+.wf-step:last-child{border:none;}
+.wf-num{width:22px;height:22px;border-radius:50%;background:var(--teal);color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.wf-main{font-size:13px;font-weight:700;color:var(--t0);}
+.wf-sub{font-size:11px;color:var(--t2);margin-top:2px;}
+.wf-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
+.wf-chip{padding:6px 12px;border-radius:20px;background:var(--teal-lt);color:var(--teal);border:1.5px solid #96F2D7;font-size:11px;font-weight:700;cursor:pointer;transition:all .15s;}
+.wf-chip:hover{background:var(--teal);color:#fff;}
+/* QR 시나리오 */
+.qr-scenarios{margin-top:12px;display:flex;flex-direction:column;gap:8px;}
+.qr-scen-btn{display:flex;align-items:center;gap:10px;padding:12px;background:var(--surf);border:1px solid var(--border);border-radius:12px;cursor:pointer;transition:all .15s;text-align:left;width:100%;}
+.qr-scen-btn:hover{background:var(--blue-lt);border-color:#BAC8FF;}
+.qr-scen-ico{font-size:22px;flex-shrink:0;}
+.qr-scen-nm{font-size:13px;font-weight:700;color:var(--t0);}
+.qr-scen-desc{font-size:11px;color:var(--t2);}
 </style>
 <script defer src="/_vercel/insights/script.js"></script>
 </head>
@@ -569,7 +625,7 @@ input[type=range]{flex:1;height:4px;border-radius:2px;outline:none;cursor:pointe
   </div>
 
   <div style="position:relative;z-index:1;width:100%;max-width:360px;animation:fadeIn .7s .45s ease both;">
-    <input id="uname-input" type="text" maxlength="10" placeholder="이름을 입력하세요 (예: 홍길동)"
+    <input id="uname-input" type="text" maxlength="10" placeholder="이름을 입력하세요 (예: 진공이)"
       style="width:100%;padding:14px 18px;border:1.5px solid #C5D0FF;border-radius:16px;font-size:14px;font-weight:600;color:var(--t0);background:#fff;box-sizing:border-box;outline:none;margin-bottom:10px;font-family:'Pretendard','Noto Sans KR',sans-serif;"
       onkeydown="if(event.key==='Enter')startWithName()">
     <button class="splash-btn" onclick="startWithName()">시작하기 →</button>
@@ -586,7 +642,7 @@ input[type=range]{flex:1;height:4px;border-radius:2px;outline:none;cursor:pointe
     </div>
     <div class="hdr-txt">
       <div class="hdr-name">W-SSUP</div>
-      <div class="hdr-sub">중소벤처기업연수원 AI 스마트비서</div>
+      <div class="hdr-sub" id="hdr-sub">중소벤처기업연수원 AI 스마트비서</div>
     </div>
     <div class="live"><div class="live-dot"></div><span>LIVE</span></div>
   </div>
@@ -619,31 +675,32 @@ input[type=range]{flex:1;height:4px;border-radius:2px;outline:none;cursor:pointe
       <button class="qchip" onclick="showChatLog()">📋 내 대화보기</button>
     </div>
     <div class="msgs" id="msgs">
-      <div style="background:var(--g-blue);border-radius:20px;padding:18px;color:#fff;margin-bottom:14px;position:relative;overflow:hidden;">
+            <div id="welcome-card" style="background:var(--g-blue);border-radius:20px;padding:18px;color:#fff;margin-bottom:14px;position:relative;overflow:hidden;">
         <div style="position:absolute;top:-30px;right:-30px;width:120px;height:120px;border-radius:50%;background:rgba(76,110,245,.2);pointer-events:none;"></div>
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
-          <div style="width:34px;height:34px;background:var(--g-blue);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;box-shadow:0 4px 12px rgba(76,110,245,.4);">🤖</div>
-          <div>
-            <div style="font-family:'Outfit',sans-serif;font-size:16px;font-weight:800;color:#fff;letter-spacing:-.2px;">W-SSUP</div>
-            <div style="font-size:10px;color:rgba(255,255,255,.6);">24시간 AI 스마트비서</div>
+          <div style="width:34px;height:34px;background:rgba(255,255,255,.2);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">🤖</div>
+          <div style="flex:1;min-width:0;">
+            <div style="font-family:'Outfit',sans-serif;font-size:15px;font-weight:800;color:#fff;" id="welcome-name">안녕하세요 😊</div>
+            <div style="font-size:10px;color:rgba(255,255,255,.65);" id="welcome-profile">W-SSUP AI 스마트비서</div>
           </div>
-          <div style="margin-left:auto;display:flex;align-items:center;gap:4px;background:rgba(32,201,151,.2);border-radius:20px;padding:4px 10px;">
+          <div style="display:flex;align-items:center;gap:4px;background:rgba(32,201,151,.2);border-radius:20px;padding:4px 10px;">
             <div style="width:5px;height:5px;background:#20C997;border-radius:50%;animation:pulse 1.5s infinite;"></div>
             <span style="font-size:10px;font-weight:700;color:#20C997;">온라인</span>
           </div>
         </div>
+        <div id="welcome-schedule" style="background:rgba(255,255,255,.12);border-radius:12px;padding:10px 12px;margin-bottom:10px;font-size:12px;color:rgba(255,255,255,.9);">
+          <div style="font-size:10px;color:rgba(255,255,255,.6);margin-bottom:6px;">📅 오늘의 연수 일정</div>
+          <div id="welcome-sched-items" style="display:flex;flex-direction:column;gap:4px;"></div>
+        </div>
         <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;">
-          <div style="background:rgba(255,255,255,.1);border-radius:10px;padding:8px;text-align:center;border:1px solid rgba(255,255,255,.08);">
-            <div style="font-size:18px;">📋</div>
-            <div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.9);margin-top:3px;">연수 신청</div>
+          <div style="background:rgba(255,255,255,.1);border-radius:10px;padding:8px;text-align:center;border:1px solid rgba(255,255,255,.08);" onclick="sq('연수 신청은 어떻게 해요?')" style="cursor:pointer;">
+            <div style="font-size:18px;">📋</div><div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.9);margin-top:3px;">연수 신청</div>
           </div>
-          <div style="background:rgba(255,255,255,.1);border-radius:10px;padding:8px;text-align:center;border:1px solid rgba(255,255,255,.08);">
-            <div style="font-size:18px;">💳</div>
-            <div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.9);margin-top:3px;">교육비</div>
+          <div style="background:rgba(255,255,255,.1);border-radius:10px;padding:8px;text-align:center;border:1px solid rgba(255,255,255,.08);" onclick="sq('교육비 납부는 어떻게 해요?')">
+            <div style="font-size:18px;">💳</div><div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.9);margin-top:3px;">교육비</div>
           </div>
-          <div style="background:rgba(255,255,255,.1);border-radius:10px;padding:8px;text-align:center;border:1px solid rgba(255,255,255,.08);">
-            <div style="font-size:18px;">🎓</div>
-            <div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.9);margin-top:3px;">수료·환급</div>
+          <div style="background:rgba(255,255,255,.1);border-radius:10px;padding:8px;text-align:center;border:1px solid rgba(255,255,255,.08);" onclick="sq('수료 기준과 수료증 발급 방법을 알려주세요')">
+            <div style="font-size:18px;">🎓</div><div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.9);margin-top:3px;">수료·환급</div>
           </div>
         </div>
       </div>
@@ -703,7 +760,16 @@ input[type=range]{flex:1;height:4px;border-radius:2px;outline:none;cursor:pointe
 
       <!-- 처음 패널 -->
       <div id="upanel-new">
-        <div class="pick-hero" style="margin-bottom:14px;">
+                <!-- 자연어 입력 추천 -->
+        <div class="nl-pick-box">
+          <div style="font-size:12px;font-weight:800;color:#5A3FA0;margin-bottom:2px;">🤖 자연어로 추천받기 <span style="background:#E0D6FF;border-radius:8px;padding:2px 7px;font-size:10px;font-weight:700;color:var(--indigo);">AI</span></div>
+          <div style="font-size:11px;color:var(--t2);margin-bottom:4px;">본인 상황을 자유롭게 입력하면 AI가 맞춤 과정을 추천해드려요</div>
+          <textarea class="nl-pick-ta" id="nl-input" placeholder="예) 저는 제조업 품질담당자이고 AI를 처음 접합니다. 현장 개선에 도움이 되는 과정을 추천해주세요."></textarea>
+          <button class="nl-pbtn" onclick="doNLPick()">✦ AI 추천 받기</button>
+          <div id="nl-result" style="margin-top:10px;"></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;margin:0 0 8px;"><div style="flex:1;height:1px;background:var(--border);"></div><span style="font-size:11px;color:var(--t2);font-weight:600;">또는 직접 선택</span><div style="flex:1;height:1px;background:var(--border);"></div></div>
+<div class="pick-hero" style="margin-bottom:14px;">
           <div style="font-size:11px;font-weight:700;opacity:.8;margin-bottom:4px;">✦ AI 맞춤 추천</div>
           <div style="font-family:'Outfit',sans-serif;font-size:18px;font-weight:800;margin-bottom:4px;">강좌 PICK</div>
           <div style="font-size:12px;opacity:.8;">업종·직무·연차 기반 교육과정 추천</div>
@@ -811,6 +877,25 @@ input[type=range]{flex:1;height:4px;border-radius:2px;outline:none;cursor:pointe
           <div style="background:rgba(255,255,255,.2);border-radius:8px;padding:5px 10px;font-size:11px;font-weight:700;color:#fff;">📶 Wi-Fi</div>
           <div style="background:rgba(255,255,255,.2);border-radius:8px;padding:5px 10px;font-size:11px;font-weight:700;color:#fff;">🅿️ 주차</div>
         </div>
+      </div>
+
+      <!-- AI 길찾기 -->
+      <div class="wayfind-card">
+        <div class="stitle" style="margin-bottom:6px;">🗺️ AI 길찾기</div>
+        <div style="font-size:11px;color:var(--t2);margin-bottom:4px;">건물명이나 호수를 입력하면 경로를 안내해드려요</div>
+        <div class="wf-chips">
+          <button class="wf-chip" onclick="doWayfind(this.textContent)">봉사관</button>
+          <button class="wf-chip" onclick="doWayfind(this.textContent)">창의관</button>
+          <button class="wf-chip" onclick="doWayfind(this.textContent)">인화1관</button>
+          <button class="wf-chip" onclick="doWayfind(this.textContent)">인화2관</button>
+          <button class="wf-chip" onclick="doWayfind(this.textContent)">식당</button>
+          <button class="wf-chip" onclick="doWayfind(this.textContent)">헬스장</button>
+        </div>
+        <div class="wf-input-row">
+          <input class="wf-input" id="wf-input" placeholder="예) 봉사관 214호" onkeydown="if(event.key==='Enter')doWayfind()">
+          <button class="wf-btn" onclick="doWayfind()">🗺️ 안내</button>
+        </div>
+        <div class="wf-result" id="wf-result"></div>
       </div>
 
       <!-- 시설 안내 -->
@@ -1164,7 +1249,14 @@ function scr(){const c=document.getElementById('msgs');c.scrollTop=c.scrollHeigh
 function addU(t){const c=document.getElementById('msgs'),r=document.createElement('div');r.className='mrow me';r.innerHTML=`<div class="bwrap"><div class="bbl me">${t.replace(/\n/g,'<br>')}</div><span class="ts">${gt()}</span></div>`;c.appendChild(r);scr();}
 function showT(){const c=document.getElementById('msgs'),r=document.createElement('div');r.className='typing-r';r.id='tr';r.innerHTML=`<div class="bico">🤖</div><div class="typing-b"><span></span><span></span><span></span></div>`;c.appendChild(r);scr();}
 function rmT(){const e=document.getElementById('tr');if(e)e.remove();}
-function addB(t){const c=document.getElementById('msgs'),r=document.createElement('div');r.className='mrow';const f=t.replace(/\n/g,'<br>').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>');r.innerHTML=`<div class="bico">🤖</div><div class="bwrap"><div class="bbl bot">${f}</div><span class="ts">${gt()}</span></div>`;c.appendChild(r);scr();}
+function addB(t){
+  const c=document.getElementById('msgs');
+  const r=document.createElement('div');r.className='mrow';
+  const f=t.replace(/\n/g,'<br>').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>');
+  const bid='b'+Date.now();
+  r.innerHTML=`<div class="bico">🤖</div><div class="bwrap"><div class="bbl bot" id="${bid}">${f}</div><span class="ts">${gt()}</span><div class="msg-actions"><button class="mact" onclick="doMsgAct('raw','${bid}',this)">📄 원문 보기</button><button class="mact" onclick="doMsgAct('sum','${bid}',this)">📝 3줄 요약</button><button class="mact" onclick="doMsgAct('easy','${bid}',this)">💡 쉽게 설명</button></div><div class="lang-row"><button class="lbtn on" onclick="doLang('ko','${bid}',this)">🇰🇷 한국어</button><button class="lbtn" onclick="doLang('en','${bid}',this)">🇺🇸 English</button><button class="lbtn" onclick="doLang('id','${bid}',this)">🇮🇩 Bahasa</button></div></div>`;
+  c.appendChild(r);scr();
+}
 
 /* VIEW FAQ 토글 */
 function tgFaq(el){
@@ -1444,6 +1536,7 @@ async function send(){
   const t=inp.value.trim();if(!t)return;
   inp.value='';inp.style.height='auto';
   addU(t);showT();
+  checkComplaint(t);
   try{
     const res=await fetch('/api/chat',{
       method:'POST',
@@ -1501,6 +1594,14 @@ async function send(){
     if(!full)full=ragSearch(t);
     const ts=document.createElement('span');ts.className='ts';ts.textContent=gt();
     bwrap.appendChild(ts);
+    const bid='b'+Date.now();
+    bubble.id=bid;
+    const acts=document.createElement('div');acts.className='msg-actions';
+    acts.innerHTML=`<button class="mact" onclick="doMsgAct('raw','\',this)">📄 원문 보기</button><button class="mact" onclick="doMsgAct('sum','\',this)">📝 3줄 요약</button><button class="mact" onclick="doMsgAct('easy','\',this)">💡 쉽게 설명</button>`;
+    bwrap.appendChild(acts);
+    const langs=document.createElement('div');langs.className='lang-row';
+    langs.innerHTML=`<button class="lbtn on" onclick="doLang('ko','\',this)">🇰🇷 한국어</button><button class="lbtn" onclick="doLang('en','\',this)">🇺🇸 English</button><button class="lbtn" onclick="doLang('id','\',this)">🇮🇩 Bahasa</button>`;
+    bwrap.appendChild(langs);
     chatHistory.push({role:'user',content:t});
     chatHistory.push({role:'assistant',content:full});
     if(chatHistory.length>20)chatHistory=chatHistory.slice(-20);
@@ -1840,22 +1941,165 @@ function stopQR(){
   closeModal('qr');
 }
 
+
+/* ── TALK 고도화 ── */
+let _msgOriginals={};
+function doMsgAct(mode,bid,btn){
+  const el=document.getElementById(bid);if(!el)return;
+  const orig=_msgOriginals[bid]||el.innerHTML;
+  _msgOriginals[bid]=orig;
+  btn.closest('.msg-actions').querySelectorAll('.mact').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  if(mode==='raw'){el.innerHTML=orig;return;}
+  const txt=el.innerText;
+  const prompts={sum:'다음 내용을 핵심만 3줄로 요약해주세요. 각 줄은 "• "으로 시작하세요:\n\n',easy:'다음 내용을 연수생이 이해하기 쉽게 쉬운 말로 다시 설명해주세요:\n\n'};
+  el.innerHTML='<span style="color:var(--t2);font-size:12px;">⏳ 처리 중...</span>';
+  streamInto(prompts[mode]+txt,el);
+}
+function doLang(lang,bid,btn){
+  const el=document.getElementById(bid);if(!el)return;
+  const orig=_msgOriginals[bid]||el.innerHTML;
+  _msgOriginals[bid]=orig;
+  btn.closest('.lang-row').querySelectorAll('.lbtn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  if(lang==='ko'){el.innerHTML=orig;return;}
+  const txt=el.innerText;
+  const langName={en:'영어(English)',id:'인도네시아어(Bahasa Indonesia)'};
+  el.innerHTML='<span style="color:var(--t2);font-size:12px;">⏳ 번역 중...</span>';
+  streamInto(`다음 내용을 ${langName[lang]}로 번역해주세요. 번역문만 출력하세요:\n\n${txt}`,el);
+}
+async function streamInto(prompt,el){
+  try{
+    const res=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:prompt,history:[]})});
+    if(!res.ok||!res.body){el.textContent='오류가 발생했어요.';return;}
+    const ct=res.headers.get('content-type')||'';
+    if(!ct.includes('text/event-stream')){const d=await res.json();el.innerHTML=(d.reply||'').replace(/\n/g,'<br>').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>');return;}
+    const reader=res.body.getReader();const dec=new TextDecoder();let full='';let buf='';
+    el.textContent='';
+    while(true){const{done,value}=await reader.read();if(done)break;buf+=dec.decode(value,{stream:true});const evts=buf.split('\n\n');buf=evts.pop();for(const evt of evts){for(const line of evt.split('\n')){if(!line.startsWith('data: '))continue;const raw=line.slice(6).trim();if(raw==='[DONE]')continue;try{const j=JSON.parse(raw);if(j.type==='content_block_delta'&&j.delta?.type==='text_delta'){full+=j.delta.text;el.innerHTML=full.replace(/\n/g,'<br>').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>');}}catch{}}}}
+  }catch(e){el.textContent='오류가 발생했어요.';}
+}
+
+/* 민원 감지 */
+const COMPLAINT_KW=['고장','불편','안돼','안됩니다','안되','문제','망가','부서','누수','냉방','난방','에어컨','히터','세탁기','인터넷','와이파이','wifi','엘리베이터','청소','위생','악취','소음'];
+let _complaintShown=false;
+function checkComplaint(t){
+  if(_complaintShown)return;
+  const lq=t.toLowerCase();
+  if(COMPLAINT_KW.some(k=>lq.includes(k))){
+    _complaintShown=true;
+    setTimeout(()=>showComplaintPrompt(t),800);
+  }
+}
+function showComplaintPrompt(t){
+  const c=document.getElementById('msgs');
+  const r=document.createElement('div');r.className='mrow';
+  const safe=t.replace(/'/g,"\\'").replace(/"/g,'&quot;');
+  r.innerHTML=`<div class="bico">🤖</div><div class="bwrap"><div class="complaint-prompt"><div style="font-size:13px;font-weight:700;color:#C2255C;margin-bottom:6px;">⚠️ 시설 불편 감지</div><div style="font-size:12px;color:var(--t1);line-height:1.6;">"<strong>${t}</strong>"<br><br>시설 민원으로 접수하시겠습니까?<br><span style="font-size:11px;color:var(--t2);">담당자에게 전달되어 빠르게 처리됩니다</span></div><div class="complaint-btns"><button class="cb-yes" onclick="submitComplaint(this)">✅ 네, 접수할게요</button><button class="cb-no" onclick="this.closest('.mrow').remove();_complaintShown=false;">아니요</button></div></div></div>`;
+  c.appendChild(r);scr();
+}
+function submitComplaint(btn){
+  const card=btn.closest('.complaint-prompt');
+  const num='#'+Math.floor(Math.random()*90000+10000);
+  card.innerHTML=`<div class="complaint-done">✅ 민원이 접수되었습니다!<br><span style="font-size:12px;font-weight:400;">담당자(봉사관 206호)가 빠르게 확인할게요 😊<br>접수번호: <strong>${num}</strong></span></div>`;
+  _complaintShown=false;
+}
+
+/* PICK 자연어 추천 */
+async function doNLPick(){
+  const inp=document.getElementById('nl-input').value.trim();
+  if(!inp){alert('본인 상황을 입력해주세요 😊');return;}
+  const res=document.getElementById('nl-result');
+  res.innerHTML='<div class="spinn"><div class="spin"></div><div>AI가 맞춤 과정을 분석 중이에요...</div></div>';
+  const prompt=`당신은 중소벤처기업연수원(KOSMES) 교육과정 추천 전문가입니다.\n\n연수생 입력: "${inp}"\n\n다음 형식으로 3개의 과정을 추천해주세요:\n\n**[과정명]**\n추천 사유: (2줄 이내로 구체적으로)\n수준: 입문/중급/고급\n\n---\n\n마지막에 "📈 성장 로드맵: 입문 → 중급 → 실습 → 심화" 형태로 학습 경로를 제안해주세요.`;
+  try{
+    const r=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:prompt,history:[]})});
+    if(!r.ok||!r.body){throw new Error();}
+    const ct=r.headers.get('content-type')||'';
+    if(!ct.includes('text/event-stream')){const d=await r.json();res.innerHTML=`<div style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:14px;font-size:13px;line-height:1.7;">${(d.reply||'').replace(/\n/g,'<br>').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')}</div>`;return;}
+    res.innerHTML='<div class="bbl bot" id="nl-stream" style="font-size:13px;line-height:1.7;"></div>';
+    const reader=r.body.getReader();const dec=new TextDecoder();let full='';let buf='';
+    const el=document.getElementById('nl-stream');
+    while(true){const{done,value}=await reader.read();if(done)break;buf+=dec.decode(value,{stream:true});const evts=buf.split('\n\n');buf=evts.pop();for(const evt of evts){for(const line of evt.split('\n')){if(!line.startsWith('data: '))continue;const raw=line.slice(6).trim();if(raw==='[DONE]')continue;try{const j=JSON.parse(raw);if(j.type==='content_block_delta'&&j.delta?.type==='text_delta'){full+=j.delta.text;el.innerHTML=full.replace(/\n/g,'<br>').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>');}}catch{}}}}
+  }catch(e){res.innerHTML='<div style="color:var(--t2);font-size:12px;text-align:center;padding:10px;">오류가 발생했어요. 잠시 후 다시 시도해주세요.</div>';}
+}
+
+/* VIEW AI 길찾기 */
+const WF_DATA={
+  '봉사관':{steps:['정문 입장 후 정면 건물이 봉사관입니다','1층: 고객센터·안내데스크 (031-490-1472)','2층: 206호 교육운영팀 (031-490-1294)','2층: 대회의실·세미나실'],time:'정문에서 도보 1분',emoji:'🏛️'},
+  '창의관':{steps:['정문 입장 후 좌측으로 이동','봉사관 왼편 건물이 창의관','1~4층: 강의실 운영','2층: 스마트실습실','3층: 세미나실'],time:'정문에서 도보 2분',emoji:'📚'},
+  '인화1관':{steps:['봉사관 뒤편 방향으로 이동','인화1관은 숙소 건물','각 층 세탁실 이용 가능 (무료, 세제 개인 지참)','사감실: 031-490-1325~6'],time:'봉사관에서 도보 3분',emoji:'🏠'},
+  '인화2관':{steps:['인화1관 바로 옆 건물','숙소 + 편의시설 건물','B1: 헬스장·탁구장·만화카페','각 층 세탁실','사감실: 031-490-1327~8'],time:'봉사관에서 도보 3분',emoji:'🏨'},
+  '식당':{steps:['봉사관에서 교류동 방향으로 이동','교류동 1층이 식당','조식 07:30~09:00','중식 11:30~13:30','석식 17:30~19:00 / 무인매점 24시간'],time:'봉사관에서 도보 2분',emoji:'🍽️'},
+  '헬스장':{steps:['인화2관으로 이동','지하 1층 위치','이용 시간: 자유 이용 (무료)','탁구장도 같은 층에 위치'],time:'정문에서 도보 4분',emoji:'🏋️'},
+  '흡연구역':{steps:['각 건물 외부 지정 흡연구역만 이용 가능','실내 전 구역 금연','위치는 봉사관 1층 안내데스크 문의'],time:'',emoji:'🚬'},
+  '주차장':{steps:['정문 입장 후 원내 주차장 이용','만차 시 후문 건너편 제2주차장 이용','차량 5부제 적용 (차량번호 끝자리 기준)','월(1,6) 화(2,7) 수(3,8) 목(4,9) 금(5,0)'],time:'정문에서 바로',emoji:'🅿️'},
+};
+function doWayfind(query){
+  const q=(query||document.getElementById('wf-input').value).trim();
+  if(!q){return;}
+  document.getElementById('wf-input').value=q;
+  const res=document.getElementById('wf-result');
+  res.style.display='block';
+  const key=Object.keys(WF_DATA).find(k=>q.includes(k));
+  if(!key){
+    res.innerHTML=`<div style="background:var(--surf);border-radius:12px;padding:14px;font-size:13px;color:var(--t1);line-height:1.7;">🔍 "<strong>${q}</strong>" 에 대한 경로 정보를 찾고 있어요...<br><br>📞 <strong>봉사관 안내데스크</strong>: 031-490-1472<br>📍 상세 위치는 봉사관 1층 고객센터에서 도움받으실 수 있어요!</div>`;
+    return;
+  }
+  const d=WF_DATA[key];
+  const steps=d.steps.map((s,i)=>`<div class="wf-step"><div class="wf-num">${i+1}</div><div><div class="wf-main">${s}</div></div></div>`).join('');
+  res.innerHTML=`<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;background:var(--teal-lt);border-radius:12px;padding:10px;"><span style="font-size:24px;">${d.emoji}</span><div><div style="font-size:14px;font-weight:800;color:var(--t0);">${key}</div>${d.time?`<div style="font-size:11px;color:var(--teal);font-weight:600;">⏱ ${d.time}</div>`:''}</div></div>${steps}`;
+}
+
+
 /* 초기화 */
 function startWithName(){
   const raw=document.getElementById('uname-input').value.trim();
-  const name=raw||'';
-  if(name) localStorage.setItem('w_username',name);
+  const name=raw||'연수생';
+  localStorage.setItem('w_username',name);
   const s=document.getElementById('splash');
   s.classList.add('hide');
   setTimeout(()=>{s.style.display='none';},400);
-  if(name){
-    const greet=document.getElementById('bot-greet');
-    if(greet) greet.innerHTML=`안녕하세요, <strong>${name}</strong>님 😊 저는 <strong>왓썹(W-SSUP)</strong>이에요!<br>연수 신청·교육비·교통편 등 궁금한 점이라면 무엇이든 24시간 도와드릴게요!`;
-  }
+  personalizeApp(name);
 }
-function closeSplash(){startWithName();}
+function personalizeApp(name){
+  if(!name) name=localStorage.getItem('w_username')||'연수생';
+  /* 헤더 업데이트 */
+  const hdrSub=document.getElementById('hdr-sub');
+  if(hdrSub) hdrSub.textContent=name+'님 안녕하세요 👋';
+  /* 환영 카드 */
+  const wname=document.getElementById('welcome-name');
+  if(wname) wname.innerHTML=name+'님, 환영합니다! 😊';
+  const wprof=document.getElementById('welcome-profile');
+  /* TRAINEES에서 매칭 프로필 찾기 */
+  const matched=TRAINEES.find(t=>t.name===name)||TRAINEES[0];
+  if(wprof) wprof.textContent=matched.profile;
+  /* 환영 카드 일정 */
+  const schedEl=document.getElementById('welcome-sched-items');
+  if(schedEl&&matched.sched){
+    schedEl.innerHTML=matched.sched.slice(0,2).map(s=>`<div style="display:flex;align-items:center;gap:6px;"><span style="font-size:10px;color:rgba(255,255,255,.6);min-width:38px;">${s.t}</span><span style="font-size:11px;font-weight:600;">${s.nm}</span><span style="font-size:10px;background:rgba(255,255,255,.15);border-radius:6px;padding:1px 6px;margin-left:auto;flex-shrink:0;">${s.lb}</span></div>`).join('');
+  }
+  /* TALK 봇 인삿말 */
+  const greet=document.getElementById('bot-greet');
+  if(greet) greet.innerHTML=`안녕하세요, <strong>${name}</strong>님 😊 저는 <strong>왓썹(W-SSUP)</strong>이에요!<br>연수 신청·교육비·교통편 등 궁금한 점이라면 무엇이든 24시간 도와드릴게요!`;
+  /* PICK 자동 세팅 */
+  setTimeout(()=>{
+    const tIdx=TRAINEES.findIndex(t=>t.name===name);
+    if(tIdx>=0){
+      const btns=document.querySelectorAll('.trainee-btn');
+      if(btns[tIdx]) selT(tIdx,btns[tIdx]);
+    }
+  },200);
+  /* PICK 히어로 텍스트 */
+  const pickHeroDesc=document.querySelector('.pick-hero div:nth-child(3)');
+  if(pickHeroDesc) pickHeroDesc.textContent=name+'님 맞춤 교육과정 추천';
+  /* VIEW 히어로 */
+  const viewTitle=document.querySelector('.view-hero div:nth-child(2)');
+  /* already static, leave */
+}function closeSplash(){startWithName();}
 window.addEventListener('DOMContentLoaded',()=>{
   initMealModal();
+  const _saved=localStorage.getItem('w_username');if(_saved) setTimeout(()=>personalizeApp(_saved),50);
   uyr(1); uyr2(5);
   selT(0,document.querySelector('.trainee-btn'));
   setTimeout(()=>{
