@@ -1450,18 +1450,64 @@ async function send(){
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({message:t,history:chatHistory})
     });
-    const data=await res.json();
-    rmT();
-    if(data.reply){
+    if(!res.ok||!res.body){throw new Error('no stream');}
+    const ct=res.headers.get('content-type')||'';
+    if(!ct.includes('text/event-stream')){
+      const data=await res.json();
+      rmT();
+      const reply=data.reply||ragSearch(t);
       chatHistory.push({role:'user',content:t});
-      chatHistory.push({role:'assistant',content:data.reply});
+      chatHistory.push({role:'assistant',content:reply});
       if(chatHistory.length>20)chatHistory=chatHistory.slice(-20);
-      addB(data.reply);saveChatLog(t,data.reply);
-    }else{
-      const ragReply=ragSearch(t);addB(ragReply);saveChatLog(t,ragReply);
+      addB(reply);saveChatLog(t,reply);
+      return;
     }
+    // Streaming path
+    rmT();
+    const c=document.getElementById('msgs');
+    const row=document.createElement('div');row.className='mrow';
+    const bwrap=document.createElement('div');bwrap.className='bwrap';
+    const bubble=document.createElement('div');bubble.className='bbl bot';
+    bwrap.appendChild(bubble);
+    row.innerHTML='<div class="bico">🤖</div>';
+    row.appendChild(bwrap);
+    c.appendChild(row);scr();
+    const reader=res.body.getReader();
+    const dec=new TextDecoder();
+    let full='';
+    let buf='';
+    while(true){
+      const{done,value}=await reader.read();
+      if(done)break;
+      buf+=dec.decode(value,{stream:true});
+      const evts=buf.split('\n\n');
+      buf=evts.pop();
+      for(const evt of evts){
+        for(const line of evt.split('\n')){
+          if(!line.startsWith('data: '))continue;
+          const raw=line.slice(6).trim();
+          if(raw==='[DONE]')continue;
+          try{
+            const j=JSON.parse(raw);
+            if(j.type==='content_block_delta'&&j.delta?.type==='text_delta'){
+              full+=j.delta.text;
+              bubble.innerHTML=full.replace(/\n/g,'<br>').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>');
+              scr();
+            }
+          }catch{}
+        }
+      }
+    }
+    if(!full)full=ragSearch(t);
+    const ts=document.createElement('span');ts.className='ts';ts.textContent=gt();
+    bwrap.appendChild(ts);
+    chatHistory.push({role:'user',content:t});
+    chatHistory.push({role:'assistant',content:full});
+    if(chatHistory.length>20)chatHistory=chatHistory.slice(-20);
+    saveChatLog(t,full);
   }catch(e){
-      const ragReply=ragSearch(t);addB(ragReply);saveChatLog(t,ragReply);
+    rmT();
+    const ragReply=ragSearch(t);addB(ragReply);saveChatLog(t,ragReply);
   }
 }
 
