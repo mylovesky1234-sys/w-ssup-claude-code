@@ -1889,6 +1889,7 @@ function showFloor(bld,fl,btn){
   document.querySelectorAll('.fp-tab').forEach(t=>t.classList.remove('on'));
   btn.classList.add('on');
   document.getElementById('fp-img').src=FLOOR_PLANS[bld][fl];
+}
 function ragSearch(q){
   const lq=q.toLowerCase().replace(/[?？!！]/g,'').replace(/\s+/g,'');
   let best=null,score=0;
