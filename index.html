@@ -948,36 +948,52 @@ input[type=range]{flex:1;height:4px;border-radius:2px;outline:none;cursor:pointe
           </svg>
           <div class="cmap-overlay"></div>
           <!-- 인화1관 -->
-          <div class="cmap-pin" style="left:9%;top:17%" onclick="showCampusPin('인화1관')">
+          <div class="cmap-pin" style="left:11%;top:13%" onclick="showCampusPin('인화1관')">
             <div class="pin-lbl">인화1관</div><div class="pin-dot"></div>
           </div>
           <!-- 인화2관 -->
-          <div class="cmap-pin" style="left:17%;top:23%" onclick="showCampusPin('인화2관')">
+          <div class="cmap-pin" style="left:8%;top:32%" onclick="showCampusPin('인화2관')">
             <div class="pin-lbl">인화2관</div><div class="pin-dot"></div>
           </div>
+          <!-- 교류동(식당) -->
+          <div class="cmap-pin" style="left:22%;top:20%" onclick="showCampusPin('교류동')">
+            <div class="pin-lbl">교류동·식당</div><div class="pin-dot"></div>
+          </div>
+          <!-- 실험동 -->
+          <div class="cmap-pin" style="left:26%;top:33%" onclick="showCampusPin('실험동')">
+            <div class="pin-lbl">실험동</div><div class="pin-dot"></div>
+          </div>
           <!-- 봉사관 -->
-          <div class="cmap-pin main" style="left:26%;top:52%" onclick="showCampusPin('봉사관')">
+          <div class="cmap-pin main" style="left:37%;top:44%" onclick="showCampusPin('봉사관')">
             <div class="pin-lbl">봉사관</div><div class="pin-dot"></div>
           </div>
-          <!-- 교류동 -->
-          <div class="cmap-pin main" style="left:56%;top:42%" onclick="showCampusPin('교류동')">
-            <div class="pin-lbl">교류동</div><div class="pin-dot"></div>
-          </div>
           <!-- 소강당 -->
-          <div class="cmap-pin" style="left:74%;top:55%" onclick="showCampusPin('소강당')">
+          <div class="cmap-pin" style="left:38%;top:61%" onclick="showCampusPin('소강당')">
             <div class="pin-lbl">소강당</div><div class="pin-dot"></div>
           </div>
+          <!-- 창의관 -->
+          <div class="cmap-pin main" style="left:60%;top:21%" onclick="showCampusPin('창의관')">
+            <div class="pin-lbl">창의관</div><div class="pin-dot"></div>
+          </div>
+          <!-- 대강당 -->
+          <div class="cmap-pin" style="left:63%;top:37%" onclick="showCampusPin('대강당')">
+            <div class="pin-lbl">대강당</div><div class="pin-dot"></div>
+          </div>
           <!-- 운동장 -->
-          <div class="cmap-pin" style="left:88%;top:52%" onclick="showCampusPin('운동장')">
+          <div class="cmap-pin" style="left:82%;top:28%" onclick="showCampusPin('운동장')">
             <div class="pin-lbl">운동장</div><div class="pin-dot"></div>
           </div>
           <!-- 정문 -->
-          <div class="cmap-pin" style="left:40%;top:84%" onclick="showCampusPin('정문')">
+          <div class="cmap-pin" style="left:51%;top:77%" onclick="showCampusPin('정문')">
             <div class="pin-lbl">정문</div><div class="pin-dot"></div>
           </div>
           <!-- 주차장 -->
-          <div class="cmap-pin" style="left:77%;top:80%" onclick="showCampusPin('주차장')">
+          <div class="cmap-pin" style="left:76%;top:74%" onclick="showCampusPin('주차장')">
             <div class="pin-lbl">주차장</div><div class="pin-dot"></div>
+          </div>
+          <!-- 제2주차장 -->
+          <div class="cmap-pin" style="left:33%;top:80%" onclick="showCampusPin('제2주차장')">
+            <div class="pin-lbl">제2주차장</div><div class="pin-dot"></div>
           </div>
           <div class="cmap-credit">© KOSMES</div>
         </div>
@@ -1584,13 +1600,19 @@ function getAttendCard(){
 }
 
 const CAMPUS_BLD={
-  '봉사관':{desc:'연수 행정·숙소 건물. 1~4층 객실, 고객센터(1F), 식당(교류동 방향 이동)',rooms:['1F 고객센터','1F 다목적실','2F 행정실','2F 강의실','3F 객실','4F 객실']},
-  '교류동':{desc:'주요 강의실·회의실 건물. KOSME 창업사관학교 현판. 정문에서 바로 보임.',rooms:['1F 입구/로비','2F 대강당','2F 강의실','3F 회의실','3F 강의실']},
-  '소강당':{desc:'봉사관 우측 독립 건물. 특강·행사·대형 세션 전용 강당.',rooms:['B1F 주차','1F 강당','1F 로비']},
-  '정문':{desc:'수위실이 있는 연수원 정문. 셔틀버스 승차 정류장(정문 안쪽). 방문차량 방문증 수령.',rooms:['수위실','방문증 발급','셔틀 정류장']},
-  '주차장':{desc:'연수원 외부 주차장. 개인차량 주차 가능. 내부 차도는 행사용으로 제한.',rooms:['외부주차','장애인구역']},
-  '인화관':{desc:'캠퍼스 후방 인화1관·2관·실험동. 특수 과정 및 실습 강의 진행.',rooms:['인화1관 1~4F','인화2관 1~4F','실험동 1~2F']},
-};
+  '인화1관':{desc:'캠퍼스 후방 좌측. 특수과정·실습 강의 진행.',rooms:['1F 강의실','2F 강의실','3F 강의실','4F 강의실']},
+  '인화2관':{desc:'캠퍼스 좌측 인화2관. 실습·실험 과정 전용.',rooms:['1F','2F','3F','4F']},
+  '교류동':{desc:'캠퍼스 좌측 교류동. 구내식당·매점 위치.',rooms:['식당 (1F)','매점','회의실']},
+  '실험동':{desc:'교류동 인근 실험·실습동. 실기 위주 과정 진행.',rooms:['실험실','실습실']},
+  '봉사관':{desc:'연수원 메인 건물. 숙소·행정·강의실 통합. 정문에서 바로 보이는 건물.',rooms:['1F 고객센터','1F 다목적실','2F 행정실','2F 강의실','3F~4F 객실','B1F 헬스장']},
+  '소강당':{desc:'봉사관 앞 소강당. 소규모 행사·특강 전용.',rooms:['소강당 홀','로비']},
+  '창의관':{desc:'우측 메인 강의 건물. KOSME 창업사관학교 현판.',rooms:['1F 로비','2F 대형강의실','3F 강의실','3F 회의실']},
+  '대강당':{desc:'창의관 인근. 입교식·수료식·대형 행사 진행.',rooms:['대강당 홀','무대','로비']},
+  '운동장':{desc:'캠퍼스 우측 끝 야외 운동장.',rooms:['풋살장','다목적 운동장']},
+  '정문':{desc:'연수원 정문. 수위실. 셔틀버스 정류장(정문 안쪽).',rooms:['수위실','방문증 발급','셔틀 정류장']},
+  '주차장':{desc:'캠퍼스 우측 외부 주차장.',rooms:['외부주차','장애인구역']},
+  '제2주차장':{desc:'정문 좌측 제2주차장.',rooms:['외부주차']},
+}
 const ROUTE_DATA={
   '봉사관':{
     pts:[[44,78],[44,68],[46,58],[47,52],[38,50],[30,52]],
