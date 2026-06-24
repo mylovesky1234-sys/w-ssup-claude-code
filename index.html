@@ -615,10 +615,8 @@ input[type=range]{flex:1;height:4px;border-radius:2px;outline:none;cursor:pointe
 .cmap-wrap{position:relative;border-radius:16px;overflow:hidden;margin:12px 0;background:#000;box-shadow:0 4px 20px rgba(0,0,0,.15);}
 .cmap-img{width:100%;height:auto;display:block;}
 .cmap-pin{position:absolute;transform:translate(-50%,-100%);cursor:pointer;z-index:5;display:flex;flex-direction:column;align-items:center;}
-.cmap-pin .pin-dot{width:10px;height:10px;border-radius:50%;background:#fff;border:2px solid var(--blue);box-shadow:0 0 0 3px rgba(76,110,245,.3);transition:transform .15s;}
-.cmap-pin:active .pin-dot{transform:scale(1.4);}
-.cmap-pin .pin-lbl{background:rgba(20,20,40,.82);color:#fff;font-size:10px;font-weight:700;border-radius:6px;padding:2px 7px;white-space:nowrap;margin-bottom:4px;backdrop-filter:blur(4px);}
-.cmap-pin.main .pin-dot{background:var(--blue);width:13px;height:13px;}
+.cmap-pin:active .pin-dot{transform:scale(1.2);}
+.cmap-pin.main .pin-dot{width:7px;height:7px;}
 .cmap-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 60%,rgba(0,0,0,.35));pointer-events:none;}
 .cmap-credit{position:absolute;bottom:6px;right:8px;font-size:9px;color:rgba(255,255,255,.6);pointer-events:none;}
 .bld-sheet{display:none;background:var(--surf);border-radius:16px;padding:14px;margin:0 0 12px;border:1.5px solid var(--border);}
@@ -634,7 +632,10 @@ input[type=range]{flex:1;height:4px;border-radius:2px;outline:none;cursor:pointe
 @keyframes routeDraw{to{stroke-dashoffset:0}}.cmap-pin{touch-action:none;}
 .cmap-pin.dragging{opacity:.85;z-index:20;}
 .cmap-edit-bar{display:none;background:var(--blue);color:#fff;border-radius:12px;padding:10px 14px;margin-bottom:8px;font-size:12px;font-weight:700;text-align:center;cursor:pointer;}
-.cmap-edit-bar.on{display:block;}</style>
+.cmap-edit-bar.on{display:block;}
+.pin-lbl{background:#fff;color:#1a2a6c;font-size:10.5px;font-weight:800;border-radius:4px;padding:3px 7px;white-space:nowrap;letter-spacing:-.3px;box-shadow:0 2px 6px rgba(0,0,0,.35),0 0 0 1.5px rgba(26,42,108,.25);line-height:1.2;}
+.cmap-pin.main .pin-lbl{background:#1a2a6c;color:#fff;font-size:11px;}
+.pin-dot{display:none;}</style>
 <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
