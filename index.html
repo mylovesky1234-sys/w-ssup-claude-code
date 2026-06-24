@@ -981,6 +981,14 @@ input[type=range]{flex:1;height:4px;border-radius:2px;outline:none;cursor:pointe
           </div>
 
 
+          <!-- 창의관 -->
+          <div class="cmap-pin" style="left:60%;top:21%" onclick="showCampusPin('창의관')">
+            <div class="pin-lbl">창의관</div><div class="pin-dot"></div>
+          </div>
+          <!-- 소강당 -->
+          <div class="cmap-pin" style="left:38%;top:61%" onclick="showCampusPin('소강당')">
+            <div class="pin-lbl">소강당</div><div class="pin-dot"></div>
+          </div>
           <!-- 대강당 -->
           <div class="cmap-pin" style="left:63%;top:37%" onclick="showCampusPin('대강당')">
             <div class="pin-lbl">대강당</div><div class="pin-dot"></div>
@@ -1623,6 +1631,8 @@ const CAMPUS_BLD={
   '봉사관':{desc:'연수원 메인 건물. 숙소·행정·강의실 통합. 정문에서 바로 보이는 건물.',rooms:['1F 고객센터','1F 다목적실','2F 행정실','2F 강의실','3F~4F 객실','B1F 헬스장']},
   '소강당':{desc:'봉사관 앞 소강당. 소규모 행사·특강 전용.',rooms:['소강당 홀','로비']},
   '창의관':{desc:'우측 메인 강의 건물. KOSME 창업사관학교 현판.',rooms:['1F 로비','2F 대형강의실','3F 강의실','3F 회의실']},
+  '창의관':{desc:'캠퍼스 내 위치하나 타부서 사용 건물. 내부 이용 불가.',rooms:['타부서 전용']},
+  '소강당':{desc:'캠퍼스 내 위치하나 타부서 사용 건물. 내부 이용 불가.',rooms:['타부서 전용']},
   '대강당':{desc:'창의관 인근. 입교식·수료식·대형 행사 진행.',rooms:['대강당 홀','무대','로비']},
   '운동장':{desc:'캠퍼스 우측 끝 야외 운동장.',rooms:['풋살장','다목적 운동장']},
   '정문':{desc:'연수원 정문. 수위실. 셔틀버스 정류장(정문 안쪽).',rooms:['수위실','방문증 발급','셔틀 정류장']},
