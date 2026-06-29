@@ -1916,3 +1916,39 @@ function savePinPositions(){
   document.querySelector('.cmap-wrap')?.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 
+function showCampusPin(name){
+  const d=CAMPUS_BLD[name];
+  if(!d)return;
+  const sheet=document.getElementById('campus-bld-sheet');
+  document.getElementById('cbs-name').textContent=name;
+  document.getElementById('cbs-desc').textContent=d.desc;
+  const rm=document.getElementById('cbs-rooms');
+  rm.innerHTML=d.rooms.map(r=>`<span class="bld-sh-room">${r}</span>`).join('');
+  const last=document.getElementById('cbs-name').dataset.last;
+  sheet.classList.toggle('open', last!==name || !sheet.classList.contains('open'));
+  document.getElementById('cbs-name').dataset.last=name;
+  showRoute(name);
+  // 층별 안내도
+  const fp=FLOOR_PLANS[name];
+  const fpSheet=document.getElementById('fp-sheet');
+  if(fp&&fpSheet){
+    document.getElementById('fp-bld-nm').textContent=name;
+    const tabs=document.getElementById('fp-tabs');
+    tabs.innerHTML=fp.map((f,i)=>`<button class="fp-tab${i===0?' on':''}" onclick="showFloor('${name}',${i},this)">${f.label}</button>`).join('');
+    const imgWrap=document.getElementById('fp-img-wrap');
+    if(imgWrap&&fp[0])imgWrap.innerHTML=`<img src="${fp[0].src}" style="width:100%;border-radius:10px;">`;
+    fpSheet.classList.add('open');
+  } else if(fpSheet){
+    fpSheet.classList.remove('open');
+  }
+}
+
+function showFloor(bld,fl,btn){
+  const fp=FLOOR_PLANS[bld];
+  if(!fp||!fp[fl])return;
+  document.querySelectorAll('.fp-tab').forEach(t=>t.classList.remove('on'));
+  if(btn)btn.classList.add('on');
+  const imgWrap=document.getElementById('fp-img-wrap');
+  if(imgWrap)imgWrap.innerHTML=`<img src="${fp[fl].src}" style="width:100%;border-radius:10px;">`;
+}
+
