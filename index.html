@@ -1952,3 +1952,50 @@ function showFloor(bld,fl,btn){
   if(imgWrap)imgWrap.innerHTML=`<img src="${fp[fl].src}" style="width:100%;border-radius:10px;">`;
 }
 
+/* ── 안전장치: 핵심 함수 누락 시 자동 복구 ── */
+(function guardCriticalFunctions(){
+  if(typeof startWithName==='undefined'){
+    window.startWithName=function(){
+      const inp=document.getElementById('uname-input');
+      const name=(inp?inp.value.trim():'')||'연수생';
+      localStorage.setItem('w_username',name);
+      if(typeof personalizeApp==='function')personalizeApp(name);
+      const s=document.getElementById('splash');
+      if(s){s.classList.add('hide');setTimeout(()=>{s.style.display='none';},420);}
+    };
+  }
+  if(typeof personalizeApp==='undefined'){
+    window.personalizeApp=function(name){
+      document.querySelectorAll('.user-name').forEach(el=>el.textContent=name);
+      const wc=document.getElementById('welcome-name');
+      if(wc)wc.textContent=name+'님';
+    };
+  }
+  if(typeof showCampusPin==='undefined'){
+    window.showCampusPin=function(name){
+      const d=typeof CAMPUS_BLD!=='undefined'?CAMPUS_BLD[name]:null;
+      if(!d)return;
+      const sheet=document.getElementById('campus-bld-sheet');
+      if(!sheet)return;
+      document.getElementById('cbs-name').textContent=name;
+      document.getElementById('cbs-desc').textContent=d.desc;
+      const rm=document.getElementById('cbs-rooms');
+      if(rm)rm.innerHTML=d.rooms.map(r=>`<span class="bld-sh-room">${r}</span>`).join('');
+      sheet.classList.add('open');
+      if(typeof showRoute==='function')showRoute(name);
+    };
+  }
+  if(typeof showFloor==='undefined'){
+    window.showFloor=function(){};
+  }
+  if(typeof go==='undefined'){
+    window.go=function(id,btn){
+      document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));
+      document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
+      if(btn)btn.classList.add('on');
+      const el=document.getElementById('p-'+id);
+      if(el)el.classList.add('on');
+    };
+  }
+})();
+
