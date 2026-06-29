@@ -1377,22 +1377,14 @@ function isExp(ds){const p=ds.replace('수료예정','').trim().split('.');retur
 
 /* 스플래시 */
 function startWithName(){
+  const splash=document.getElementById('splash');
+  if(splash) splash.style.display='none';
   try{
     const inp=document.getElementById('uname-input');
     const name=(inp&&inp.value.trim())?inp.value.trim():'연수생';
     try{localStorage.setItem('w_username',name);}catch(e){}
     personalizeApp(name);
-    const splash=document.getElementById('splash');
-    if(splash){
-      splash.style.opacity='0';
-      splash.style.transition='opacity .3s';
-      setTimeout(function(){splash.style.display='none';},320);
-    }
-  }catch(e){
-    // 오류나도 스플래시는 무조건 닫기
-    const splash=document.getElementById('splash');
-    if(splash)splash.style.display='none';
-  }
+  }catch(e){}
 }
 function personalizeApp(name){
   try{
