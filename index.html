@@ -729,7 +729,7 @@ input[type=range]{flex:1;height:4px;border-radius:2px;outline:none;cursor:pointe
     <input id="uname-input" type="text" maxlength="10" placeholder="이름을 입력하세요"
       style="width:100%;padding:14px 18px;border:1.5px solid #C5D0FF;border-radius:16px;font-size:14px;font-weight:600;color:var(--t0);background:#fff;box-sizing:border-box;outline:none;margin-bottom:10px;font-family:'Pretendard','Noto Sans KR',sans-serif;"
       onkeydown="if(event.key==='Enter')startWithName()">
-    <button class="splash-btn" onclick="startWithName()">시작하기 →</button>
+    <button class="splash-btn" id="start-btn" onclick="startWithName()">시작하기 →</button>
     <p style="font-size:11px;color:var(--t2);text-align:center;margin-top:10px;line-height:1.6;">이름을 입력하면 개인화된 인사를 받을 수 있어요 😊</p>
   </div>
 </div>
@@ -1394,11 +1394,24 @@ function personalizeApp(name){
   }catch(e){}
 }
 window.addEventListener('load',function(){
+  // 버튼에 직접 이벤트 연결 (onclick 속성 보완)
+  var btn=document.getElementById('start-btn');
+  if(btn){
+    btn.addEventListener('click',function(e){
+      e.preventDefault();
+      startWithName();
+    });
+    btn.addEventListener('touchend',function(e){
+      e.preventDefault();
+      startWithName();
+    });
+  }
+  // 저장된 이름 있으면 스플래시 스킵
   try{
-    const saved=localStorage.getItem('w_username');
+    var saved=localStorage.getItem('w_username');
     if(saved){
       personalizeApp(saved);
-      const splash=document.getElementById('splash');
+      var splash=document.getElementById('splash');
       if(splash)splash.style.display='none';
     }
   }catch(e){}
