@@ -1375,6 +1375,34 @@ function calcDday(ds){
 }
 function isExp(ds){const p=ds.replace('수료예정','').trim().split('.');return new Date(+p[0],+p[1]-1,+p[2])<TODAY;}
 
+/* 스플래시 */
+function startWithName(){
+  const inp=document.getElementById('uname-input');
+  const name=(inp?inp.value.trim():'')||'연수생';
+  localStorage.setItem('w_username',name);
+  personalizeApp(name);
+  const splash=document.getElementById('splash');
+  if(splash){
+    splash.classList.add('hide');
+    setTimeout(()=>{splash.style.display='none';},420);
+  }
+}
+function personalizeApp(name){
+  document.querySelectorAll('.user-name').forEach(el=>el.textContent=name);
+  const wc=document.getElementById('welcome-name');
+  if(wc)wc.textContent=name+'님';
+  const hd=document.querySelector('.header-name');
+  if(hd)hd.textContent=name+'님 안녕하세요 👋';
+}
+document.addEventListener('DOMContentLoaded',function(){
+  const saved=localStorage.getItem('w_username');
+  if(saved){
+    personalizeApp(saved);
+    const splash=document.getElementById('splash');
+    if(splash)splash.style.display='none';
+  }
+});
+
 /* 탭 */
 function go(id,btn){
   document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));
