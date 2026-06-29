@@ -272,7 +272,7 @@ input[type=range]{flex:1;height:4px;border-radius:2px;outline:none;cursor:pointe
 @keyframes marchDiv{0%{background-position:0 0,0 100%,0 0,100% 0;}100%{background-position:16px 0,-16px 100%,0 -16px,100% 16px;}}
 
 /* Splash */
-.splash{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px;overflow:hidden;}
+.splash{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px;}
 .splash-bg{position:absolute;inset:0;background:linear-gradient(160deg,#fff 0%,#F0F3FF 55%,#EAF2FE 100%);pointer-events:none;}
 .splash-bg::before{content:'';position:absolute;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(76,110,245,.12),transparent 70%);top:-100px;right:-90px;}
 .splash-bg::after{content:'';position:absolute;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(112,72,232,.08),transparent 70%);bottom:-80px;left:-60px;}
@@ -725,7 +725,7 @@ input[type=range]{flex:1;height:4px;border-radius:2px;outline:none;cursor:pointe
     <p style="font-size:13px;font-weight:700;color:var(--t1);">TALK + PICK + VIEW =&nbsp;<span style="color:#4C6EF5;">현장 불편 ZERO 🎯</span></p>
   </div>
 
-  <div style="position:relative;z-index:1;width:100%;max-width:360px;animation:fadeIn .7s .45s ease both;">
+  <div style="position:relative;z-index:1;width:100%;max-width:360px;">
     <input id="uname-input" type="text" maxlength="10" placeholder="이름을 입력하세요"
       style="width:100%;padding:14px 18px;border:1.5px solid #C5D0FF;border-radius:16px;font-size:14px;font-weight:600;color:var(--t0);background:#fff;box-sizing:border-box;outline:none;margin-bottom:10px;font-family:'Pretendard','Noto Sans KR',sans-serif;"
       onkeydown="if(event.key==='Enter')startWithName()">
