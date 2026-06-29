@@ -750,13 +750,13 @@ input[type=range]{flex:1;height:4px;border-radius:2px;outline:none;cursor:pointe
 
   <!-- 탭 -->
   <div class="tabs" id="main-tabs">
-    <button class="tab on" onclick="go('talk',this)">
+    <button class="tab on" id="tab-talk" onclick="document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));this.classList.add('on');document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));document.getElementById('p-talk').classList.add('on');">
       <span class="tab-ico">💬</span><span>TALK</span><span class="tab-sub">즉시 답변</span>
     </button>
-    <button class="tab" onclick="go('pick',this)">
+    <button class="tab" id="tab-pick" onclick="document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));this.classList.add('on');document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));document.getElementById('p-pick').classList.add('on');">
       <span class="tab-ico">✦</span><span>PICK</span><span class="tab-sub">강좌 추천</span>
     </button>
-    <button class="tab" onclick="go('view',this)">
+    <button class="tab" id="tab-view" onclick="document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));this.classList.add('on');document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));document.getElementById('p-view').classList.add('on');">
       <span class="tab-ico">◎</span><span>VIEW</span><span class="tab-sub">시설 안내</span>
     </button>
   </div>
