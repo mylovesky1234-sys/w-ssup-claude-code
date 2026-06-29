@@ -729,7 +729,7 @@ input[type=range]{flex:1;height:4px;border-radius:2px;outline:none;cursor:pointe
     <input id="uname-input" type="text" maxlength="10" placeholder="이름을 입력하세요"
       style="width:100%;padding:14px 18px;border:1.5px solid #C5D0FF;border-radius:16px;font-size:14px;font-weight:600;color:var(--t0);background:#fff;box-sizing:border-box;outline:none;margin-bottom:10px;font-family:'Pretendard','Noto Sans KR',sans-serif;"
       onkeydown="if(event.key==='Enter')startWithName()">
-    <button class="splash-btn" id="start-btn" onclick="startWithName()">시작하기 →</button>
+    <button class="splash-btn" id="start-btn" onclick="document.getElementById('splash').style.display='none';try{var n=document.getElementById('uname-input').value.trim()||'연수생';localStorage.setItem('w_username',n);document.getElementById('welcome-name').textContent=n+'님';}catch(e){}">시작하기 →</button>
     <p style="font-size:11px;color:var(--t2);text-align:center;margin-top:10px;line-height:1.6;">이름을 입력하면 개인화된 인사를 받을 수 있어요 😊</p>
   </div>
 </div>
