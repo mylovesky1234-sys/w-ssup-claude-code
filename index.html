@@ -1417,6 +1417,50 @@ window.addEventListener('load',function(){
   }catch(e){}
 });
 
+/* 불편 신고 */
+function srt(btn){
+  document.querySelectorAll('.repty').forEach(function(b){b.classList.remove('on');});
+  btn.classList.add('on');
+}
+function doRep(){
+  var txt=document.getElementById('reptxt');
+  var ok=document.getElementById('repok');
+  if(!txt||!txt.value.trim()){alert('내용을 입력해주세요.');return;}
+  if(ok){ok.style.display='block';}
+  if(txt){txt.value='';}
+  document.querySelectorAll('.repty').forEach(function(b){b.classList.remove('on');});
+  setTimeout(function(){if(ok)ok.style.display='none';},4000);
+}
+
+/* FAQ 토글 */
+function tgFaq(el){
+  var item=el.closest('.faq-item');
+  if(!item)return;
+  var ans=item.querySelector('.faq-a');
+  var isOpen=item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(function(i){
+    i.classList.remove('open');
+    var a=i.querySelector('.faq-a');
+    if(a)a.style.display='none';
+  });
+  if(!isOpen){
+    item.classList.add('open');
+    if(ans)ans.style.display='block';
+  }
+}
+
+/* 시설 카드 */
+function showBld(id){
+  var el=document.getElementById('bld-detail-'+id);
+  if(el){
+    el.style.display=el.style.display==='none'?'block':'none';
+    return;
+  }
+  // 모달 방식
+  var modal=document.getElementById('bld-modal');
+  if(modal){modal.style.display='flex';}
+}
+
 /* 탭 */
 function go(id,btn){
   document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));
