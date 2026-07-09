@@ -1426,10 +1426,13 @@ function doRep(){
   var txt=document.getElementById('reptxt');
   var ok=document.getElementById('repok');
   if(!txt||!txt.value.trim()){alert('내용을 입력해주세요.');return;}
-  if(ok){ok.style.display='block';}
-  if(txt){txt.value='';}
+  if(txt)txt.value='';
   document.querySelectorAll('.repty').forEach(function(b){b.classList.remove('on');});
-  setTimeout(function(){if(ok)ok.style.display='none';},4000);
+  if(ok){
+    ok.style.cssText='display:block!important;text-align:center;padding:14px;margin-top:10px;background:#E6FCF5;border-radius:12px;color:#0CA678;font-size:14px;font-weight:800;border:1.5px solid #96F2D7;';
+    ok.textContent='✅ 접수 완료! 담당자가 빠르게 확인할게요 😊';
+    setTimeout(function(){ok.style.display='none';},5000);
+  }
 }
 
 /* FAQ 토글 */
