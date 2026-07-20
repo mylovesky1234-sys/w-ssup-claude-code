@@ -1324,6 +1324,112 @@ function calcDday(ds){
 function isExp(ds){const p=ds.replace('수료예정','').trim().split('.');return new Date(+p[0],+p[1]-1,+p[2])<TODAY;}
 
 /* 스플래시 */
+/* PICK 탭 */
+function swUser(type,btn){
+  document.querySelectorAll('.utab').forEach(function(b){b.classList.remove('on');});
+  btn.classList.add('on');
+  document.getElementById('upanel-new').style.display=type==='new'?'':'none';
+  document.getElementById('upanel-ex').style.display=type==='ex'?'':'none';
+  if(type==='ex')selT(0,document.querySelector('.trainee-btn'));
+}
+
+const TRAINEES=[
+  {ico:'🤖',name:'진공이',profile:'IT·소프트웨어 · IT개발 · 5년차',attend:'92%',dday:'D-2 🎓',date:'2026.07.22 수료예정',
+   schedule:[{t:'09:00~12:00',label:'AI 활용 실무과정 3일차',ico:'📖'},{t:'12:00~13:30',label:'점심시간',ico:'🍱'},{t:'13:30~18:00',label:'실습: ChatGPT 업무 적용',ico:'💻'}],
+   hist:['스마트공장 입문 (2025.03)','데이터 분석 기초 (2025.06)']},
+  {ico:'👩',name:'김지은',profile:'제조업 · 생산·품질관리 · 3년차',attend:'100%',dday:'D-5 🎓',date:'2026.07.25 수료예정',
+   schedule:[{t:'09:00~12:00',label:'품질관리 실무 2일차',ico:'📖'},{t:'13:30~18:00',label:'QC 실습',ico:'🔧'}],
+   hist:['ISO 품질 기초 (2025.01)']},
+  {ico:'👨',name:'박민수',profile:'유통·물류 · 경영·전략 · 8년차',attend:'88%',dday:'D-1 🎓',date:'2026.07.21 수료예정',
+   schedule:[{t:'09:00~18:00',label:'전략기획 심화과정 마지막날',ico:'📋'}],
+   hist:['리더십 기초 (2024.11)','경영전략 심화 (2025.04)','마케팅 실무 (2025.09)']},
+  {ico:'👩',name:'이수진',profile:'서비스업 · 마케팅·영업 · 2년차',attend:'95%',dday:'D-4 🎓',date:'2026.07.24 수료예정',
+   schedule:[{t:'09:00~12:00',label:'SNS 마케팅 실무',ico:'📱'},{t:'13:30~18:00',label:'콘텐츠 기획 실습',ico:'✏️'}],
+   hist:['디지털 마케팅 기초 (2025.05)']}
+];
+
+function selT(idx,btn){
+  document.querySelectorAll('.trainee-btn').forEach(function(b){b.classList.remove('on');});
+  if(btn)btn.classList.add('on');
+  var t=TRAINEES[idx]||TRAINEES[0];
+  document.getElementById('sc-avatar').textContent=t.ico;
+  document.getElementById('sc-name').textContent=t.name+' 님';
+  document.getElementById('sc-profile').textContent=t.profile;
+  document.getElementById('sc-attend').textContent=t.attend;
+  document.getElementById('sc-dday').textContent=t.dday;
+  document.getElementById('sc-date').textContent=t.date;
+  var items=document.getElementById('sc-items');
+  items.innerHTML=t.schedule.map(function(s){
+    return '<div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;"><span style="font-size:13px;">'+s.ico+'</span><div><div style="font-size:11px;font-weight:700;color:#fff;">'+s.label+'</div><div style="font-size:10px;color:rgba(255,255,255,.65);">'+s.t+'</div></div></div>';
+  }).join('');
+  var hs=document.getElementById('hist-section');
+  hs.innerHTML='<div style="background:var(--surf);border-radius:14px;padding:12px 14px;margin-bottom:14px;border:1px solid var(--border)"><div style="font-size:12px;font-weight:800;color:var(--t0);margin-bottom:8px;">📚 수강 이력</div>'+
+    t.hist.map(function(h){return '<div style="font-size:11px;color:var(--t1);padding:4px 0;border-bottom:1px solid var(--border);">✅ '+h+'</div>';}).join('')+'</div>';
+}
+
+function uyr(v){document.getElementById('yrn').innerHTML=v+'<small>년차</small>';}
+function uyr2(v){document.getElementById('yrn2').innerHTML=v+'<small>년차</small>';}
+
+async function doPick(){
+  var ind=document.getElementById('ind').value;
+  var job=document.getElementById('job').value;
+  var yr=document.getElementById('yrs').value;
+  var inter=document.getElementById('inter').value;
+  if(!ind||!job){alert('업종과 직무를 선택해주세요.');return;}
+  var btn=document.getElementById('pbtn');
+  btn.textContent='⏳ 추천 중...';btn.disabled=true;
+  var prompt='중소벤처기업연수원 교육과정 추천. 업종:'+ind+', 직무:'+job+', 연차:'+yr+'년, 관심분야:'+(inter||'없음')+'. 맞춤 교육과정 3개를 추천하고 각 과정명, 추천이유(1줄), 예상효과를 간단히 알려주세요.';
+  var res=document.getElementById('pres');
+  res.innerHTML='<div style="padding:14px;text-align:center;color:var(--t2);font-size:12px;">AI가 맞춤 과정을 찾고 있어요...</div>';
+  try{
+    var r=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:prompt,history:[]})});
+    var reader=r.body.getReader();var dec=new TextDecoder();var full='';
+    res.innerHTML='<div style="background:var(--surf);border-radius:14px;padding:14px;border:1px solid var(--border);font-size:12px;color:var(--t1);line-height:1.8;" id="pick-stream"></div>';
+    while(true){
+      var rd=await reader.read();if(rd.done)break;
+      var chunk=dec.decode(rd.value);
+      chunk.split('\n').forEach(function(line){if(line.startsWith('data: ')){try{var j=JSON.parse(line.slice(6));if(j.type==='content_block_delta'&&j.delta&&j.delta.text){full+=j.delta.text;var el=document.getElementById('pick-stream');if(el)el.innerHTML=full.replace(/\n/g,'<br>');}}catch(e){}}});
+    }
+  }catch(e){res.innerHTML='<div style="color:red;font-size:12px;padding:10px;">오류가 발생했습니다.</div>';}
+  btn.textContent='✦ 맞춤 강좌 추천받기';btn.disabled=false;
+}
+
+async function doPick2(){
+  var ind=document.getElementById('ind2').value;
+  var job=document.getElementById('job2').value;
+  var yr=document.getElementById('yrs2').value;
+  var prompt='기존 연수생 대상 다음 수강 과정 추천. 업종:'+ind+', 직무:'+job+', 연차:'+yr+'년. 이전 수강 이력을 고려해 심화/연계 교육과정 3개를 추천해주세요.';
+  var res=document.getElementById('pres2');
+  res.innerHTML='<div style="padding:14px;text-align:center;color:var(--t2);font-size:12px;">AI가 추천 과정을 찾고 있어요...</div>';
+  try{
+    var r=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:prompt,history:[]})});
+    var reader=r.body.getReader();var dec=new TextDecoder();var full='';
+    res.innerHTML='<div style="background:var(--surf);border-radius:14px;padding:14px;border:1px solid var(--border);font-size:12px;color:var(--t1);line-height:1.8;" id="pick-stream2"></div>';
+    while(true){
+      var rd=await reader.read();if(rd.done)break;
+      var chunk=dec.decode(rd.value);
+      chunk.split('\n').forEach(function(line){if(line.startsWith('data: ')){try{var j=JSON.parse(line.slice(6));if(j.type==='content_block_delta'&&j.delta&&j.delta.text){full+=j.delta.text;var el=document.getElementById('pick-stream2');if(el)el.innerHTML=full.replace(/\n/g,'<br>');}}catch(e){}}});
+    }
+  }catch(e){res.innerHTML='<div style="color:red;font-size:12px;padding:10px;">오류가 발생했습니다.</div>';}
+}
+
+async function doNLPick(){
+  var input=document.getElementById('nl-input').value.trim();
+  if(!input){alert('상황을 입력해주세요.');return;}
+  var res=document.getElementById('nl-result');
+  res.innerHTML='<div style="padding:10px;text-align:center;color:var(--t2);font-size:12px;">분석 중...</div>';
+  try{
+    var r=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:'중소벤처기업연수원 교육과정 추천. 다음 상황에 맞는 과정 3개 추천: '+input,history:[]})});
+    var reader=r.body.getReader();var dec=new TextDecoder();var full='';
+    res.innerHTML='<div style="background:var(--surf);border-radius:14px;padding:14px;border:1px solid var(--border);font-size:12px;color:var(--t1);line-height:1.8;" id="nl-stream"></div>';
+    while(true){
+      var rd=await reader.read();if(rd.done)break;
+      var chunk=dec.decode(rd.value);
+      chunk.split('\n').forEach(function(line){if(line.startsWith('data: ')){try{var j=JSON.parse(line.slice(6));if(j.type==='content_block_delta'&&j.delta&&j.delta.text){full+=j.delta.text;var el=document.getElementById('nl-stream');if(el)el.innerHTML=full.replace(/\n/g,'<br>');}}catch(e){}}});
+    }
+  }catch(e){res.innerHTML='<div style="color:red;font-size:12px;padding:10px;">오류가 발생했습니다.</div>';}
+}
+
 function startWithName(){
   const splash=document.getElementById('splash');
   if(splash) splash.style.display='none';
