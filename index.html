@@ -1058,26 +1058,6 @@ details[open] .faq-arr{transform:rotate(180deg);}
           <div class="bld-sh-rooms" id="cbs-rooms"></div>
         </div>
       </div>
-      <!-- AI<!-- AI 길찾기 -->
-      <div class="wayfind-card">
-        <div class="stitle" style="margin-bottom:6px;">🗺️ AI 길찾기</div>
-        <div style="font-size:11px;color:var(--t2);margin-bottom:4px;">건물명이나 호수를 입력하면 경로를 안내해드려요</div>
-        <div class="wf-chips">
-          <button class="wf-chip" onclick="doWayfind(this.textContent)">봉사관</button>
-          <button class="wf-chip" onclick="doWayfind(this.textContent)">창의관</button>
-          <button class="wf-chip" onclick="doWayfind(this.textContent)">인화1관</button>
-          <button class="wf-chip" onclick="doWayfind(this.textContent)">인화2관</button>
-          <button class="wf-chip" onclick="doWayfind(this.textContent)">식당</button>
-          <button class="wf-chip" onclick="doWayfind(this.textContent)">헬스장</button>
-        </div>
-        <div class="wf-input-row">
-          <input class="wf-input" id="wf-input" placeholder="예) 봉사관 214호" onkeydown="if(event.key==='Enter')doWayfind()">
-          <button class="wf-btn" onclick="doWayfind()">🗺️ 안내</button>
-        </div>
-        <div class="wf-result" id="wf-result"></div>
-        <div class="route-nav-card" id="route-nav-card"></div>
-      </div>
-
       <!-- 시설 안내 -->
       <div>
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
@@ -1135,6 +1115,41 @@ details[open] .faq-arr{transform:rotate(180deg);}
         </div>
       </div>
 
+      <!-- 불편 신고 -->
+      <div>
+        <div class="stitle">📸 현장 불편 신고</div>
+        <div class="repcard">
+          <div style="font-size:14px;font-weight:800;color:var(--t0);margin-bottom:10px;">⚠️ 불편 사항을 즉시 신고하세요</div>
+          <div style="display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,var(--blue),var(--indigo));border-radius:20px;padding:4px 10px;margin-bottom:12px;">
+            <span style="font-size:10px;font-weight:700;color:#fff;">🤖 AI 이미지 자동 분류</span>
+          </div>
+          <div style="display:flex;gap:8px;margin-bottom:4px;">
+            <label for="pf-camera" id="lbl-camera" style="flex:1;padding:14px 8px;background:#EEF2FF;border:1.5px solid #BAC8FF;border-radius:14px;cursor:pointer;font-size:12px;font-weight:700;color:var(--blue);text-align:center;display:flex;flex-direction:column;align-items:center;">
+              <div style="font-size:24px;margin-bottom:4px;">📸</div><span id="lbl-camera-txt">카메라로 찍기</span>
+            </label>
+            <label for="pf" style="flex:1;padding:14px 8px;background:#F3F0FF;border:1.5px solid #D0BFFF;border-radius:14px;cursor:pointer;font-size:12px;font-weight:700;color:#6C5CE7;text-align:center;display:flex;flex-direction:column;align-items:center;">
+              <div style="font-size:24px;margin-bottom:4px;">🖼️</div>앨범에서 올리기
+            </label>
+          </div>
+          <div style="font-size:11px;color:var(--t2);text-align:center;margin-bottom:8px;">AI가 문제 유형을 자동으로 분석합니다</div>
+          <script>if(!('ontouchstart' in window)&&navigator.maxTouchPoints===0){var el=document.getElementById('lbl-camera-txt');if(el)el.textContent='파일로 올리기';}</script>
+          <input type="file" id="pf-camera" accept="image/*" capture="environment" style="display:none" onchange="analyzeImg(this)">
+          <input type="file" id="pf" accept="image/*" style="display:none" onchange="analyzeImg(this)">
+          <div id="vision-result" style="display:none;margin:10px 0;"></div>
+          <div style="font-size:12px;font-weight:700;color:var(--t1);margin:10px 0 6px;">또는 직접 선택</div>
+          <div style="display:flex;flex-wrap:wrap;">
+            <button class="repty" onclick="document.querySelectorAll('.repty').forEach(function(b){b.style.background='';b.style.color='';b.style.borderColor='';});this.style.background='#E64980';this.style.color='#fff';this.style.borderColor='#E64980'">💡 전기·조명</button>
+            <button class="repty" onclick="document.querySelectorAll('.repty').forEach(function(b){b.style.background='';b.style.color='';b.style.borderColor='';});this.style.background='#E64980';this.style.color='#fff';this.style.borderColor='#E64980'">🌡️ 냉난방</button>
+            <button class="repty" onclick="document.querySelectorAll('.repty').forEach(function(b){b.style.background='';b.style.color='';b.style.borderColor='';});this.style.background='#E64980';this.style.color='#fff';this.style.borderColor='#E64980'">🚪 시설 파손</button>
+            <button class="repty" onclick="document.querySelectorAll('.repty').forEach(function(b){b.style.background='';b.style.color='';b.style.borderColor='';});this.style.background='#E64980';this.style.color='#fff';this.style.borderColor='#E64980'">🌐 인터넷</button>
+            <button class="repty" onclick="document.querySelectorAll('.repty').forEach(function(b){b.style.background='';b.style.color='';b.style.borderColor='';});this.style.background='#E64980';this.style.color='#fff';this.style.borderColor='#E64980'">🧹 청소·위생</button>
+            <button class="repty" onclick="document.querySelectorAll('.repty').forEach(function(b){b.style.background='';b.style.color='';b.style.borderColor='';});this.style.background='#E64980';this.style.color='#fff';this.style.borderColor='#E64980'">📦 기타</button>
+          </div>
+          <textarea class="reptxt" id="reptxt" placeholder="불편 사항을 자세히 입력해주세요..."></textarea>
+          <button class="repsub" onclick="(function(){var t=document.getElementById('reptxt'),ok=document.getElementById('repok');if(!t||!t.value.trim()){ok.style.cssText='display:block!important;text-align:center;padding:14px;margin-top:10px;background:#FFF3CD;border-radius:12px;color:#856404;font-size:14px;font-weight:800;';ok.textContent='⚠️ 불편 내용을 입력해주세요';setTimeout(function(){ok.style.cssText='display:none!important';},3000);return;}t.value='';document.querySelectorAll('.repty').forEach(function(b){b.classList.remove('sel');});ok.style.cssText='display:block!important;text-align:center;padding:14px;margin-top:10px;background:#E6FCF5;border-radius:12px;color:#0CA678;font-size:14px;font-weight:800;border:1.5px solid #96F2D7;';ok.textContent='✅ 접수 완료! 담당자가 빠르게 확인할게요 😊';setTimeout(function(){ok.style.cssText='display:none!important';},5000);})()">📨 신고 접수하기</button>
+          <div class="repok" id="repok" style="display:none;">✅ 접수 완료! 담당자가 빠르게 확인할게요 😊</div>
+        </div>
+      </div>
       <!-- 오는 길 -->
       <div>
         <div class="stitle">🚌 연수원 오는 길</div>
@@ -1204,77 +1219,6 @@ details[open] .faq-arr{transform:rotate(180deg);}
         </div>
       </div>
 
-      <!-- Wi-Fi·편의시설 -->
-      <div>
-        <div class="stitle">📶 Wi-Fi · 편의시설</div>
-        <div class="wifi-card">
-          <div style="background:var(--blue-lt);border-radius:12px;padding:12px;display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
-            <div>
-              <div style="font-size:11px;color:var(--t2);font-weight:600;margin-bottom:3px;">🔐 Wi-Fi 비밀번호</div>
-              <div style="font-family:'Outfit',sans-serif;font-size:24px;font-weight:800;color:var(--blue);">1234512345</div>
-            </div>
-            <button onclick="navigator.clipboard.writeText('1234512345').then(()=>alert('복사됐어요! 😊'))" style="background:var(--blue);color:#fff;border:none;border-radius:10px;padding:8px 14px;font-size:12px;font-weight:700;cursor:pointer;">복사</button>
-          </div>
-          <div class="amenity-grid">
-            <div class="amenity" onclick="showMealFor('b')" style="cursor:pointer;position:relative;"><div class="amenity-ico">🍳</div><div class="amenity-nm">조식</div><div class="amenity-hrs">07:30~09:00</div><div style="position:absolute;top:4px;right:6px;font-size:9px;color:var(--blue);font-weight:700;">메뉴 ›</div></div>
-            <div class="amenity" onclick="showMealFor('l')" style="cursor:pointer;position:relative;"><div class="amenity-ico">🍱</div><div class="amenity-nm">중식</div><div class="amenity-hrs">11:30~13:30</div><div style="position:absolute;top:4px;right:6px;font-size:9px;color:var(--blue);font-weight:700;">메뉴 ›</div></div>
-            <div class="amenity" onclick="showMealFor('d')" style="cursor:pointer;position:relative;"><div class="amenity-ico">🍜</div><div class="amenity-nm">석식</div><div class="amenity-hrs">17:30~19:00</div><div style="position:absolute;top:4px;right:6px;font-size:9px;color:var(--blue);font-weight:700;">메뉴 ›</div></div>
-            <div class="amenity"><div class="amenity-ico">☕</div><div class="amenity-nm">카페(월~목)</div><div class="amenity-hrs">08:00~18:30</div></div>
-            <div class="amenity"><div class="amenity-ico">☕</div><div class="amenity-nm">카페(금)</div><div class="amenity-hrs">08:00~15:30</div></div>
-            <div class="amenity"><div class="amenity-ico">🛒</div><div class="amenity-nm">무인매점</div><div class="amenity-hrs">24시간</div></div>
-            <div class="amenity"><div class="amenity-ico">🏋️</div><div class="amenity-nm">헬스장</div><div class="amenity-hrs">인화2관</div></div>
-            <div class="amenity"><div class="amenity-ico">🏓</div><div class="amenity-nm">탁구장</div><div class="amenity-hrs">인화2관</div></div>
-            <div class="amenity"><div class="amenity-ico">⚽</div><div class="amenity-nm">운동장</div><div class="amenity-hrs">자유이용</div></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- SSUP 바로가기 -->
-      <div>
-        <div class="stitle">🌳 SSUP 바로가기</div>
-        <div class="ssup-links">
-          <a href="https://ssup.kosmes.or.kr/login" target="_blank" class="ssup-btn"><span>🔑</span><span>로그인</span></a>
-          <a href="https://ssup.kosmes.or.kr/mylearn" target="_blank" class="ssup-btn"><span>✅</span><span>출결관리</span></a>
-          <a href="https://ssup.kosmes.or.kr/mylearn" target="_blank" class="ssup-btn"><span>🎓</span><span>수료증</span></a>
-          <a href="https://ssup.kosmes.or.kr/course" target="_blank" class="ssup-btn"><span>📋</span><span>과정신청</span></a>
-        </div>
-      </div>
-
-      <!-- 불편 신고 -->
-      <div>
-        <div class="stitle">📸 현장 불편 신고</div>
-        <div class="repcard">
-          <div style="font-size:14px;font-weight:800;color:var(--t0);margin-bottom:10px;">⚠️ 불편 사항을 즉시 신고하세요</div>
-          <div style="display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,var(--blue),var(--indigo));border-radius:20px;padding:4px 10px;margin-bottom:12px;">
-            <span style="font-size:10px;font-weight:700;color:#fff;">🤖 AI 이미지 자동 분류</span>
-          </div>
-          <div style="display:flex;gap:8px;margin-bottom:4px;">
-            <label for="pf-camera" id="lbl-camera" style="flex:1;padding:14px 8px;background:#EEF2FF;border:1.5px solid #BAC8FF;border-radius:14px;cursor:pointer;font-size:12px;font-weight:700;color:var(--blue);text-align:center;display:flex;flex-direction:column;align-items:center;">
-              <div style="font-size:24px;margin-bottom:4px;">📸</div><span id="lbl-camera-txt">카메라로 찍기</span>
-            </label>
-            <label for="pf" style="flex:1;padding:14px 8px;background:#F3F0FF;border:1.5px solid #D0BFFF;border-radius:14px;cursor:pointer;font-size:12px;font-weight:700;color:#6C5CE7;text-align:center;display:flex;flex-direction:column;align-items:center;">
-              <div style="font-size:24px;margin-bottom:4px;">🖼️</div>앨범에서 올리기
-            </label>
-          </div>
-          <div style="font-size:11px;color:var(--t2);text-align:center;margin-bottom:8px;">AI가 문제 유형을 자동으로 분석합니다</div>
-          <script>if(!('ontouchstart' in window)&&navigator.maxTouchPoints===0){var el=document.getElementById('lbl-camera-txt');if(el)el.textContent='파일로 올리기';}</script>
-          <input type="file" id="pf-camera" accept="image/*" capture="environment" style="display:none" onchange="analyzeImg(this)">
-          <input type="file" id="pf" accept="image/*" style="display:none" onchange="analyzeImg(this)">
-          <div id="vision-result" style="display:none;margin:10px 0;"></div>
-          <div style="font-size:12px;font-weight:700;color:var(--t1);margin:10px 0 6px;">또는 직접 선택</div>
-          <div style="display:flex;flex-wrap:wrap;">
-            <button class="repty" onclick="document.querySelectorAll('.repty').forEach(function(b){b.style.background='';b.style.color='';b.style.borderColor='';});this.style.background='#E64980';this.style.color='#fff';this.style.borderColor='#E64980'">💡 전기·조명</button>
-            <button class="repty" onclick="document.querySelectorAll('.repty').forEach(function(b){b.style.background='';b.style.color='';b.style.borderColor='';});this.style.background='#E64980';this.style.color='#fff';this.style.borderColor='#E64980'">🌡️ 냉난방</button>
-            <button class="repty" onclick="document.querySelectorAll('.repty').forEach(function(b){b.style.background='';b.style.color='';b.style.borderColor='';});this.style.background='#E64980';this.style.color='#fff';this.style.borderColor='#E64980'">🚪 시설 파손</button>
-            <button class="repty" onclick="document.querySelectorAll('.repty').forEach(function(b){b.style.background='';b.style.color='';b.style.borderColor='';});this.style.background='#E64980';this.style.color='#fff';this.style.borderColor='#E64980'">🌐 인터넷</button>
-            <button class="repty" onclick="document.querySelectorAll('.repty').forEach(function(b){b.style.background='';b.style.color='';b.style.borderColor='';});this.style.background='#E64980';this.style.color='#fff';this.style.borderColor='#E64980'">🧹 청소·위생</button>
-            <button class="repty" onclick="document.querySelectorAll('.repty').forEach(function(b){b.style.background='';b.style.color='';b.style.borderColor='';});this.style.background='#E64980';this.style.color='#fff';this.style.borderColor='#E64980'">📦 기타</button>
-          </div>
-          <textarea class="reptxt" id="reptxt" placeholder="불편 사항을 자세히 입력해주세요..."></textarea>
-          <button class="repsub" onclick="(function(){var t=document.getElementById('reptxt'),ok=document.getElementById('repok');if(!t||!t.value.trim()){ok.style.cssText='display:block!important;text-align:center;padding:14px;margin-top:10px;background:#FFF3CD;border-radius:12px;color:#856404;font-size:14px;font-weight:800;';ok.textContent='⚠️ 불편 내용을 입력해주세요';setTimeout(function(){ok.style.cssText='display:none!important';},3000);return;}t.value='';document.querySelectorAll('.repty').forEach(function(b){b.classList.remove('sel');});ok.style.cssText='display:block!important;text-align:center;padding:14px;margin-top:10px;background:#E6FCF5;border-radius:12px;color:#0CA678;font-size:14px;font-weight:800;border:1.5px solid #96F2D7;';ok.textContent='✅ 접수 완료! 담당자가 빠르게 확인할게요 😊';setTimeout(function(){ok.style.cssText='display:none!important';},5000);})()">📨 신고 접수하기</button>
-          <div class="repok" id="repok" style="display:none;">✅ 접수 완료! 담당자가 빠르게 확인할게요 😊</div>
-        </div>
-      </div>
       <!-- 시설 자주 묻는 질문 -->
       <div>
         <div class="stitle">❓ 시설 자주 묻는 질문</div>
