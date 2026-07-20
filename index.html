@@ -764,6 +764,8 @@ details[open] .faq-arr{transform:rotate(180deg);}
         <button class="lang-tab on" onclick="setLang('ko',this)" style="display:flex;align-items:center;gap:6px;padding:7px 12px;border:1.5px solid var(--blue);border-radius:10px;background:var(--blue-lt);font-size:12px;font-weight:700;cursor:pointer;width:100%;">🇰🇷 한국어</button>
         <button class="lang-tab" onclick="setLang('en',this)" style="display:flex;align-items:center;gap:6px;padding:7px 12px;border:1.5px solid transparent;border-radius:10px;background:var(--surf2);font-size:12px;font-weight:700;cursor:pointer;width:100%;">🇺🇸 English</button>
         <button class="lang-tab" onclick="setLang('id',this)" style="display:flex;align-items:center;gap:6px;padding:7px 12px;border:1.5px solid transparent;border-radius:10px;background:var(--surf2);font-size:12px;font-weight:700;cursor:pointer;width:100%;">🇮🇩 Bahasa</button>
+        <button class="lang-tab" onclick="setLang('ja',this)" style="display:flex;align-items:center;gap:6px;padding:7px 12px;border:1.5px solid transparent;border-radius:10px;background:var(--surf2);font-size:12px;font-weight:700;cursor:pointer;width:100%;">🇯🇵 日本語</button>
+        <button class="lang-tab" onclick="setLang('zh',this)" style="display:flex;align-items:center;gap:6px;padding:7px 12px;border:1.5px solid transparent;border-radius:10px;background:var(--surf2);font-size:12px;font-weight:700;cursor:pointer;width:100%;">🇨🇳 中文</button>
       </div>
     </div>
     <div class="live"><div class="live-dot"></div><span>LIVE</span></div>
@@ -1651,7 +1653,7 @@ let hist=[];
 function ar(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,80)+'px';}
 function hk(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send();}}
 function sq(t){go('talk',document.querySelector('.tab'));document.getElementById('txtin').value=t;send();}
-function getLangPrompt(){var m={'en':' (Please respond in English.)','id':' (Harap jawab dalam Bahasa Indonesia.)'};return m[appLang]||'';}
+function getLangPrompt(){var m={'en':' (Please respond in English.)','id':' (Harap jawab dalam Bahasa Indonesia.)','ja':' (日本語で答えてください。)','zh':' (请用中文回答。)'};return m[appLang]||'';}
 function scr(){const c=document.getElementById('msgs');c.scrollTop=c.scrollHeight;}
 function addU(t){const c=document.getElementById('msgs'),r=document.createElement('div');r.className='mrow me';r.innerHTML=`<div class="bwrap"><div class="bbl me">${t.replace(/\n/g,'<br>')}</div><span class="ts">${gt()}</span></div>`;c.appendChild(r);scr();}
 function showT(){const c=document.getElementById('msgs'),r=document.createElement('div');r.className='typing-r';r.id='tr';r.innerHTML=`<div class="bico">🤖</div><div class="typing-b"><span></span><span></span><span></span></div>`;c.appendChild(r);scr();}
@@ -1877,8 +1879,14 @@ function setLang(l,btn){
   });
   if(btn){btn.style.borderColor='var(--blue)';btn.style.background='var(--blue-lt)';btn.classList.add('on');}
   document.getElementById('lang-pop').style.display='none';
-  var lbl={'ko':'🇰🇷','en':'🇺🇸','id':'🇮🇩'};
+  var lbl={'ko':'🇰🇷','en':'🇺🇸','id':'🇮🇩','ja':'🇯🇵','zh':'🇨🇳'};
   document.getElementById('lang-btn-ico').textContent=lbl[l]||'🇰🇷';
+  var sub={'ko':'중소벤처기업연수원 AI 스마트비서','en':'KOSME Training Center AI Assistant','id':'Asisten AI Pusat Pelatihan KOSME','ja':'中小企業研修院 AIアシスタント','zh':'中小企业研修院AI助手'};
+  var hdrSub=document.getElementById('hdr-sub');
+  if(hdrSub)hdrSub.textContent=sub[l]||sub['ko'];
+  var greet={'ko':'안녕하세요 😊 저는 <strong>왓썹(W-SSUP)</strong>이에요!<br>연수 신청·교육비·교통편 등 궁금한 점이라면 무엇이든 24시간 도와드릴게요!','en':'Hello 😊 I'm <strong>W-SSUP</strong>!<br>Ask me anything about registration, fees, shuttle bus, and more — available 24/7!','id':'Halo 😊 Saya <strong>W-SSUP</strong>!<br>Tanyakan apa saja tentang pendaftaran, biaya, shuttle bus, dan lainnya — tersedia 24 jam!','ja':'こんにちは 😊 <strong>W-SSUP</strong>です！<br>研修申込・教育費・交通など、何でもお気軽にどうぞ！24時間対応しています！','zh':'您好 😊 我是<strong>W-SSUP</strong>！<br>培训申请、教育费用、交通等问题随时为您解答，24小时服务！'};
+  var botGreet=document.getElementById('bot-greet');
+  if(botGreet)botGreet.innerHTML=greet[l]||greet['ko'];
 }
 
 function wfGo(name){
