@@ -175,8 +175,24 @@ input[type=range]{flex:1;height:4px;border-radius:2px;outline:none;cursor:pointe
 /* VIEW */
 .stitle{font-size:14px;font-weight:800;color:var(--t0);margin-bottom:10px;display:flex;align-items:center;gap:6px;}
 .view-hero{background:var(--g-teal);border-radius:18px;padding:18px;}
-.bld-card{background:#fff;padding:12px 8px;border-radius:14px;border:1px solid var(--border);cursor:pointer;text-align:center;box-shadow:var(--sh);transition:all .2s;}
+.bld-card{background:#fff;padding:0;border-radius:14px;border:1px solid var(--border);cursor:pointer;text-align:center;box-shadow:var(--sh);transition:all .2s;overflow:hidden;}
 .bld-card:active{border-color:var(--blue);transform:translateY(-2px);box-shadow:var(--sh2);}
+.bld-card-thumb{position:relative;height:90px;background:var(--surf2);overflow:hidden;}
+.bld-card-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .3s;}
+.bld-card:active .bld-card-thumb img{transform:scale(1.05);}
+.bld-card-thumb-count{position:absolute;bottom:5px;right:6px;background:rgba(0,0,0,.5);color:#fff;font-size:9px;font-weight:700;padding:2px 5px;border-radius:6px;}
+.bld-card-body{padding:8px 6px 10px;}
+/* 사진 캐러셀 */
+.photo-carousel{position:relative;width:100%;border-radius:14px;overflow:hidden;background:#000;margin-bottom:14px;}
+.photo-carousel-track{display:flex;transition:transform .3s ease;will-change:transform;}
+.photo-carousel-slide{min-width:100%;flex-shrink:0;}
+.photo-carousel-slide img{width:100%;height:220px;object-fit:cover;display:block;}
+.carousel-arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.45);color:#fff;border:none;border-radius:50%;width:32px;height:32px;font-size:14px;cursor:pointer;z-index:10;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);}
+.carousel-arrow.prev{left:8px;}
+.carousel-arrow.next{right:8px;}
+.carousel-dots{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);display:flex;gap:5px;}
+.carousel-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.5);transition:all .2s;cursor:pointer;}
+.carousel-dot.on{background:#fff;width:14px;border-radius:3px;}
 .route-card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:16px;box-shadow:var(--sh);}
 .addr-box{background:var(--surf);border-radius:10px;padding:10px 12px;margin-bottom:12px;font-size:12px;color:var(--t1);line-height:1.7;}
 .rtabs{display:flex;gap:6px;margin-bottom:12px;}
@@ -1114,46 +1130,32 @@ details[open] .faq-arr{transform:rotate(180deg);}
         <div style="font-size:11px;color:var(--t2);margin-bottom:10px;">카드를 누르면 시설 정보와 사진을 볼 수 있어요 📍</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
           <div class="bld-card" onclick="showBld('class')">
-            <img src="https://ssup.kosmes.or.kr/img/sub/img_insititution01.png" style="width:100%;height:90px;object-fit:cover;border-radius:8px;margin-bottom:6px;" onerror="this.style.display='none'">
-            <div style="font-size:18px;margin-bottom:2px;">🏫</div>
-            <div style="font-size:12px;font-weight:700;">강의실</div>
-            <div style="font-size:10px;color:var(--t2);">일반강의실·PC실</div>
+            <div class="bld-card-thumb"><img src="https://ssup.kosmes.or.kr/img/sub/img_insititution01.png" onerror="this.parentElement.style.background='var(--surf2)'"><span class="bld-card-thumb-count">📷 3</span></div>
+            <div class="bld-card-body"><div style="font-size:18px;margin-bottom:2px;">🏫</div><div style="font-size:12px;font-weight:700;">강의실</div><div style="font-size:10px;color:var(--t2);">일반강의실·PC실</div></div>
           </div>
           <div class="bld-card" onclick="showBld('smart')">
-            <img src="https://ssup.kosmes.or.kr/img/sub/img_center001.png" style="width:100%;height:90px;object-fit:cover;border-radius:8px;margin-bottom:6px;" onerror="this.style.display='none'">
-            <div style="font-size:18px;margin-bottom:2px;">🏭</div>
-            <div style="font-size:12px;font-weight:700;">스마트공장배움터</div>
-            <div style="font-size:10px;color:var(--t2);">실습·장비 공간</div>
+            <div class="bld-card-thumb"><img src="https://ssup.kosmes.or.kr/img/sub/img_center001.png" onerror="this.parentElement.style.background='var(--surf2)'"><span class="bld-card-thumb-count">📷 4</span></div>
+            <div class="bld-card-body"><div style="font-size:18px;margin-bottom:2px;">🏭</div><div style="font-size:12px;font-weight:700;">스마트공장배움터</div><div style="font-size:10px;color:var(--t2);">실습·장비 공간</div></div>
           </div>
           <div class="bld-card" onclick="showBld('dorm')">
-            <img src="https://ssup.kosmes.or.kr/img/sub/img_insititution02.png" style="width:100%;height:90px;object-fit:cover;border-radius:8px;margin-bottom:6px;" onerror="this.style.display='none'">
-            <div style="font-size:18px;margin-bottom:2px;">🏠</div>
-            <div style="font-size:12px;font-weight:700;">기숙사</div>
-            <div style="font-size:10px;color:var(--t2);">인화1관·인화2관</div>
+            <div class="bld-card-thumb"><img src="https://ssup.kosmes.or.kr/img/sub/img_insititution02.png" onerror="this.parentElement.style.background='var(--surf2)'"><span class="bld-card-thumb-count">📷 3</span></div>
+            <div class="bld-card-body"><div style="font-size:18px;margin-bottom:2px;">🏠</div><div style="font-size:12px;font-weight:700;">기숙사</div><div style="font-size:10px;color:var(--t2);">인화1관·인화2관</div></div>
           </div>
           <div class="bld-card" onclick="showBld('food')">
-            <img src="https://ssup.kosmes.or.kr/img/sub/img_insititution03.png" style="width:100%;height:90px;object-fit:cover;border-radius:8px;margin-bottom:6px;" onerror="this.style.display='none'">
-            <div style="font-size:18px;margin-bottom:2px;">🍽️</div>
-            <div style="font-size:12px;font-weight:700;">식당 &amp; 매점</div>
-            <div style="font-size:10px;color:var(--t2);">3식 무료 제공</div>
+            <div class="bld-card-thumb"><img src="https://ssup.kosmes.or.kr/img/sub/img_insititution03.png" onerror="this.parentElement.style.background='var(--surf2)'"><span class="bld-card-thumb-count">📷 3</span></div>
+            <div class="bld-card-body"><div style="font-size:18px;margin-bottom:2px;">🍽️</div><div style="font-size:12px;font-weight:700;">식당 &amp; 매점</div><div style="font-size:10px;color:var(--t2);">3식 무료 제공</div></div>
           </div>
           <div class="bld-card" onclick="showBld('gym')">
-            <img src="https://ssup.kosmes.or.kr/img/sub/img_insititution04.png" style="width:100%;height:90px;object-fit:cover;border-radius:8px;margin-bottom:6px;" onerror="this.style.display='none'">
-            <div style="font-size:18px;margin-bottom:2px;">💪</div>
-            <div style="font-size:12px;font-weight:700;">헬스장</div>
-            <div style="font-size:10px;color:var(--t2);">봉사관 B1F</div>
+            <div class="bld-card-thumb"><img src="https://ssup.kosmes.or.kr/img/sub/img_insititution04.png" onerror="this.parentElement.style.background='var(--surf2)'"><span class="bld-card-thumb-count">📷 2</span></div>
+            <div class="bld-card-body"><div style="font-size:18px;margin-bottom:2px;">💪</div><div style="font-size:12px;font-weight:700;">헬스장</div><div style="font-size:10px;color:var(--t2);">봉사관 B1F</div></div>
           </div>
           <div class="bld-card" onclick="showBld('hall')">
-            <img src="https://ssup.kosmes.or.kr/img/sub/img_insititution05.png" style="width:100%;height:90px;object-fit:cover;border-radius:8px;margin-bottom:6px;" onerror="this.style.display='none'">
-            <div style="font-size:18px;margin-bottom:2px;">🏟️</div>
-            <div style="font-size:12px;font-weight:700;">대강당</div>
-            <div style="font-size:10px;color:var(--t2);">입교식·수료식</div>
+            <div class="bld-card-thumb"><img src="https://ssup.kosmes.or.kr/img/sub/img_center005.png" onerror="this.parentElement.style.background='var(--surf2)'"><span class="bld-card-thumb-count">📷 2</span></div>
+            <div class="bld-card-body"><div style="font-size:18px;margin-bottom:2px;">🏟️</div><div style="font-size:12px;font-weight:700;">대강당</div><div style="font-size:10px;color:var(--t2);">입교식·수료식</div></div>
           </div>
           <div class="bld-card" onclick="showBld('lounge')">
-            <img src="https://ssup.kosmes.or.kr/img/sub/img_insititution06.png" style="width:100%;height:90px;object-fit:cover;border-radius:8px;margin-bottom:6px;" onerror="this.style.display='none'">
-            <div style="font-size:18px;margin-bottom:2px;">☕</div>
-            <div style="font-size:12px;font-weight:700;">라운지·휴게실</div>
-            <div style="font-size:10px;color:var(--t2);">봉사관 1F</div>
+            <div class="bld-card-thumb"><img src="https://ssup.kosmes.or.kr/img/sub/img_center006.png" onerror="this.parentElement.style.background='var(--surf2)'"><span class="bld-card-thumb-count">📷 2</span></div>
+            <div class="bld-card-body"><div style="font-size:18px;margin-bottom:2px;">☕</div><div style="font-size:12px;font-weight:700;">라운지·휴게실</div><div style="font-size:10px;color:var(--t2);">봉사관 1F</div></div>
           </div>
         </div>
       </div>
@@ -1692,37 +1694,61 @@ function doRep(){
 var B='https://ssup.kosmes.or.kr/img/sub/';
 var BLD_INFO={
   class:{icon:'🏫',name:'강의실',sub:'일반강의실 · PC실',target:'창의관',
-    imgs:[B+'img_insititution01.png',B+'img_center001.png'],
+    imgs:[B+'img_insititution01.png',B+'img_center002.png',B+'img_center003.png'],
     body:'📚 일반강의실: 창의관 1~4층\n💻 PC실: 스마트실습실 (창의관 내)\n🔊 빔프로젝터·마이크 완비\n📋 세미나실 별도 운영\n🕐 교육 일정에 따라 운영'},
   smart:{icon:'🏭',name:'스마트공장배움터',sub:'실습 · 장비 공간',target:'실험동',
-    imgs:[B+'img_center001.png',B+'img_insititution01.png'],
+    imgs:[B+'img_center001.png',B+'img_center002.png',B+'img_center003.png',B+'img_center004.png'],
     body:'⚙️ 스마트공장 실습 전용 공간\n🤖 PLC·로봇·제조AI 장비 구비\n🔧 산업 현장 수준의 실습 환경\n👷 안전 수칙 필수 준수\n🕐 교육 과정 중 사용'},
   dorm:{icon:'🏠',name:'기숙사',sub:'인화1관 · 인화2관',target:'인화1관',
-    imgs:[B+'img_insititution02.png',B+'img_center001.png'],
+    imgs:[B+'img_insititution02.png',B+'img_insititution01.png',B+'img_center005.png'],
     body:'🛏️ 1인 1실 운영\n🚪 귀관: 평일 23:00\n📶 Wi-Fi 비밀번호: 1234512345\n👕 세탁기·건조기: 각 층 세탁실 (무료, 세제 지참)\n🔑 귀중품은 반드시 직접 관리\n📞 사감실 1관: 031-490-1325~6\n📞 사감실 2관: 031-490-1327~8'},
   food:{icon:'🍽️',name:'식당 & 매점',sub:'3식 무료 제공',target:'교류동',
-    imgs:[B+'img_insititution03.png',B+'img_center001.png'],
+    imgs:[B+'img_insititution03.png',B+'img_insititution04.png',B+'img_center006.png'],
     body:'🍳 조식: 07:30 ~ 09:00\n🍱 중식: 11:30 ~ 13:30\n🍜 석식: 17:30 ~ 19:00\n☕ 카페: 월~목 08:00~18:30 / 금 08:00~15:30\n🛒 무인매점: 24시간 운영\n✅ 식비·숙박비 전액 무료 (정부 지원)'},
   gym:{icon:'💪',name:'헬스장',sub:'봉사관 B1F',target:'봉사관',
-    imgs:[B+'img_insititution04.png',B+'img_center001.png'],
+    imgs:[B+'img_insititution04.png',B+'img_insititution02.png'],
     body:'💪 런닝머신·사이클·웨이트 완비\n🕐 운영시간: 06:00 ~ 22:00\n🚿 샤워실 이용 가능\n👟 운동화·운동복 지참 필수\n📍 위치: 봉사관 지하 1층'},
   hall:{icon:'🏟️',name:'대강당',sub:'입교식 · 수료식',target:'대강당',
-    imgs:[B+'img_insititution05.png',B+'img_insititution01.png'],
+    imgs:[B+'img_center005.png',B+'img_center004.png'],
     body:'🎓 입교식·수료식 진행 공간\n🎤 300석 규모 대형 강당\n🔊 음향·영상 시스템 완비\n📋 특강·세미나·행사 이용\n📍 위치: 창의관 인근 대강당'},
   lounge:{icon:'☕',name:'라운지·휴게실',sub:'봉사관 1F',target:'봉사관',
-    imgs:[B+'img_insititution06.png',B+'img_insititution03.png'],
+    imgs:[B+'img_center006.png',B+'img_insititution03.png'],
     body:'☕ 자판기·정수기 구비\n🛋️ 소파·테이블 휴식 공간\n📱 Wi-Fi 사용 가능\n🕐 24시간 이용 가능\n📍 위치: 봉사관 1층 로비'}
 };
+var _carouselIdx=0;
+var _carouselImgs=[];
+function carouselMove(dir){
+  _carouselIdx=(_carouselIdx+dir+_carouselImgs.length)%_carouselImgs.length;
+  var track=document.getElementById('carousel-track');
+  if(track)track.style.transform='translateX(-'+(_carouselIdx*100)+'%)';
+  document.querySelectorAll('.carousel-dot').forEach(function(d,i){d.classList.toggle('on',i===_carouselIdx);});
+}
+function buildCarousel(imgs){
+  _carouselIdx=0;
+  _carouselImgs=imgs;
+  if(!imgs||imgs.length===0)return'';
+  var slides=imgs.map(function(src){
+    return '<div class="photo-carousel-slide"><img src="'+src+'" onerror="this.closest(\'.photo-carousel-slide\').style.display=\'none\'"></div>';
+  }).join('');
+  var dots=imgs.length>1?imgs.map(function(_,i){
+    return '<div class="carousel-dot'+(i===0?' on':'')+'" onclick="carouselMove('+(i-_carouselIdx)+')"></div>';
+  }).join(''):'';
+  var arrows=imgs.length>1?
+    '<button class="carousel-arrow prev" onclick="carouselMove(-1)">‹</button>'+
+    '<button class="carousel-arrow next" onclick="carouselMove(1)">›</button>':'';
+  return '<div class="photo-carousel">'+
+    '<div class="photo-carousel-track" id="carousel-track">'+slides+'</div>'+
+    arrows+
+    (dots?'<div class="carousel-dots">'+dots+'</div>':'')+
+  '</div>';
+}
 function showBld(id){
   var d=BLD_INFO[id]; if(!d)return;
-  // 이미지 갤러리
   var gallery=document.getElementById('bld-modal-gallery');
   var imgs=d.imgs||[];
   if(imgs.length>0){
     gallery.style.display='block';
-    gallery.innerHTML='<div style="display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding-bottom:4px;">'+
-      imgs.map(function(src,i){return '<img src="'+src+'" style="height:150px;'+(i===0?'min-width:100%':'min-width:80%')+';object-fit:cover;border-radius:12px;flex-shrink:0;" onerror="this.style.display=\'none\'">';}).join('')+
-    '</div>';
+    gallery.innerHTML=buildCarousel(imgs);
   } else { gallery.style.display='none'; }
   document.getElementById('bld-modal-icon').textContent=d.icon;
   document.getElementById('bld-modal-title').textContent=d.name;
