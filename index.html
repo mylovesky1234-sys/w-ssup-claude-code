@@ -1514,14 +1514,7 @@ function renderTodaySchedule(){
   el.innerHTML=slots.map(function(s){
     const active=cur>=s.s&&cur<s.e;
     const done=cur>=s.e;
-    return '<div style="display:flex;align-items:center;gap:8px;padding:4px 0;'+(active?'background:rgba(255,255,255,.15);border-radius:8px;padding:5px 8px;margin:-1px -4px;':'')+'opacity:'+(done?'0.45':'1')+'">'
-      +'<span style="font-size:14px;">'+s.ico+'</span>'
-      +'<div style="flex:1;min-width:0;">'
-        +'<span style="font-size:11px;font-weight:'+(active?'800':'600')+';color:'+(active?'#fff':'rgba(255,255,255,.85)')+';">'+s.label+'</span>'
-        +(active?'<span style="margin-left:6px;background:#20C997;color:#fff;font-size:9px;font-weight:700;padding:1px 5px;border-radius:6px;">진행중</span>':'')
-      +'</div>'
-      +'<span style="font-size:9px;color:rgba(255,255,255,.55);">'+s.sub+'</span>'
-    +'</div>';
+    return '<div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;opacity:'+(done?'0.45':'1')+';'+(active?'background:rgba(255,255,255,.15);border-radius:8px;padding:4px 6px;margin-left:-6px;margin-right:-6px;':'')+'">'      +'<span style="font-size:13px;">'+s.ico+'</span>'      +'<div><div style="font-size:11px;font-weight:700;color:#fff;">'+s.label+(active?' <span style="background:#20C997;color:#fff;font-size:9px;font-weight:700;padding:1px 5px;border-radius:6px;vertical-align:middle;">진행중</span>':'')+'</div>'      +'<div style="font-size:10px;color:rgba(255,255,255,.65);">'+s.sub+'</div></div>'    +'</div>';
   }).join('');
 }
 window.addEventListener('load',function(){
