@@ -821,6 +821,10 @@ details[open] .faq-arr{transform:rotate(180deg);}
           </div>
           <div id="welcome-sched-items" style="display:flex;flex-direction:column;gap:0;"></div>
         </div>
+        <div style="background:rgba(255,255,255,.1);border-radius:10px;padding:8px 10px;margin-bottom:10px;">
+          <div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.7);margin-bottom:6px;">📚 수강 이력</div>
+          <div id="talk-hist-items"></div>
+        </div>
         <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;">
           <div style="background:rgba(255,255,255,.1);border-radius:10px;padding:8px;text-align:center;border:1px solid rgba(255,255,255,.08);" onclick="sq('연수 신청은 어떻게 해요?')" style="cursor:pointer;">
             <div style="font-size:18px;">📋</div><div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.9);margin-top:3px;">연수 신청</div>
@@ -1523,6 +1527,13 @@ function renderTodaySchedule(){
       +'<div style="font-size:10px;color:rgba(255,255,255,.65);">'+s.sub+'</div></div>'
       +'</div>';
   }).join('');
+  const hist=document.getElementById('talk-hist-items');
+  if(hist){
+    const histData=['스마트공장 입문 (2025.03)','데이터 분석 기초 (2025.06)','IoT 활용 실무 (2025.10)'];
+    hist.innerHTML=histData.map(function(h){
+      return '<div style="font-size:10px;color:rgba(255,255,255,.8);padding:3px 0;border-bottom:1px solid rgba(255,255,255,.1);">✅ '+h+'</div>';
+    }).join('');
+  }
 }
 window.addEventListener('load',function(){
   // 버튼에 직접 이벤트 연결 (onclick 속성 보완)
