@@ -1095,6 +1095,9 @@ details[open] .faq-arr{transform:rotate(180deg);}
       </div>
 
       <div class="bld-sheet" id="campus-bld-sheet">
+          <div id="cbs-photo-wrap" style="display:none;margin-bottom:10px;border-radius:10px;overflow:hidden;height:120px;">
+            <img id="cbs-photo" src="" alt="" style="width:100%;height:100%;object-fit:cover;" onerror="document.getElementById('cbs-photo-wrap').style.display='none'">
+          </div>
           <div class="bld-sh-nm" id="cbs-name"></div>
           <div id="cbs-desc" style="font-size:12px;color:var(--t1);line-height:1.65;"></div>
           <div class="bld-sh-rooms" id="cbs-rooms"></div>
@@ -1134,6 +1137,24 @@ details[open] .faq-arr{transform:rotate(180deg);}
             <div style="font-size:12px;font-weight:700;">식당 &amp; 매점</div>
             <div style="font-size:10px;color:var(--t2);">3식 무료 제공</div>
           </div>
+          <div class="bld-card" onclick="showBld('gym')">
+            <img src="https://ssup.kosmes.or.kr/img/sub/img_insititution04.png" style="width:100%;height:90px;object-fit:cover;border-radius:8px;margin-bottom:6px;" onerror="this.style.display='none'">
+            <div style="font-size:18px;margin-bottom:2px;">💪</div>
+            <div style="font-size:12px;font-weight:700;">헬스장</div>
+            <div style="font-size:10px;color:var(--t2);">봉사관 B1F</div>
+          </div>
+          <div class="bld-card" onclick="showBld('hall')">
+            <img src="https://ssup.kosmes.or.kr/img/sub/img_insititution05.png" style="width:100%;height:90px;object-fit:cover;border-radius:8px;margin-bottom:6px;" onerror="this.style.display='none'">
+            <div style="font-size:18px;margin-bottom:2px;">🏟️</div>
+            <div style="font-size:12px;font-weight:700;">대강당</div>
+            <div style="font-size:10px;color:var(--t2);">입교식·수료식</div>
+          </div>
+          <div class="bld-card" onclick="showBld('lounge')">
+            <img src="https://ssup.kosmes.or.kr/img/sub/img_insititution06.png" style="width:100%;height:90px;object-fit:cover;border-radius:8px;margin-bottom:6px;" onerror="this.style.display='none'">
+            <div style="font-size:18px;margin-bottom:2px;">☕</div>
+            <div style="font-size:12px;font-weight:700;">라운지·휴게실</div>
+            <div style="font-size:10px;color:var(--t2);">봉사관 1F</div>
+          </div>
         </div>
       </div>
 
@@ -1155,7 +1176,14 @@ details[open] .faq-arr{transform:rotate(180deg);}
       <div>
         <div class="stitle">🗺️ AI 길찾기</div>
         <div class="wayfind-card">
-          <div style="font-size:12px;color:var(--t1);margin-bottom:10px;">📍 정문에서 목적지까지의 경로를 지도에서 안내해드려요</div>
+          <div style="font-size:12px;color:var(--t1);margin-bottom:10px;">📍 정문에서 목적지까지 AI가 도보 경로를 안내해드려요</div>
+          <!-- 자유 텍스트 AI 입력 -->
+          <div style="display:flex;gap:8px;margin-bottom:12px;">
+            <input id="wf-input" placeholder="어디로 가고 싶으세요? (예: 식당, 봉사관 206호)" style="flex:1;border:1.5px solid var(--border);border-radius:12px;padding:10px 12px;font-size:12px;background:var(--bg);color:var(--t0);outline:none;" onkeydown="if(event.key==='Enter')aiWayFind()">
+            <button onclick="aiWayFind()" style="background:linear-gradient(135deg,#4C6EF5,#7048E8);color:#fff;border:none;border-radius:12px;padding:10px 14px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0;">🤖 AI 안내</button>
+          </div>
+          <div id="ai-wf-result" style="display:none;background:var(--surf);border-radius:12px;padding:12px;border:1px solid var(--border);font-size:12px;color:var(--t1);line-height:1.8;margin-bottom:10px;"></div>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;"><div style="flex:1;height:1px;background:var(--border);"></div><span style="font-size:11px;color:var(--t2);font-weight:600;">또는 건물 선택</span><div style="flex:1;height:1px;background:var(--border);"></div></div>
           <div class="wf-chips">
             <button class="wf-chip" onclick="wfGo('창의관')">🏫 창의관</button>
             <button class="wf-chip" onclick="wfGo('봉사관')">🏛️ 봉사관</button>
@@ -1674,7 +1702,16 @@ var BLD_INFO={
     body:'🛏️ 1인 1실 운영\n🚪 귀관: 평일 23:00\n📶 Wi-Fi 비밀번호: 1234512345\n👕 세탁기·건조기: 각 층 세탁실 (무료, 세제 지참)\n🔑 귀중품은 반드시 직접 관리\n📞 사감실 1관: 031-490-1325~6\n📞 사감실 2관: 031-490-1327~8'},
   food:{icon:'🍽️',name:'식당 & 매점',sub:'3식 무료 제공',target:'교류동',
     imgs:[B+'img_insititution03.png',B+'img_center001.png'],
-    body:'🍳 조식: 07:30 ~ 09:00\n🍱 중식: 11:30 ~ 13:30\n🍜 석식: 17:30 ~ 19:00\n☕ 카페: 월~목 08:00~18:30 / 금 08:00~15:30\n🛒 무인매점: 24시간 운영\n✅ 식비·숙박비 전액 무료 (정부 지원)'}
+    body:'🍳 조식: 07:30 ~ 09:00\n🍱 중식: 11:30 ~ 13:30\n🍜 석식: 17:30 ~ 19:00\n☕ 카페: 월~목 08:00~18:30 / 금 08:00~15:30\n🛒 무인매점: 24시간 운영\n✅ 식비·숙박비 전액 무료 (정부 지원)'},
+  gym:{icon:'💪',name:'헬스장',sub:'봉사관 B1F',target:'봉사관',
+    imgs:[B+'img_insititution04.png',B+'img_center001.png'],
+    body:'💪 런닝머신·사이클·웨이트 완비\n🕐 운영시간: 06:00 ~ 22:00\n🚿 샤워실 이용 가능\n👟 운동화·운동복 지참 필수\n📍 위치: 봉사관 지하 1층'},
+  hall:{icon:'🏟️',name:'대강당',sub:'입교식 · 수료식',target:'대강당',
+    imgs:[B+'img_insititution05.png',B+'img_insititution01.png'],
+    body:'🎓 입교식·수료식 진행 공간\n🎤 300석 규모 대형 강당\n🔊 음향·영상 시스템 완비\n📋 특강·세미나·행사 이용\n📍 위치: 창의관 인근 대강당'},
+  lounge:{icon:'☕',name:'라운지·휴게실',sub:'봉사관 1F',target:'봉사관',
+    imgs:[B+'img_insititution06.png',B+'img_insititution03.png'],
+    body:'☕ 자판기·정수기 구비\n🛋️ 소파·테이블 휴식 공간\n📱 Wi-Fi 사용 가능\n🕐 24시간 이용 가능\n📍 위치: 봉사관 1층 로비'}
 };
 function showBld(id){
   var d=BLD_INFO[id]; if(!d)return;
@@ -2005,6 +2042,26 @@ function setLang(l,btn){
   applyUILang(l);
 }
 
+async function aiWayFind(){
+  const input=document.getElementById('wf-input');
+  const dest=input?input.value.trim():'';
+  if(!dest){input&&input.focus();return;}
+  const res=document.getElementById('ai-wf-result');
+  res.style.display='block';
+  res.innerHTML='<div style="text-align:center;color:var(--t2);font-size:12px;">🤖 경로 안내 중...</div>';
+  const prompt='중소벤처기업연수원(경기도 안산시) 캠퍼스 내 도보 길찾기. 건물 배치: 정문→봉사관(정면), 교류동·실험동(좌측), 창의관·대강당(우측), 인화1관·인화2관(후방 좌측), 운동장(우측 끝). 목적지: "'+dest+'" 까지 정문에서 출발하는 도보 경로를 단계별로 간단히 안내해주세요. 3~4단계로 간결하게.'+getLangPrompt();
+  try{
+    const r=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:prompt,history:[]})});
+    const reader=r.body.getReader();const dec=new TextDecoder();let full='';
+    while(true){const{done,value}=await reader.read();if(done)break;
+      dec.decode(value).split('\n').forEach(function(line){if(line.startsWith('data: ')){try{const j=JSON.parse(line.slice(6));if(j.type==='content_block_delta'&&j.delta&&j.delta.text){full+=j.delta.text;res.innerHTML='<div style="line-height:1.9;">'+full.replace(/\*\*/g,'').replace(/\n/g,'<br>')+'</div>';}}catch(e){}}});
+    }
+    // 지도에서 관련 건물 핀 강조
+    const known=Object.keys(ROUTE_DATA).find(k=>dest.includes(k)||k.includes(dest));
+    if(known)setTimeout(function(){wfGo(known);},200);
+  }catch(e){res.innerHTML='<div style="color:var(--t2);">경로 안내 중 오류가 발생했습니다.</div>';}
+}
+
 function wfGo(name){
   const res=document.getElementById('wf-result');
   const key=Object.keys(ROUTE_DATA).find(k=>name.includes(k)||k.includes(name));
@@ -2215,12 +2272,12 @@ function getAttendCard(){
 }
 
 const CAMPUS_BLD={
-  '인화1관':{desc:'캠퍼스 후방 좌측. 특수과정·실습 강의 진행.',rooms:['1F 강의실','2F 강의실','3F 강의실','4F 강의실']},
-  '인화2관':{desc:'캠퍼스 좌측 인화2관. 실습·실험 과정 전용.',rooms:['1F','2F','3F','4F']},
-  '교류동':{desc:'캠퍼스 좌측 교류동. 구내식당·매점 위치.',rooms:['식당 (1F)','매점','회의실']},
-  '실습동':{desc:'연수원 내 실습동. 실기 과정 전용.',rooms:['실습실 1F','실습실 2F']},
-  '배움터':{desc:'실습동 바로 위. 소규모 강의·세미나 공간.',rooms:['배움터 강의실']},
-  '실험동':{desc:'교류동 인근 실험·실습동. 실기 위주 과정 진행.',rooms:['실험실','실습실']},
+  '인화1관':{desc:'캠퍼스 후방 좌측. 특수과정·실습 강의 진행.',rooms:['1F 강의실','2F 강의실','3F 강의실','4F 강의실'],photo:B+'img_insititution02.png'},
+  '인화2관':{desc:'캠퍼스 좌측 인화2관. 실습·실험 과정 전용.',rooms:['1F','2F','3F','4F'],photo:B+'img_insititution02.png'},
+  '교류동':{desc:'캠퍼스 좌측 교류동. 구내식당·매점 위치.',rooms:['식당 (1F)','매점','회의실'],photo:B+'img_insititution03.png'},
+  '실습동':{desc:'연수원 내 실습동. 실기 과정 전용.',rooms:['실습실 1F','실습실 2F'],photo:B+'img_center001.png'},
+  '배움터':{desc:'실습동 바로 위. 소규모 강의·세미나 공간.',rooms:['배움터 강의실'],photo:B+'img_insititution01.png'},
+  '실험동':{desc:'교류동 인근 실험·실습동. 실기 위주 과정 진행.',rooms:['실험실','실습실'],photo:B+'img_center001.png'},
   '실습동':{
     pts:[[48,78],[48,68],[44,58],[35,52],[22,48],[22,42]],
     dest:[22,42],
@@ -2231,16 +2288,14 @@ const CAMPUS_BLD={
     dest:[22,30],
     steps:['정문 통과 후 중앙 로터리 방향으로 직진','로터리에서 좌측 후방 도로','실습동 지나 배움터 도착']
   },
-  '봉사관':{desc:'연수원 메인 건물. 숙소·행정·강의실 통합. 정문에서 바로 보이는 건물.',rooms:['1F 고객센터','1F 다목적실','2F 행정실','2F 강의실','3F~4F 객실','B1F 헬스장']},
-  '소강당':{desc:'봉사관 앞 소강당. 소규모 행사·특강 전용.',rooms:['소강당 홀','로비']},
-  '창의관':{desc:'우측 메인 강의 건물. KOSME 창업사관학교 현판.',rooms:['1F 로비','2F 대형강의실','3F 강의실','3F 회의실']},
-  '창의관':{desc:'캠퍼스 내 위치하나 타부서 사용 건물. 내부 이용 불가.',rooms:['타부서 전용']},
-  '소강당':{desc:'캠퍼스 내 위치하나 타부서 사용 건물. 내부 이용 불가.',rooms:['타부서 전용']},
-  '대강당':{desc:'창의관 인근. 입교식·수료식·대형 행사 진행.',rooms:['대강당 홀','무대','로비']},
-  '운동장':{desc:'캠퍼스 우측 끝 야외 운동장.',rooms:['풋살장','다목적 운동장']},
-  '정문':{desc:'연수원 정문. 수위실. 셔틀버스 정류장(정문 안쪽).',rooms:['수위실','방문증 발급','셔틀 정류장']},
-  '주차장':{desc:'캠퍼스 우측 외부 주차장.',rooms:['외부주차','장애인구역']},
-  '제2주차장':{desc:'정문 좌측 제2주차장.',rooms:['외부주차']},
+  '봉사관':{desc:'연수원 메인 건물. 숙소·행정·강의실 통합. 정문에서 바로 보이는 건물.',rooms:['1F 고객센터','1F 다목적실','2F 행정실','2F 강의실','3F~4F 객실','B1F 헬스장'],photo:B+'img_insititution01.png'},
+  '소강당':{desc:'봉사관 앞 소강당. 소규모 행사·특강 전용.',rooms:['소강당 홀','로비'],photo:B+'img_insititution05.png'},
+  '창의관':{desc:'우측 메인 강의 건물. KOSME 창업사관학교 현판.',rooms:['1F 로비','2F 대형강의실','3F 강의실','3F 회의실'],photo:B+'img_insititution01.png'},
+  '대강당':{desc:'창의관 인근. 입교식·수료식·대형 행사 진행.',rooms:['대강당 홀','무대','로비'],photo:B+'img_insititution05.png'},
+  '운동장':{desc:'캠퍼스 우측 끝 야외 운동장.',rooms:['풋살장','다목적 운동장'],photo:B+'img_insititution06.png'},
+  '정문':{desc:'연수원 정문. 수위실. 셔틀버스 정류장(정문 안쪽).',rooms:['수위실','방문증 발급','셔틀 정류장'],photo:B+'img_insititution03.png'},
+  '주차장':{desc:'캠퍼스 우측 외부 주차장.',rooms:['외부주차','장애인구역'],photo:null},
+  '제2주차장':{desc:'정문 좌측 제2주차장.',rooms:['외부주차'],photo:null},
 }
 const ROUTE_DATA={
   '인화1관':{
@@ -2452,6 +2507,15 @@ function showCampusPin(name){
   const d=CAMPUS_BLD[name];
   if(!d)return;
   const sheet=document.getElementById('campus-bld-sheet');
+  // 건물 사진
+  const photoWrap=document.getElementById('cbs-photo-wrap');
+  const photoImg=document.getElementById('cbs-photo');
+  if(d.photo&&photoWrap&&photoImg){
+    photoImg.src=d.photo;photoImg.alt=name;
+    photoWrap.style.display='block';
+  } else if(photoWrap){
+    photoWrap.style.display='none';
+  }
   document.getElementById('cbs-name').textContent=name;
   document.getElementById('cbs-desc').textContent=d.desc;
   const rm=document.getElementById('cbs-rooms');
