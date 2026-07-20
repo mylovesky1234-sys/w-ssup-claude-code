@@ -2340,7 +2340,7 @@ function showCampusPin(name){
   document.getElementById('cbs-name').dataset.last=name;
   showRoute(name);
   // 층별 안내도
-  const fp=FLOOR_PLANS[name];
+  const fp=typeof FLOOR_PLANS!=='undefined'?FLOOR_PLANS[name]:null;
   const fpSheet=document.getElementById('fp-sheet');
   if(fp&&fpSheet){
     document.getElementById('fp-bld-nm').textContent=name;
@@ -2355,7 +2355,7 @@ function showCampusPin(name){
 }
 
 function showFloor(bld,fl,btn){
-  const fp=FLOOR_PLANS[bld];
+  const fp=typeof FLOOR_PLANS!=='undefined'?FLOOR_PLANS[bld]:null;
   if(!fp||!fp[fl])return;
   document.querySelectorAll('.fp-tab').forEach(t=>t.classList.remove('on'));
   if(btn)btn.classList.add('on');
