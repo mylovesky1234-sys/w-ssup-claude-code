@@ -828,6 +828,7 @@ details[open] .faq-arr{transform:rotate(180deg);}
               <div style="display:flex;align-items:center;gap:6px;">
                 <div id="talk-username" style="font-family:'Outfit',sans-serif;font-size:13px;font-weight:800;color:#fff;">연수생 님</div>
                 <span id="talk-attend" style="background:#20C997;color:#fff;font-size:9px;font-weight:700;padding:2px 6px;border-radius:6px;">출석률 92%</span>
+                <span style="background:rgba(255,255,255,.15);color:rgba(255,255,255,.6);font-size:8px;font-weight:700;padding:2px 5px;border-radius:5px;">샘플</span>
               </div>
               <div id="talk-sched-hdr" style="font-size:10px;color:rgba(255,255,255,.6);">📅 오늘의 교육 일정</div>
             </div>
@@ -902,10 +903,13 @@ details[open] .faq-arr{transform:rotate(180deg);}
           </div>
         </div>
       </div>
-      <textarea id="txtin" rows="1" placeholder="궁금한 점을 입력하세요..." onkeydown="hk(event)" oninput="ar(this)"></textarea>
+      <textarea id="txtin" rows="1" placeholder="예: 셔틀버스 몇 시에 출발해요?" onkeydown="hk(event)" oninput="ar(this)"></textarea>
       <button class="sbtn" onclick="send()"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></button>
     </div>
-    <div class="hint">↵ Enter 전송 · ⇧ Shift+Enter 줄바꿈</div>
+    <div class="hint" style="display:flex;align-items:center;justify-content:space-between;padding:4px 12px 6px;">
+      <span>↵ Enter 전송 · ⇧ Shift+Enter 줄바꿈</span>
+      <button onclick="sq('담당자에게 연락하고 싶어요')" style="background:none;border:none;font-size:11px;font-weight:700;color:var(--blue);cursor:pointer;padding:2px 6px;border-radius:8px;white-space:nowrap;">📞 담당자 연결</button>
+    </div>
   </div>
 
   <!-- ══ PICK ══ -->
@@ -965,10 +969,8 @@ details[open] .faq-arr{transform:rotate(180deg);}
         <div style="background:var(--white);border:1.5px solid var(--border);border-radius:16px;padding:14px;box-shadow:var(--sh);margin-bottom:14px;">
           <div style="font-size:13px;font-weight:700;margin-bottom:10px;">👤 연수생 선택</div>
           <div style="display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;">
-            <button class="trainee-btn on" onclick="selT(0,this)">🤖 진공이</button>
-            <button class="trainee-btn" onclick="selT(1,this)">👩 김지은</button>
-            <button class="trainee-btn" onclick="selT(2,this)">👨 박민수</button>
-            <button class="trainee-btn" onclick="selT(3,this)">👩 이수진</button>
+            <button class="trainee-btn on" onclick="selT(0,this)">👤 연수생 A</button>
+            <button class="trainee-btn" onclick="selT(1,this)">👤 연수생 B</button>
           </div>
           <div style="margin-top:8px;font-size:10px;color:var(--t2);">※ 실제 서비스에서는 SSUP 로그인 후 본인 정보가 자동 표시됩니다</div>
         </div>
@@ -978,7 +980,7 @@ details[open] .faq-arr{transform:rotate(180deg);}
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
             <div id="sc-avatar" style="width:34px;height:34px;border-radius:10px;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🤖</div>
             <div style="flex:1;min-width:0;">
-              <div id="sc-name" style="font-family:'Outfit',sans-serif;font-size:14px;font-weight:800;color:#fff;">진공이 님</div>
+              <div id="sc-name" style="font-family:'Outfit',sans-serif;font-size:14px;font-weight:800;color:#fff;">연수생 A 님</div>
               <div id="sc-profile" style="font-size:10px;color:rgba(255,255,255,.75);">IT·소프트웨어 · IT개발 · 5년차</div>
             </div>
             <div style="text-align:right;flex-shrink:0;">
@@ -1405,18 +1407,12 @@ function swUser(type,btn){
 }
 
 const TRAINEES=[
-  {ico:'🤖',name:'진공이',profile:'IT·소프트웨어 · IT개발 · 5년차',attend:'92%',dday:'D-2 🎓',date:'2026.07.22 수료예정',
-   schedule:[{t:'09:00~12:00',label:'AI 활용 실무과정 3일차',ico:'📖'},{t:'12:00~13:30',label:'점심시간',ico:'🍱'},{t:'13:30~18:00',label:'실습: ChatGPT 업무 적용',ico:'💻'}],
-   hist:['스마트공장 입문 (2025.03)','데이터 분석 기초 (2025.06)']},
-  {ico:'👩',name:'김지은',profile:'제조업 · 생산·품질관리 · 3년차',attend:'100%',dday:'D-5 🎓',date:'2026.07.25 수료예정',
-   schedule:[{t:'09:00~12:00',label:'품질관리 실무 2일차',ico:'📖'},{t:'13:30~18:00',label:'QC 실습',ico:'🔧'}],
-   hist:['ISO 품질 기초 (2025.01)']},
-  {ico:'👨',name:'박민수',profile:'유통·물류 · 경영·전략 · 8년차',attend:'88%',dday:'D-1 🎓',date:'2026.07.21 수료예정',
-   schedule:[{t:'09:00~18:00',label:'전략기획 심화과정 마지막날',ico:'📋'}],
-   hist:['리더십 기초 (2024.11)','경영전략 심화 (2025.04)','마케팅 실무 (2025.09)']},
-  {ico:'👩',name:'이수진',profile:'서비스업 · 마케팅·영업 · 2년차',attend:'95%',dday:'D-4 🎓',date:'2026.07.24 수료예정',
-   schedule:[{t:'09:00~12:00',label:'SNS 마케팅 실무',ico:'📱'},{t:'13:30~18:00',label:'콘텐츠 기획 실습',ico:'✏️'}],
-   hist:['디지털 마케팅 기초 (2025.05)']}
+  {ico:'👤',name:'연수생 A',profile:'제조업 · 스마트공장 · 4년차',attend:'92%',dday:'D-3 🎓',date:'2026.07.23 수료예정',
+   schedule:[{t:'09:00~12:00',label:'스마트공장 구축 실무 3일차',ico:'📖'},{t:'12:00~13:30',label:'점심시간',ico:'🍱'},{t:'13:30~18:00',label:'실습: 공정 데이터 분석',ico:'💻'}],
+   hist:['스마트공장 입문 (2025.03)','IoT 활용 실무 (2025.09)']},
+  {ico:'👤',name:'연수생 B',profile:'서비스업 · 경영·전략 · 6년차',attend:'100%',dday:'D-5 🎓',date:'2026.07.25 수료예정',
+   schedule:[{t:'09:00~12:00',label:'경영전략 심화과정 2일차',ico:'📋'},{t:'13:30~18:00',label:'워크숍: 전략 실행 계획',ico:'✏️'}],
+   hist:['리더십 기초 (2024.11)','경영전략 기초 (2025.05)']}
 ];
 
 function selT(idx,btn){
@@ -1510,6 +1506,41 @@ function startWithName(){
     try{localStorage.setItem('w_username',name);}catch(e){}
     personalizeApp(name);
   }catch(e){}
+  setTimeout(showOnboarding, 600);
+}
+function showOnboarding(){
+  if(document.getElementById('onboard-overlay'))return;
+  const ov=document.createElement('div');
+  ov.id='onboard-overlay';
+  ov.style.cssText='position:fixed;inset:0;z-index:8000;background:rgba(15,18,41,.55);display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:80px;animation:fadeIn .3s ease;';
+  ov.innerHTML=`
+    <div style="background:#fff;border-radius:24px;padding:22px 20px 18px;width:calc(100% - 32px);max-width:380px;box-shadow:0 8px 40px rgba(0,0,0,.2);">
+      <div style="font-size:16px;font-weight:800;color:var(--t0);margin-bottom:4px;">👋 이렇게 사용해보세요!</div>
+      <div style="font-size:12px;color:var(--t2);margin-bottom:14px;">아래 기능을 직접 눌러보세요</div>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px;">
+        <div style="display:flex;align-items:center;gap:10px;background:var(--surf);border-radius:12px;padding:10px 12px;" onclick="dismissOnboarding();sq('출석 처리는 어떻게 하나요?')">
+          <span style="font-size:20px;">💬</span>
+          <div><div style="font-size:12px;font-weight:700;color:var(--t0);">TALK — AI에게 질문하기</div><div style="font-size:11px;color:var(--t2);">"출석 처리는 어떻게 하나요?" 눌러보기</div></div>
+          <span style="margin-left:auto;color:var(--blue);font-size:13px;">→</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;background:var(--surf);border-radius:12px;padding:10px 12px;" onclick="dismissOnboarding();go('pick',document.querySelectorAll('.tab')[1])">
+          <span style="font-size:20px;">✦</span>
+          <div><div style="font-size:12px;font-weight:700;color:var(--t0);">PICK — 강좌 추천받기</div><div style="font-size:11px;color:var(--t2);">업종·직무 선택 후 AI 추천 확인</div></div>
+          <span style="margin-left:auto;color:var(--blue);font-size:13px;">→</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;background:var(--surf);border-radius:12px;padding:10px 12px;" onclick="dismissOnboarding();go('view',document.querySelectorAll('.tab')[2])">
+          <span style="font-size:20px;">◎</span>
+          <div><div style="font-size:12px;font-weight:700;color:var(--t0);">VIEW — 캠퍼스 길찾기</div><div style="font-size:11px;color:var(--t2);">건물 핀 누르거나 AI 길찾기 사용</div></div>
+          <span style="margin-left:auto;color:var(--blue);font-size:13px;">→</span>
+        </div>
+      </div>
+      <button onclick="dismissOnboarding()" style="width:100%;padding:13px;background:var(--g-blue);border:none;border-radius:14px;font-size:14px;font-weight:800;color:#fff;cursor:pointer;font-family:inherit;">직접 탐색할게요 →</button>
+    </div>`;
+  document.body.appendChild(ov);
+}
+function dismissOnboarding(){
+  const ov=document.getElementById('onboard-overlay');
+  if(ov){ov.style.animation='fadeOut .25s forwards';setTimeout(()=>ov.remove(),250);}
 }
 function personalizeApp(name){
   try{
@@ -1692,7 +1723,7 @@ function showMealFor(type){
 let hist=[];
 function ar(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,80)+'px';}
 function hk(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send();}}
-function sq(t){go('talk',document.querySelector('.tab'));document.getElementById('txtin').value=t;send();}
+function sq(t){go('talk',document.querySelector('.tab'));document.getElementById('txtin').value=t;setTimeout(function(){scr();send();},80);}
 function getLangPrompt(){var m={'en':' (Please respond in English.)','id':' (Harap jawab dalam Bahasa Indonesia.)','ja':' (日本語で答えてください。)','zh':' (请用中文回答。)'};return m[appLang]||'';}
 function scr(){const c=document.getElementById('msgs');c.scrollTop=c.scrollHeight;}
 function addU(t){const c=document.getElementById('msgs'),r=document.createElement('div');r.className='mrow me';r.innerHTML=`<div class="bwrap"><div class="bbl me">${t.replace(/\n/g,'<br>')}</div><span class="ts">${gt()}</span></div>`;c.appendChild(r);scr();}
