@@ -1538,14 +1538,7 @@ window.addEventListener('load',function(){
     });
   }
   // 저장된 이름 있으면 스플래시 스킵
-  try{
-    var saved=localStorage.getItem('w_username');
-    if(saved){
-      personalizeApp(saved);
-      var splash=document.getElementById('splash');
-      if(splash)splash.style.display='none';
-    }
-  }catch(e){}
+
 });
 
 /* 불편 신고 */
