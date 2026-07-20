@@ -92,7 +92,7 @@ export default async function handler(req) {
   }
 
   try {
-    const { message, history } = await req.json();
+    const { message, history, simple } = await req.json();
 
     const messages = [
       ...(history || []),
@@ -108,7 +108,7 @@ export default async function handler(req) {
       },
       body: JSON.stringify({
         model: 'claude-haiku-4-5-20251001',
-        max_tokens: 768,
+        max_tokens: simple ? 300 : 768,
         stream: true,
         system: SYSTEM_PROMPT,
         messages
