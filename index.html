@@ -738,11 +738,19 @@ details[open] .faq-arr{transform:rotate(180deg);}
     <button class="splash-btn" id="start-btn" onclick="document.getElementById('splash').style.display='none';try{var n=document.getElementById('uname-input').value.trim()||'연수생';localStorage.setItem('w_username',n);document.getElementById('welcome-name').textContent=n+'님';}catch(e){}">시작하기 →</button>
     <p style="font-size:11px;color:var(--t2);text-align:center;margin-top:10px;line-height:1.6;">이름을 입력하면 개인화된 인사를 받을 수 있어요 😊</p>
   </div>
-  <div style="position:relative;z-index:1;text-align:center;margin-top:20px;padding-bottom:4px;">
-    <span style="font-size:11px;font-weight:700;color:rgba(255,255,255,.45);">BY 박성수 과장</span>
-    <span style="font-size:10px;color:rgba(255,255,255,.25);margin:0 6px;">·</span>
-    <span style="font-size:11px;font-weight:800;color:#FFE066;">🧪 테스트 버전</span>
-  </div>
+  <div style="position:relative;z-index:1;width:100%;max-width:360px;margin-top:20px;">
+    <div style="display:flex;gap:8px;">
+      <div style="flex:1;background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.25);border-radius:14px;padding:10px 14px;text-align:center;">
+        <div style="font-size:9px;color:rgba(255,255,255,.55);font-weight:700;letter-spacing:.5px;margin-bottom:3px;">DEVELOPER</div>
+        <div style="font-size:13px;font-weight:800;color:#fff;">박성수 과장</div>
+        <div style="font-size:9px;color:rgba(255,255,255,.5);margin-top:2px;">중소벤처기업연수원</div>
+      </div>
+      <div style="flex:1;background:rgba(255,200,0,.18);border:1.5px solid rgba(255,200,0,.45);border-radius:14px;padding:10px 14px;text-align:center;">
+        <div style="font-size:9px;color:#FFE066;font-weight:700;letter-spacing:.5px;margin-bottom:3px;">VERSION</div>
+        <div style="font-size:13px;font-weight:800;color:#FFE066;">테스트 버전</div>
+        <div style="font-size:9px;color:rgba(255,220,0,.6);margin-top:2px;">Beta v0.1</div>
+      </div>
+    </div>
 </div>
 <div class="app">
 
