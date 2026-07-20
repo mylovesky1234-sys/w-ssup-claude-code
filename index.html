@@ -1698,7 +1698,7 @@ function addB(t){
   const r=document.createElement('div');r.className='mrow';
   const f=t.replace(/\n/g,'<br>').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>');
   const bid='b'+Date.now();
-  r.innerHTML=`<div class="bico">🤖</div><div class="bwrap"><div class="bbl bot" id="${bid}">${f}</div><span class="ts">${gt()}</span><div class="msg-actions"><button class="mact" onclick="doMsgAct('raw','${bid}',this)">📄 원문 보기</button><button class="mact" onclick="doMsgAct('sum','${bid}',this)">📝 3줄 요약</button><button class="mact" onclick="doMsgAct('easy','${bid}',this)">💡 쉽게 설명</button></div><div class="lang-row"><button class="lbtn on" onclick="doLang('ko','${bid}',this)">🇰🇷 한국어</button><button class="lbtn" onclick="doLang('en','${bid}',this)">🇺🇸 English</button><button class="lbtn" onclick="doLang('id','${bid}',this)">🇮🇩 Bahasa</button></div></div>`;
+  r.innerHTML=`<div class="bico">🤖</div><div class="bwrap"><div class="bbl bot" id="${bid}">${f}</div><span class="ts">${gt()}</span><div class="msg-actions"><button class="mact" onclick="doMsgAct('raw','${bid}',this)">📄 원문 보기</button><button class="mact" onclick="doMsgAct('sum','${bid}',this)">📝 3줄 요약</button><button class="mact" onclick="doMsgAct('easy','${bid}',this)">💡 쉽게 설명</button></div><div class="lang-row"><button class="lbtn on" onclick="doLang('ko','${bid}',this)">🇰🇷 한국어</button><button class="lbtn" onclick="doLang('en','${bid}',this)">🇺🇸 EN</button><button class="lbtn" onclick="doLang('id','${bid}',this)">🇮🇩 ID</button><button class="lbtn" onclick="doLang('ja','${bid}',this)">🇯🇵 JP</button><button class="lbtn" onclick="doLang('zh','${bid}',this)">🇨🇳 中文</button></div></div>`;
   c.appendChild(r);scr();
 }
 
@@ -1784,7 +1784,7 @@ async function send(){
     }
     const wrap=row.querySelector('.bwrap');
     const ad=document.createElement('div');
-    ad.innerHTML=`<div class="msg-actions"><button class="mact" onclick="doMsgAct('sum','${bid}',this)">📝 3줄 요약</button><button class="mact" onclick="doMsgAct('easy','${bid}',this)">💡 쉽게 설명</button></div><div class="lang-row"><button class="lbtn on" onclick="doLang('ko','${bid}',this)">🇰🇷 한국어</button><button class="lbtn" onclick="doLang('en','${bid}',this)">🇺🇸 English</button><button class="lbtn" onclick="doLang('id','${bid}',this)">🇮🇩 Bahasa</button></div>`;
+    ad.innerHTML=`<div class="msg-actions"><button class="mact" onclick="doMsgAct('sum','${bid}',this)">📝 3줄 요약</button><button class="mact" onclick="doMsgAct('easy','${bid}',this)">💡 쉽게 설명</button></div><div class="lang-row"><button class="lbtn on" onclick="doLang('ko','${bid}',this)">🇰🇷 한국어</button><button class="lbtn" onclick="doLang('en','${bid}',this)">🇺🇸 EN</button><button class="lbtn" onclick="doLang('id','${bid}',this)">🇮🇩 ID</button><button class="lbtn" onclick="doLang('ja','${bid}',this)">🇯🇵 JP</button><button class="lbtn" onclick="doLang('zh','${bid}',this)">🇨🇳 中文</button></div>`;
     wrap.appendChild(ad.children[0]);wrap.appendChild(ad.children[0]);
     hist.push({role:'user',content:t},{role:'assistant',content:full});
   }catch(e){rmT();addB('네트워크 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');}
@@ -1811,7 +1811,7 @@ async function doLang(lang,bid,btn){
   if(lang==='ko'){el.innerHTML=el.getAttribute('data-ko')||el.innerHTML;return;}
   if(!el.getAttribute('data-ko'))el.setAttribute('data-ko',el.innerHTML);
   const orig=el.innerText;
-  const lname=lang==='en'?'English':'Bahasa Indonesia';
+  const lname={'en':'English','id':'Bahasa Indonesia','ja':'Japanese','zh':'Chinese (Simplified)'}[lang]||'English';
   try{
     const res=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:`Translate to ${lname} (reply ONLY with the translation, no explanation):\n${orig}`,history:[]})});
     if(!res.ok)return;
