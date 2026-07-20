@@ -199,11 +199,14 @@ input[type=range]{flex:1;height:4px;border-radius:2px;outline:none;cursor:pointe
 .faq-sec{background:#fff;border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--sh);}
 .faq-item{border-bottom:1px solid var(--border);}
 .faq-item:last-child{border:none;}
+.faq-item{list-style:none;}
+details.faq-item summary{list-style:none;}
+details.faq-item summary::-webkit-details-marker{display:none;}
 .faq-q{padding:13px 14px;font-size:13px;font-weight:700;color:var(--t0);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:8px;transition:background .15s;}
 .faq-q:active{background:var(--surf);}
-.faq-q>span:last-child{font-size:11px;color:var(--t2);flex-shrink:0;transition:transform .25s;}
-.faq-a{display:none;padding:0 14px 13px;font-size:12px;color:var(--t1);line-height:1.7;}
-.faq-a.open{display:block;}
+.faq-arr{font-size:11px;color:var(--t2);flex-shrink:0;transition:transform .25s;}
+details[open] .faq-arr{transform:rotate(180deg);}
+.faq-a{display:block;padding:0 14px 13px;font-size:12px;color:var(--t1);line-height:1.7;}
 
 /* Complaint */
 .repcard{background:#fff;border:1px solid rgba(230,73,128,.2);border-radius:16px;padding:16px;box-shadow:var(--sh);}
@@ -1092,16 +1095,51 @@ input[type=range]{flex:1;height:4px;border-radius:2px;outline:none;cursor:pointe
             <span style="font-size:16px;">📷</span> QR 스캔
           </button>
         </div>
-        <div style="font-size:11px;color:var(--t2);margin-bottom:10px;">건물을 누르면 위치 + 내부 사진을 볼 수 있어요 📍</div>
-        <div id="img2" style="display:none;"></div>
+        <div style="font-size:11px;color:var(--t2);margin-bottom:10px;">카드를 누르면 시설 정보와 사진을 볼 수 있어요 📍</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-          <div class="bld-card" onclick="showBld('main')"><div style="font-size:20px;margin-bottom:3px;">🏛️</div><div style="font-size:12px;font-weight:700;">봉사관</div><div style="font-size:10px;color:var(--t2);">사무실·고객센터</div></div>
-          <div class="bld-card" onclick="showBld('cafe')"><div style="font-size:20px;margin-bottom:3px;">🍽️</div><div style="font-size:12px;font-weight:700;">식당·매점</div><div style="font-size:10px;color:var(--t2);">교류동 (조식·중식·석식)</div></div>
-          <div class="bld-card" onclick="showBld('dorm1')"><div style="font-size:20px;margin-bottom:3px;">🏠</div><div style="font-size:12px;font-weight:700;">기숙사 인화1관</div><div style="font-size:10px;color:var(--t2);">숙소 (1관)</div></div>
-          <div class="bld-card" onclick="showBld('dorm2')"><div style="font-size:20px;margin-bottom:3px;">🏨</div><div style="font-size:12px;font-weight:700;">기숙사 인화2관</div><div style="font-size:10px;color:var(--t2);">숙소·헬스장·탁구 (2관)</div></div>
-          <div class="bld-card" onclick="showBld('lab')"><div style="font-size:20px;margin-bottom:3px;">🔬</div><div style="font-size:12px;font-weight:700;">실험동</div><div style="font-size:10px;color:var(--t2);">실험·실습 공간</div></div>
-          <div class="bld-card" onclick="showBld('practice')"><div style="font-size:20px;margin-bottom:3px;">⚙️</div><div style="font-size:12px;font-weight:700;">실습동</div><div style="font-size:10px;color:var(--t2);">장비·실습 공간</div></div>
-          <div class="bld-card" onclick="showBld('smoke')" style="grid-column:span 2;"><div style="font-size:20px;margin-bottom:3px;">🚬</div><div style="font-size:12px;font-weight:700;">흡연구역</div><div style="font-size:10px;color:var(--t2);">지정 구역만 이용</div></div>
+          <div class="bld-card" onclick="showBld('class')">
+            <img src="https://ssup.kosmes.or.kr/img/sub/img_insititution01.png" style="width:100%;height:70px;object-fit:cover;border-radius:8px;margin-bottom:6px;" onerror="this.style.display='none'">
+            <div style="font-size:18px;margin-bottom:2px;">🏫</div>
+            <div style="font-size:12px;font-weight:700;">강의실</div>
+            <div style="font-size:10px;color:var(--t2);">일반강의실·PC실</div>
+          </div>
+          <div class="bld-card" onclick="showBld('smart')">
+            <img src="https://ssup.kosmes.or.kr/img/sub/img_insititution01.png" style="width:100%;height:70px;object-fit:cover;border-radius:8px;margin-bottom:6px;" onerror="this.style.display='none'">
+            <div style="font-size:18px;margin-bottom:2px;">🏭</div>
+            <div style="font-size:12px;font-weight:700;">스마트공장배움터</div>
+            <div style="font-size:10px;color:var(--t2);">실습·장비 공간</div>
+          </div>
+          <div class="bld-card" onclick="showBld('dorm')">
+            <img src="https://ssup.kosmes.or.kr/img/sub/img_insititution02.png" style="width:100%;height:70px;object-fit:cover;border-radius:8px;margin-bottom:6px;" onerror="this.style.display='none'">
+            <div style="font-size:18px;margin-bottom:2px;">🏠</div>
+            <div style="font-size:12px;font-weight:700;">기숙사</div>
+            <div style="font-size:10px;color:var(--t2);">인화1관·인화2관</div>
+          </div>
+          <div class="bld-card" onclick="showBld('food')">
+            <img src="https://ssup.kosmes.or.kr/img/sub/img_insititution03.png" style="width:100%;height:70px;object-fit:cover;border-radius:8px;margin-bottom:6px;" onerror="this.style.display='none'">
+            <div style="font-size:18px;margin-bottom:2px;">🍽️</div>
+            <div style="font-size:12px;font-weight:700;">식당 &amp; 매점</div>
+            <div style="font-size:10px;color:var(--t2);">3식 무료 제공</div>
+          </div>
+          <div class="bld-card" onclick="showBld('welfare')" style="grid-column:span 2;">
+            <img src="https://ssup.kosmes.or.kr/img/sub/img_insititution04.png" style="width:100%;height:80px;object-fit:cover;border-radius:8px;margin-bottom:6px;" onerror="this.style.display='none'">
+            <div style="font-size:18px;margin-bottom:2px;">🏃</div>
+            <div style="font-size:12px;font-weight:700;">편의시설</div>
+            <div style="font-size:10px;color:var(--t2);">헬스장·탁구장·도서실·PC방·플스방</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 시설 바텀시트 -->
+      <div id="bld-modal" onclick="if(event.target===this)this.style.display='none'" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9999;align-items:flex-end;justify-content:center;">
+        <div style="background:var(--bg);border-radius:20px 20px 0 0;width:100%;max-width:430px;padding:24px 20px 32px;box-shadow:0 -4px 24px rgba(0,0,0,.18);position:relative;">
+          <div style="width:40px;height:4px;background:var(--bd);border-radius:2px;margin:0 auto 16px;"></div>
+          <button onclick="document.getElementById('bld-modal').style.display='none'" style="position:absolute;top:16px;right:16px;background:none;border:none;font-size:20px;cursor:pointer;color:var(--t2);">✕</button>
+          <img id="bld-modal-img" src="" alt="" style="display:none;width:100%;height:160px;object-fit:cover;border-radius:12px;margin-bottom:14px;">
+          <div id="bld-modal-icon" style="font-size:36px;margin-bottom:8px;text-align:center;"></div>
+          <div id="bld-modal-title" style="font-size:17px;font-weight:800;text-align:center;margin-bottom:4px;color:var(--t0);"></div>
+          <div id="bld-modal-sub" style="font-size:12px;color:var(--t2);text-align:center;margin-bottom:16px;"></div>
+          <div id="bld-modal-body" style="font-size:13px;color:var(--t1);line-height:1.8;background:var(--c2);border-radius:12px;padding:14px 16px;"></div>
         </div>
       </div>
 
@@ -1219,63 +1257,43 @@ input[type=range]{flex:1;height:4px;border-radius:2px;outline:none;cursor:pointe
             <span style="font-size:10px;font-weight:700;color:#fff;">🤖 AI 이미지 자동 분류</span>
           </div>
           <div style="display:flex;gap:8px;margin-bottom:4px;">
-            <button onclick="document.getElementById('pf-camera').click()" style="flex:1;padding:14px 8px;background:#EEF2FF;border:1.5px solid #BAC8FF;border-radius:14px;cursor:pointer;font-size:12px;font-weight:700;color:var(--blue);">
-              <div style="font-size:24px;margin-bottom:4px;">📸</div>카메라로 찍기
-            </button>
-            <button onclick="document.getElementById('pf').click()" style="flex:1;padding:14px 8px;background:#F3F0FF;border:1.5px solid #D0BFFF;border-radius:14px;cursor:pointer;font-size:12px;font-weight:700;color:#6C5CE7;">
+            <label for="pf-camera" id="lbl-camera" style="flex:1;padding:14px 8px;background:#EEF2FF;border:1.5px solid #BAC8FF;border-radius:14px;cursor:pointer;font-size:12px;font-weight:700;color:var(--blue);text-align:center;display:flex;flex-direction:column;align-items:center;">
+              <div style="font-size:24px;margin-bottom:4px;">📸</div><span id="lbl-camera-txt">카메라로 찍기</span>
+            </label>
+            <label for="pf" style="flex:1;padding:14px 8px;background:#F3F0FF;border:1.5px solid #D0BFFF;border-radius:14px;cursor:pointer;font-size:12px;font-weight:700;color:#6C5CE7;text-align:center;display:flex;flex-direction:column;align-items:center;">
               <div style="font-size:24px;margin-bottom:4px;">🖼️</div>앨범에서 올리기
-            </button>
+            </label>
           </div>
           <div style="font-size:11px;color:var(--t2);text-align:center;margin-bottom:8px;">AI가 문제 유형을 자동으로 분석합니다</div>
+          <script>if(!('ontouchstart' in window)&&navigator.maxTouchPoints===0){var el=document.getElementById('lbl-camera-txt');if(el)el.textContent='파일로 올리기';}</script>
           <input type="file" id="pf-camera" accept="image/*" capture="environment" style="display:none" onchange="analyzeImg(this)">
           <input type="file" id="pf" accept="image/*" style="display:none" onchange="analyzeImg(this)">
           <div id="vision-result" style="display:none;margin:10px 0;"></div>
           <div style="font-size:12px;font-weight:700;color:var(--t1);margin:10px 0 6px;">또는 직접 선택</div>
           <div style="display:flex;flex-wrap:wrap;">
-            <button class="repty" onclick="srt(this)">💡 전기·조명</button>
-            <button class="repty" onclick="srt(this)">🌡️ 냉난방</button>
-            <button class="repty" onclick="srt(this)">🚪 시설 파손</button>
-            <button class="repty" onclick="srt(this)">🌐 인터넷</button>
-            <button class="repty" onclick="srt(this)">🧹 청소·위생</button>
-            <button class="repty" onclick="srt(this)">📦 기타</button>
+            <button class="repty" onclick="document.querySelectorAll('.repty').forEach(function(b){b.style.background='';b.style.color='';b.style.borderColor='';});this.style.background='#E64980';this.style.color='#fff';this.style.borderColor='#E64980'">💡 전기·조명</button>
+            <button class="repty" onclick="document.querySelectorAll('.repty').forEach(function(b){b.style.background='';b.style.color='';b.style.borderColor='';});this.style.background='#E64980';this.style.color='#fff';this.style.borderColor='#E64980'">🌡️ 냉난방</button>
+            <button class="repty" onclick="document.querySelectorAll('.repty').forEach(function(b){b.style.background='';b.style.color='';b.style.borderColor='';});this.style.background='#E64980';this.style.color='#fff';this.style.borderColor='#E64980'">🚪 시설 파손</button>
+            <button class="repty" onclick="document.querySelectorAll('.repty').forEach(function(b){b.style.background='';b.style.color='';b.style.borderColor='';});this.style.background='#E64980';this.style.color='#fff';this.style.borderColor='#E64980'">🌐 인터넷</button>
+            <button class="repty" onclick="document.querySelectorAll('.repty').forEach(function(b){b.style.background='';b.style.color='';b.style.borderColor='';});this.style.background='#E64980';this.style.color='#fff';this.style.borderColor='#E64980'">🧹 청소·위생</button>
+            <button class="repty" onclick="document.querySelectorAll('.repty').forEach(function(b){b.style.background='';b.style.color='';b.style.borderColor='';});this.style.background='#E64980';this.style.color='#fff';this.style.borderColor='#E64980'">📦 기타</button>
           </div>
           <textarea class="reptxt" id="reptxt" placeholder="불편 사항을 자세히 입력해주세요..."></textarea>
-          <button class="repsub" onclick="doRep()">📨 신고 접수하기</button>
-          <div class="repok" id="repok">✅ 접수 완료! 담당자가 빠르게 확인할게요 😊</div>
+          <button class="repsub" onclick="(function(){var t=document.getElementById('reptxt'),ok=document.getElementById('repok');if(!t||!t.value.trim()){ok.style.cssText='display:block!important;text-align:center;padding:14px;margin-top:10px;background:#FFF3CD;border-radius:12px;color:#856404;font-size:14px;font-weight:800;';ok.textContent='⚠️ 불편 내용을 입력해주세요';setTimeout(function(){ok.style.cssText='display:none!important';},3000);return;}t.value='';document.querySelectorAll('.repty').forEach(function(b){b.classList.remove('sel');});ok.style.cssText='display:block!important;text-align:center;padding:14px;margin-top:10px;background:#E6FCF5;border-radius:12px;color:#0CA678;font-size:14px;font-weight:800;border:1.5px solid #96F2D7;';ok.textContent='✅ 접수 완료! 담당자가 빠르게 확인할게요 😊';setTimeout(function(){ok.style.cssText='display:none!important';},5000);})()">📨 신고 접수하기</button>
+          <div class="repok" id="repok" style="display:none;">✅ 접수 완료! 담당자가 빠르게 확인할게요 😊</div>
         </div>
       </div>
       <!-- 시설 자주 묻는 질문 -->
       <div>
         <div class="stitle">❓ 시설 자주 묻는 질문</div>
         <div class="faq-sec">
-          <div class="faq-item">
-            <div class="faq-q" onclick="tgFaq(this)"><span>🏠 기숙사 귀관 시간이 언제예요?</span><span>▼</span></div>
-            <div class="faq-a">평일 오후 11시, 주말·공휴일 오후 10시입니다. 귀관 이후에는 외출이 제한됩니다.</div>
-          </div>
-          <div class="faq-item">
-            <div class="faq-q" onclick="tgFaq(this)"><span>🛏️ 방 배정은 어떻게 되나요?</span><span>▼</span></div>
-            <div class="faq-a">기본 2인 1실로 운영됩니다. 동료와 함께 이용을 원하실 경우 등록 후 고객센터(031-490-1472)로 문의해 주세요.</div>
-          </div>
-          <div class="faq-item">
-            <div class="faq-q" onclick="tgFaq(this)"><span>👕 세탁기·건조기는 어디 있나요?</span><span>▼</span></div>
-            <div class="faq-a">인화1관·인화2관 각 층 세탁실에 세탁기·건조기가 있습니다. 무료로 이용 가능하며 세제는 개인 지참 부탁드립니다.</div>
-          </div>
-          <div class="faq-item">
-            <div class="faq-q" onclick="tgFaq(this)"><span>🅿️ 주차는 어디에 하나요?</span><span>▼</span></div>
-            <div class="faq-a">원내 주차장을 이용하시면 됩니다. 만차 시 후문 건너편 제2주차장 이용 가능합니다.</div>
-          </div>
-          <div class="faq-item">
-            <div class="faq-q" onclick="tgFaq(this)"><span>🚭 흡연은 어디서 할 수 있나요?</span><span>▼</span></div>
-            <div class="faq-a">지정 흡연구역 외 전 구역 금연입니다. 흡연구역은 각 건물 외부 지정 장소를 이용해 주세요.</div>
-          </div>
-          <div class="faq-item">
-            <div class="faq-q" onclick="tgFaq(this)"><span>🏋️ 헬스장·탁구장 이용 시간은?</span><span>▼</span></div>
-            <div class="faq-a">인화2관에 위치하며 자유롭게 이용 가능합니다. 운동장은 24시간 개방이나 야간 조명은 22:00에 소등됩니다.</div>
-          </div>
-          <div class="faq-item">
-            <div class="faq-q" onclick="tgFaq(this)"><span>📚 강의실은 어디에 있나요?</span><span>▼</span></div>
-            <div class="faq-a">창의관(주 강의동) 1~4층에 강의실이 있습니다. 스마트실습실·세미나실도 창의관 내에 있으며, 수료식·특강은 별도 대강당에서 진행됩니다.</div>
-          </div>
+          <details class="faq-item"><summary class="faq-q"><span>🏠 기숙사 귀관 시간이 언제예요?</span><span class="faq-arr">▼</span></summary><div class="faq-a">평일 오후 11시입니다. 귀관 이후에는 외출이 제한됩니다.</div></details>
+          <details class="faq-item"><summary class="faq-q"><span>🛏️ 방 배정은 어떻게 되나요?</span><span class="faq-arr">▼</span></summary><div class="faq-a">기본 1인 1실로 운영됩니다. 문의사항은 고객센터(031-490-1472)로 연락해 주세요.</div></details>
+          <details class="faq-item"><summary class="faq-q"><span>👕 세탁기·건조기는 어디 있나요?</span><span class="faq-arr">▼</span></summary><div class="faq-a">인화1관·인화2관 각 층 세탁실에 세탁기·건조기가 있습니다. 무료로 이용 가능하며 세제는 개인 지참 부탁드립니다.</div></details>
+          <details class="faq-item"><summary class="faq-q"><span>🅿️ 주차는 어디에 하나요?</span><span class="faq-arr">▼</span></summary><div class="faq-a">원내 주차장을 이용하시면 됩니다. 만차 시 후문 건너편 제2주차장 이용 가능합니다.</div></details>
+          <details class="faq-item"><summary class="faq-q"><span>🚭 흡연은 어디서 할 수 있나요?</span><span class="faq-arr">▼</span></summary><div class="faq-a">지정 흡연구역 외 전 구역 금연입니다. 흡연구역은 각 건물 외부 지정 장소를 이용해 주세요.</div></details>
+          <details class="faq-item"><summary class="faq-q"><span>🏋️ 헬스장·탁구장 이용 시간은?</span><span class="faq-arr">▼</span></summary><div class="faq-a">인화2관에 위치하며 자유롭게 이용 가능합니다. 운동장은 24시간 개방이나 야간 조명은 22:00에 소등됩니다.</div></details>
+          <details class="faq-item"><summary class="faq-q"><span>📚 강의실은 어디에 있나요?</span><span class="faq-arr">▼</span></summary><div class="faq-a">창의관(주 강의동) 1~4층에 강의실이 있습니다. 스마트실습실·세미나실도 창의관 내에 있으며, 수료식·특강은 별도 대강당에서 진행됩니다.</div></details>
         </div>
       </div>
 
@@ -1392,6 +1410,39 @@ function personalizeApp(name){
     if(wc)wc.textContent=name+'님';
     document.querySelectorAll('.user-name').forEach(function(el){el.textContent=name;});
   }catch(e){}
+  renderTodaySchedule();
+}
+function renderTodaySchedule(){
+  const el=document.getElementById('welcome-sched-items');
+  if(!el)return;
+  const now=new Date();
+  const h=now.getHours(),m=now.getMinutes();
+  const cur=h*60+m;
+  const slots=[
+    {s:7*60+30,e:9*60,  ico:'🍳',label:'조식',      sub:'07:30 ~ 09:00'},
+    {s:9*60,   e:12*60, ico:'📖',label:'오전 강의',  sub:'09:00 ~ 12:00'},
+    {s:12*60,  e:13*60+30,ico:'🍱',label:'점심시간', sub:'12:00 ~ 13:30'},
+    {s:13*60+30,e:18*60,ico:'📖',label:'오후 강의',  sub:'13:30 ~ 18:00'},
+    {s:18*60,  e:19*60, ico:'🍽️',label:'석식',      sub:'18:00 ~ 19:00'},
+    {s:19*60,  e:23*60, ico:'🎮',label:'자유시간',   sub:'19:00 ~ 23:00'},
+    {s:23*60,  e:24*60, ico:'🏠',label:'귀관',       sub:'23:00'},
+  ];
+  const days=['일','월','화','수','목','금','토'];
+  const dateStr=now.getFullYear()+'년 '+(now.getMonth()+1)+'월 '+now.getDate()+'일 ('+days[now.getDay()]+')';
+  const hdr=el.previousElementSibling;
+  if(hdr)hdr.textContent='📅 '+dateStr+' 연수 일정';
+  el.innerHTML=slots.map(function(s){
+    const active=cur>=s.s&&cur<s.e;
+    const done=cur>=s.e;
+    return '<div style="display:flex;align-items:center;gap:8px;padding:4px 0;'+(active?'background:rgba(255,255,255,.15);border-radius:8px;padding:5px 8px;margin:-1px -4px;':'')+'opacity:'+(done?'0.45':'1')+'">'
+      +'<span style="font-size:14px;">'+s.ico+'</span>'
+      +'<div style="flex:1;min-width:0;">'
+        +'<span style="font-size:11px;font-weight:'+(active?'800':'600')+';color:'+(active?'#fff':'rgba(255,255,255,.85)')+';">'+s.label+'</span>'
+        +(active?'<span style="margin-left:6px;background:#20C997;color:#fff;font-size:9px;font-weight:700;padding:1px 5px;border-radius:6px;">진행중</span>':'')
+      +'</div>'
+      +'<span style="font-size:9px;color:rgba(255,255,255,.55);">'+s.sub+'</span>'
+    +'</div>';
+  }).join('');
 }
 window.addEventListener('load',function(){
   // 버튼에 직접 이벤트 연결 (onclick 속성 보완)
@@ -1419,49 +1470,48 @@ window.addEventListener('load',function(){
 
 /* 불편 신고 */
 function srt(btn){
-  document.querySelectorAll('.repty').forEach(function(b){b.classList.remove('on');});
-  btn.classList.add('on');
+  document.querySelectorAll('.repty').forEach(function(b){b.classList.remove('sel');});
+  btn.classList.add('sel');
 }
 function doRep(){
   var txt=document.getElementById('reptxt');
   var ok=document.getElementById('repok');
-  if(!txt||!txt.value.trim()){alert('내용을 입력해주세요.');return;}
-  if(txt)txt.value='';
-  document.querySelectorAll('.repty').forEach(function(b){b.classList.remove('on');});
+  if(!txt||!txt.value.trim()){
+    if(ok){
+      ok.style.cssText='display:block!important;text-align:center;padding:14px;margin-top:10px;background:#FFF3CD;border-radius:12px;color:#856404;font-size:14px;font-weight:800;border:1.5px solid #FFEEBA;';
+      ok.textContent='⚠️ 불편 내용을 입력해주세요';
+      setTimeout(function(){ok.style.cssText='display:none!important;';},3000);
+    }
+    return;
+  }
+  txt.value='';
+  document.querySelectorAll('.repty').forEach(function(b){b.classList.remove('sel');});
   if(ok){
     ok.style.cssText='display:block!important;text-align:center;padding:14px;margin-top:10px;background:#E6FCF5;border-radius:12px;color:#0CA678;font-size:14px;font-weight:800;border:1.5px solid #96F2D7;';
     ok.textContent='✅ 접수 완료! 담당자가 빠르게 확인할게요 😊';
-    setTimeout(function(){ok.style.display='none';},5000);
-  }
-}
-
-/* FAQ 토글 */
-function tgFaq(el){
-  var item=el.closest('.faq-item');
-  if(!item)return;
-  var ans=item.querySelector('.faq-a');
-  var isOpen=item.classList.contains('open');
-  document.querySelectorAll('.faq-item.open').forEach(function(i){
-    i.classList.remove('open');
-    var a=i.querySelector('.faq-a');
-    if(a)a.style.display='none';
-  });
-  if(!isOpen){
-    item.classList.add('open');
-    if(ans)ans.style.display='block';
+    setTimeout(function(){ok.style.cssText='display:none!important;';},5000);
   }
 }
 
 /* 시설 카드 */
+var BLD_INFO={
+  class:{icon:'🏫',name:'강의실',sub:'일반강의실 · PC실',img:'https://ssup.kosmes.or.kr/img/sub/img_insititution01.png',body:'📚 일반강의실: 창의관 1~4층\n💻 PC실: 스마트실습실 (창의관 내)\n🔊 빔프로젝터·마이크 완비\n📋 세미나실 별도 운영\n🕐 교육 일정에 따라 운영'},
+  smart:{icon:'🏭',name:'스마트공장배움터',sub:'실습 · 장비 공간',img:'https://ssup.kosmes.or.kr/img/sub/img_insititution01.png',body:'⚙️ 스마트공장 실습 전용 공간\n🤖 PLC·로봇·제조AI 장비 구비\n🔧 산업 현장 수준의 실습 환경\n👷 안전 수칙 필수 준수\n🕐 교육 과정 중 사용'},
+  dorm:{icon:'🏠',name:'기숙사',sub:'인화1관 · 인화2관',img:'https://ssup.kosmes.or.kr/img/sub/img_insititution02.png',body:'🛏️ 1인 1실 운영\n🚪 귀관: 평일 23:00\n📶 Wi-Fi 비밀번호: 1234512345\n👕 세탁기·건조기: 각 층 세탁실 (무료, 세제 지참)\n🔑 귀중품은 반드시 직접 관리\n📞 사감실 1관: 031-490-1325~6\n📞 사감실 2관: 031-490-1327~8'},
+  food:{icon:'🍽️',name:'식당 & 매점',sub:'3식 무료 제공',img:'https://ssup.kosmes.or.kr/img/sub/img_insititution03.png',body:'🍳 조식: 07:30 ~ 09:00\n🍱 중식: 11:30 ~ 13:30\n🍜 석식: 17:30 ~ 19:00\n☕ 카페: 월~목 08:00~18:30 / 금 08:00~15:30\n🛒 무인매점: 24시간 운영\n✅ 식비·숙박비 전액 무료 (정부 지원)'},
+  welfare:{icon:'🏃',name:'편의시설',sub:'인화2관 · 캠퍼스 내',img:'https://ssup.kosmes.or.kr/img/sub/img_insititution04.png',body:'💪 헬스장: 인화2관 (무료)\n🏓 탁구장: 인화2관 (무료)\n📖 도서실: 자유 이용\n🖥️ PC방: 자유 이용\n🎮 플스방: 자유 이용\n⚽ 운동장·다목적구장: 무료\n🕐 자유시간(19:00~) 이용 권장'}
+};
 function showBld(id){
-  var el=document.getElementById('bld-detail-'+id);
-  if(el){
-    el.style.display=el.style.display==='none'?'block':'none';
-    return;
-  }
-  // 모달 방식
-  var modal=document.getElementById('bld-modal');
-  if(modal){modal.style.display='flex';}
+  var d=BLD_INFO[id];
+  if(!d)return;
+  var imgEl=document.getElementById('bld-modal-img');
+  if(d.img){imgEl.src=d.img;imgEl.style.display='block';}
+  else{imgEl.style.display='none';}
+  document.getElementById('bld-modal-icon').textContent=d.icon;
+  document.getElementById('bld-modal-title').textContent=d.name;
+  document.getElementById('bld-modal-sub').textContent=d.sub;
+  document.getElementById('bld-modal-body').innerHTML=d.body.replace(/\n/g,'<br>');
+  document.getElementById('bld-modal').style.display='flex';
 }
 
 /* 탭 */
@@ -1533,12 +1583,120 @@ function addB(t){
   c.appendChild(r);scr();
 }
 
+function toggleMic(){alert('음성 입력은 준비 중입니다.');}
+
+/* ── TALK 핵심 함수 ── */
+async function send(){
+  const inp=document.getElementById('txtin');
+  const t=inp.value.trim();
+  if(!t)return;
+  addU(t);
+  inp.value='';inp.style.height='auto';
+  showT();
+  // RAG 우선 검색
+  const rag=RAG.find(r=>r.kw.some(k=>t.toLowerCase().includes(k.toLowerCase())));
+  if(rag){
+    await new Promise(r=>setTimeout(r,500));
+    rmT();
+    const ans=rag.fn?rag.fn():rag.ans;
+    addB(ans||'죄송합니다. 답변을 불러올 수 없습니다.');
+    hist.push({role:'user',content:t},{role:'assistant',content:String(ans||'')});
+    return;
+  }
+  // API 스트리밍
+  try{
+    const res=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:t,history:hist.slice(-10)})});
+    if(!res.ok){rmT();addB('죄송합니다. 오류가 발생했습니다. ('+res.status+')');return;}
+    const reader=res.body.getReader();
+    const dec=new TextDecoder();
+    let full='';
+    rmT();
+    const c=document.getElementById('msgs');
+    const row=document.createElement('div');row.className='mrow';
+    const bid='b'+Date.now();
+    row.innerHTML=`<div class="bico">🤖</div><div class="bwrap"><div class="bbl bot" id="${bid}"></div><span class="ts">${gt()}</span></div>`;
+    c.appendChild(row);scr();
+    const el=document.getElementById(bid);
+    while(true){
+      const{done,value}=await reader.read();
+      if(done)break;
+      const lines=dec.decode(value).split('\n');
+      for(const line of lines){
+        if(!line.startsWith('data:'))continue;
+        const d=line.slice(5).trim();
+        if(d==='[DONE]')continue;
+        try{const j=JSON.parse(d);if(j.type==='content_block_delta'&&j.delta?.text){full+=j.delta.text;el.innerHTML=full.replace(/\n/g,'<br>').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>');scr();}}catch(e){}
+      }
+    }
+    const wrap=row.querySelector('.bwrap');
+    const ad=document.createElement('div');
+    ad.innerHTML=`<div class="msg-actions"><button class="mact" onclick="doMsgAct('sum','${bid}',this)">📝 3줄 요약</button><button class="mact" onclick="doMsgAct('easy','${bid}',this)">💡 쉽게 설명</button></div><div class="lang-row"><button class="lbtn on" onclick="doLang('ko','${bid}',this)">🇰🇷 한국어</button><button class="lbtn" onclick="doLang('en','${bid}',this)">🇺🇸 English</button><button class="lbtn" onclick="doLang('id','${bid}',this)">🇮🇩 Bahasa</button></div>`;
+    wrap.appendChild(ad.children[0]);wrap.appendChild(ad.children[0]);
+    hist.push({role:'user',content:t},{role:'assistant',content:full});
+  }catch(e){rmT();addB('네트워크 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');}
+}
+
+async function doMsgAct(type,bid,btn){
+  const el=document.getElementById(bid);if(!el)return;
+  const orig=el.innerText;
+  const pm=type==='sum'?`다음 내용을 핵심만 3줄로 요약해주세요:\n${orig}`:`다음 내용을 중학생도 이해할 수 있게 쉽게 설명해주세요:\n${orig}`;
+  btn.disabled=true;btn.style.opacity='0.5';
+  try{
+    const res=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:pm,history:[]})});
+    if(!res.ok){btn.disabled=false;btn.style.opacity='1';return;}
+    const reader=res.body.getReader();const dec=new TextDecoder();let full='';
+    while(true){const{done,value}=await reader.read();if(done)break;const lines=dec.decode(value).split('\n');for(const line of lines){if(!line.startsWith('data:'))continue;const d=line.slice(5).trim();if(d==='[DONE]')continue;try{const j=JSON.parse(d);if(j.type==='content_block_delta'&&j.delta?.text){full+=j.delta.text;el.innerHTML=full.replace(/\n/g,'<br>').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>');scr();}}catch(e){}}}
+  }catch(e){}
+  btn.disabled=false;btn.style.opacity='1';
+}
+
+async function doLang(lang,bid,btn){
+  const el=document.getElementById(bid);if(!el)return;
+  document.querySelectorAll(`[onclick*="${bid}"].lbtn`).forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  if(lang==='ko'){el.innerHTML=el.getAttribute('data-ko')||el.innerHTML;return;}
+  if(!el.getAttribute('data-ko'))el.setAttribute('data-ko',el.innerHTML);
+  const orig=el.innerText;
+  const lname=lang==='en'?'English':'Bahasa Indonesia';
+  try{
+    const res=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:`Translate to ${lname} (reply ONLY with the translation, no explanation):\n${orig}`,history:[]})});
+    if(!res.ok)return;
+    const reader=res.body.getReader();const dec=new TextDecoder();let full='';
+    while(true){const{done,value}=await reader.read();if(done)break;const lines=dec.decode(value).split('\n');for(const line of lines){if(!line.startsWith('data:'))continue;const d=line.slice(5).trim();if(d==='[DONE]')continue;try{const j=JSON.parse(d);if(j.type==='content_block_delta'&&j.delta?.text){full+=j.delta.text;el.innerHTML=full.replace(/\n/g,'<br>');scr();}}catch(e){}}}
+  }catch(e){}
+}
+
+async function analyzeImg(input){
+  if(!input.files||!input.files[0])return;
+  const file=input.files[0];
+  const reader=new FileReader();
+  reader.onload=async function(e){
+    const b64=e.target.result.split(',')[1];
+    const vr=document.getElementById('vision-result');
+    vr.style.display='block';vr.innerHTML='<div style="text-align:center;color:var(--t2);font-size:12px;">🤖 AI 분석 중...</div>';
+    try{
+      const res=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:'이 이미지를 보고 불편 신고 유형을 분류해주세요. (전기·조명/냉난방/시설파손/인터넷/청소·위생/기타 중 하나) 그리고 문제 상황을 2줄로 설명해주세요.',history:[],image:{data:b64,media_type:file.type}})});
+      const reader2=res.body.getReader();const dec=new TextDecoder();let full='';
+      while(true){const{done,value}=await reader2.read();if(done)break;const lines=dec.decode(value).split('\n');for(const line of lines){if(!line.startsWith('data:'))continue;const d=line.slice(5).trim();if(d==='[DONE]')continue;try{const j=JSON.parse(d);if(j.type==='content_block_delta'&&j.delta?.text){full+=j.delta.text;}}catch(e){}}}
+      vr.innerHTML=`<div style="background:var(--c2);border-radius:10px;padding:10px 12px;font-size:12px;color:var(--t1);">🤖 ${full.replace(/\n/g,'<br>')}</div>`;
+    }catch(e){vr.innerHTML='<div style="font-size:12px;color:var(--t2);">분석에 실패했습니다.</div>';}
+  };
+  reader.readAsDataURL(file);
+}
+
+function openQR(){
+  const cam=document.getElementById('pf-camera');
+  if(cam)cam.click();
+}
+
 /* VIEW FAQ 토글 */
 function tgFaq(el){
-  const a=el.nextElementSibling;
-  const sp=el.querySelector("span:last-child");
-  a.classList.toggle("open");
-  sp.style.transform=a.classList.contains("open")?"rotate(180deg)":"";
+  var a=el.nextElementSibling;
+  if(!a)return;
+  var isOpen=a.style.display==='block';
+  a.style.display=isOpen?'none':'block';
+  var sp=el.querySelector('span:last-child');
+  if(sp)sp.style.transform=isOpen?'':'rotate(180deg)';
 }
 
 /* FAQ 접기 */
