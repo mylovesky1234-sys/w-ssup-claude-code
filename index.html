@@ -866,13 +866,13 @@ details[open] .faq-arr{transform:rotate(180deg);}
             </div>
             <div id="faq-list" style="max-height:0;overflow:hidden;transition:max-height .35s ease;">
               <div style="padding:0 10px 10px;display:flex;flex-direction:column;gap:5px;">
-                <button class="faq-top" onclick="sq('출석 처리는 어떻게 하나요?')"><span class="faq-rank rank1">1</span><span style="font-size:15px;">✅</span>출석 처리는 어떻게 하나요?</button>
-                <button class="faq-top" onclick="sq('수료 기준이 어떻게 되나요?')"><span class="faq-rank rank2">2</span><span style="font-size:15px;">🎓</span>수료 기준이 어떻게 되나요?</button>
-                <button class="faq-top" onclick="sq('교육비 납부는 어떻게 하나요?')"><span class="faq-rank rank3">3</span>💳 교육비 납부는 어떻게 하나요?</button>
-                <button class="faq-top" onclick="sq('수료증은 어떻게 받나요?')"><span class="faq-rank">4</span>📜 수료증은 어떻게 받나요?</button>
-                <button class="faq-top" onclick="sq('숙소 Wi-Fi 비밀번호가 뭐예요?')"><span class="faq-rank">5</span>📶 숙소 Wi-Fi 비밀번호가 뭐예요?</button>
-                <button class="faq-top" onclick="sq('고용보험 환급은 어떻게 받나요?')"><span class="faq-rank">6</span>💰 고용보험 환급은 어떻게 받나요?</button>
-                <button class="faq-top" onclick="sq('셔틀버스 시간표가 어떻게 되나요?')"><span class="faq-rank">7</span><span style="font-size:15px;">🚌</span>셔틀버스 시간표가 어떻게 되나요?</button>
+                <button class="faq-top" onclick="closeFaq();sq('출석 처리는 어떻게 하나요?')"><span class="faq-rank rank1">1</span><span style="font-size:15px;">✅</span>출석 처리는 어떻게 하나요?</button>
+                <button class="faq-top" onclick="closeFaq();sq('수료 기준이 어떻게 되나요?')"><span class="faq-rank rank2">2</span><span style="font-size:15px;">🎓</span>수료 기준이 어떻게 되나요?</button>
+                <button class="faq-top" onclick="closeFaq();sq('교육비 납부는 어떻게 하나요?')"><span class="faq-rank rank3">3</span>💳 교육비 납부는 어떻게 하나요?</button>
+                <button class="faq-top" onclick="closeFaq();sq('수료증은 어떻게 받나요?')"><span class="faq-rank">4</span>📜 수료증은 어떻게 받나요?</button>
+                <button class="faq-top" onclick="closeFaq();sq('숙소 Wi-Fi 비밀번호가 뭐예요?')"><span class="faq-rank">5</span>📶 숙소 Wi-Fi 비밀번호가 뭐예요?</button>
+                <button class="faq-top" onclick="closeFaq();sq('고용보험 환급은 어떻게 받나요?')"><span class="faq-rank">6</span>💰 고용보험 환급은 어떻게 받나요?</button>
+                <button class="faq-top" onclick="closeFaq();sq('셔틀버스 시간표가 어떻게 되나요?')"><span class="faq-rank">7</span><span style="font-size:15px;">🚌</span>셔틀버스 시간표가 어떻게 되나요?</button>
               </div>
             </div>
           </div>
@@ -896,7 +896,7 @@ details[open] .faq-arr{transform:rotate(180deg);}
     </div>
     <div class="hint" style="display:flex;align-items:center;justify-content:space-between;padding:4px 12px 6px;">
       <span>↵ Enter 전송 · ⇧ Shift+Enter 줄바꿈</span>
-      <button onclick="sq('담당자에게 연락하고 싶어요')" style="background:none;border:none;font-size:11px;font-weight:700;color:var(--blue);cursor:pointer;padding:2px 6px;border-radius:8px;white-space:nowrap;">📞 담당자 연결</button>
+      <button onclick="openModal('emer')" style="background:none;border:none;font-size:11px;font-weight:700;color:var(--blue);cursor:pointer;padding:2px 6px;border-radius:8px;white-space:nowrap;">📞 담당자 연결</button>
     </div>
   </div>
 
@@ -1333,6 +1333,7 @@ details[open] .faq-arr{transform:rotate(180deg);}
       <div class="emer-item"><div class="emer-ico blue">🏢</div><div><div class="emer-nm">과정 담당 사무실</div><div class="emer-num">봉사관 206호 / 031-490-1294</div></div><button class="emer-call" onclick="location.href='tel:0314901294'">전화</button></div>
       <div class="emer-item"><div class="emer-ico green">🏠</div><div><div class="emer-nm">사감실 인화1관</div><div class="emer-num">031-490-1325~6</div></div><button class="emer-call" onclick="location.href='tel:0314901325'">전화</button></div>
       <div class="emer-item"><div class="emer-ico green">🏠</div><div><div class="emer-nm">사감실 인화2관</div><div class="emer-num">031-490-1327~8</div></div><button class="emer-call" onclick="location.href='tel:0314901327'">전화</button></div>
+      <div class="emer-item"><div class="emer-ico blue">📞</div><div><div class="emer-nm">고객지원팀</div><div class="emer-num">031-490-1472</div></div><button class="emer-call" onclick="location.href='tel:0314901472'">전화</button></div>
     </div>
     <div style="margin-top:12px;font-size:11px;color:var(--t2);background:var(--surf);padding:10px;border-radius:10px;line-height:1.6;">💡 과정별 담당자 문의는 수강 과정 안내문을 확인해주세요.</div>
   </div>
@@ -1966,6 +1967,11 @@ function toggleFaq(){
   faqOpen=!faqOpen;
   document.getElementById('faq-list').style.maxHeight=faqOpen?'500px':'0';
   document.getElementById('faq-arrow').style.transform=faqOpen?'rotate(180deg)':'rotate(0)';
+}
+function closeFaq(){
+  faqOpen=false;
+  document.getElementById('faq-list').style.maxHeight='0';
+  document.getElementById('faq-arrow').style.transform='rotate(0)';
 }
 
 /* RAG */
