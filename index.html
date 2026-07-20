@@ -680,6 +680,9 @@ details[open] .faq-arr{transform:rotate(180deg);}
 .cmap-pin.dragging{opacity:.85;z-index:20;}
 .cmap-edit-bar{display:none;background:var(--blue);color:#fff;border-radius:12px;padding:10px 14px;margin-bottom:8px;font-size:12px;font-weight:700;text-align:center;cursor:pointer;}
 .cmap-edit-bar.on{display:block;}
+@keyframes pinBlink{0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(230,73,128,.7);}50%{transform:scale(1.35);box-shadow:0 0 0 6px rgba(230,73,128,0);}}
+.cmap-pin.dest .pin-dot{background:var(--pink)!important;animation:pinBlink .8s ease-in-out infinite;}
+.cmap-pin.dest .pin-lbl{background:var(--pink);color:#fff;font-weight:800;}
 .pin-lbl{display:none;}
 .pin-dot{display:none;}.fp-sheet{display:none;border-radius:14px;overflow:hidden;margin:8px 0;background:var(--surf);border:1.5px solid var(--border);}
 .fp-sheet.open{display:block;}
@@ -1003,49 +1006,37 @@ details[open] .faq-arr{transform:rotate(180deg);}
           </svg>
           <div class="cmap-overlay"></div>
           <!-- 인화1관 -->
-          <div class="cmap-pin" style="left:9%;top:8%" onclick="showCampusPin('인화1관')">
+          <div class="cmap-pin" data-name="인화1관" style="left:9%;top:8%" onclick="showCampusPin('인화1관')">
             <div class="pin-lbl">인화1관</div><div class="pin-dot"></div>
           </div>
-          <!-- 인화2관 -->
-          <div class="cmap-pin" style="left:6%;top:38%" onclick="showCampusPin('인화2관')">
+          <div class="cmap-pin" data-name="인화2관" style="left:6%;top:38%" onclick="showCampusPin('인화2관')">
             <div class="pin-lbl">인화2관</div><div class="pin-dot"></div>
           </div>
-          <!-- 교류동(식당) -->
-          <div class="cmap-pin" style="left:22%;top:18%" onclick="showCampusPin('교류동')">
+          <div class="cmap-pin" data-name="교류동" style="left:22%;top:18%" onclick="showCampusPin('교류동')">
             <div class="pin-lbl">교류동·식당</div><div class="pin-dot"></div>
           </div>
-          <!-- 실험동 -->
-          <div class="cmap-pin" style="left:27%;top:36%" onclick="showCampusPin('실험동')">
+          <div class="cmap-pin" data-name="실험동" style="left:27%;top:36%" onclick="showCampusPin('실험동')">
             <div class="pin-lbl">실험동</div><div class="pin-dot"></div>
           </div>
-          <!-- 봉사관 -->
-          <div class="cmap-pin main" style="left:40%;top:40%" onclick="showCampusPin('봉사관')">
+          <div class="cmap-pin main" data-name="봉사관" style="left:40%;top:40%" onclick="showCampusPin('봉사관')">
             <div class="pin-lbl">봉사관</div><div class="pin-dot"></div>
           </div>
-
-
-          <!-- 창의관 -->
-          <div class="cmap-pin" style="left:60%;top:18%" onclick="showCampusPin('창의관')">
+          <div class="cmap-pin" data-name="창의관" style="left:60%;top:18%" onclick="showCampusPin('창의관')">
             <div class="pin-lbl">창의관</div><div class="pin-dot"></div>
           </div>
-          <!-- 대강당 -->
-          <div class="cmap-pin" style="left:67%;top:32%" onclick="showCampusPin('대강당')">
+          <div class="cmap-pin" data-name="대강당" style="left:67%;top:32%" onclick="showCampusPin('대강당')">
             <div class="pin-lbl">대강당</div><div class="pin-dot"></div>
           </div>
-          <!-- 운동장 -->
-          <div class="cmap-pin" style="left:83%;top:40%" onclick="showCampusPin('운동장')">
+          <div class="cmap-pin" data-name="운동장" style="left:83%;top:40%" onclick="showCampusPin('운동장')">
             <div class="pin-lbl">운동장</div><div class="pin-dot"></div>
           </div>
-          <!-- 정문 -->
-          <div class="cmap-pin" style="left:48%;top:78%" onclick="showCampusPin('정문')">
+          <div class="cmap-pin" data-name="정문" style="left:48%;top:78%" onclick="showCampusPin('정문')">
             <div class="pin-lbl">정문</div><div class="pin-dot"></div>
           </div>
-          <!-- 주차장 -->
-          <div class="cmap-pin" style="left:76%;top:72%" onclick="showCampusPin('주차장')">
+          <div class="cmap-pin" data-name="주차장" style="left:76%;top:72%" onclick="showCampusPin('주차장')">
             <div class="pin-lbl">주차장</div><div class="pin-dot"></div>
           </div>
-          <!-- 제2주차장 (직원숙소 위치) -->
-          <div class="cmap-pin" style="left:36%;top:90%" onclick="showCampusPin('제2주차장')">
+          <div class="cmap-pin" data-name="제2주차장" style="left:36%;top:90%" onclick="showCampusPin('제2주차장')">
             <div class="pin-lbl">제2주차장</div><div class="pin-dot"></div>
           </div>
           <div class="cmap-credit">© KOSMES</div>
@@ -1140,6 +1131,7 @@ details[open] .faq-arr{transform:rotate(180deg);}
           <div id="bld-modal-title" style="font-size:17px;font-weight:800;text-align:center;margin-bottom:4px;color:var(--t0);"></div>
           <div id="bld-modal-sub" style="font-size:12px;color:var(--t2);text-align:center;margin-bottom:16px;"></div>
           <div id="bld-modal-body" style="font-size:13px;color:var(--t1);line-height:1.8;background:var(--c2);border-radius:12px;padding:14px 16px;"></div>
+          <button id="bld-modal-nav-btn" onclick="(function(){var m=document.getElementById('bld-modal');var t=m.dataset.target;m.style.display='none';var vw=document.getElementById('p-view');if(vw){document.querySelectorAll('.tab').forEach(function(b){b.classList.remove('on');});document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('on');});vw.classList.add('on');var tb=document.querySelector('.tab[onclick*=\"view\"]');if(tb)tb.classList.add('on');}setTimeout(function(){if(t)showCampusPin(t);var wrap=document.querySelector('.cmap-wrap');if(wrap)wrap.scrollIntoView({behavior:'smooth',block:'center'});},300);})();" style="margin-top:14px;width:100%;background:var(--pink);color:#fff;border:none;border-radius:14px;padding:13px;font-size:14px;font-weight:800;cursor:pointer;">🗺️ 지도에서 길찾기</button>
         </div>
       </div>
 
@@ -1495,11 +1487,11 @@ function doRep(){
 
 /* 시설 카드 */
 var BLD_INFO={
-  class:{icon:'🏫',name:'강의실',sub:'일반강의실 · PC실',img:'https://ssup.kosmes.or.kr/img/sub/img_insititution01.png',body:'📚 일반강의실: 창의관 1~4층\n💻 PC실: 스마트실습실 (창의관 내)\n🔊 빔프로젝터·마이크 완비\n📋 세미나실 별도 운영\n🕐 교육 일정에 따라 운영'},
-  smart:{icon:'🏭',name:'스마트공장배움터',sub:'실습 · 장비 공간',img:'https://ssup.kosmes.or.kr/img/sub/img_insititution01.png',body:'⚙️ 스마트공장 실습 전용 공간\n🤖 PLC·로봇·제조AI 장비 구비\n🔧 산업 현장 수준의 실습 환경\n👷 안전 수칙 필수 준수\n🕐 교육 과정 중 사용'},
-  dorm:{icon:'🏠',name:'기숙사',sub:'인화1관 · 인화2관',img:'https://ssup.kosmes.or.kr/img/sub/img_insititution02.png',body:'🛏️ 1인 1실 운영\n🚪 귀관: 평일 23:00\n📶 Wi-Fi 비밀번호: 1234512345\n👕 세탁기·건조기: 각 층 세탁실 (무료, 세제 지참)\n🔑 귀중품은 반드시 직접 관리\n📞 사감실 1관: 031-490-1325~6\n📞 사감실 2관: 031-490-1327~8'},
-  food:{icon:'🍽️',name:'식당 & 매점',sub:'3식 무료 제공',img:'https://ssup.kosmes.or.kr/img/sub/img_insititution03.png',body:'🍳 조식: 07:30 ~ 09:00\n🍱 중식: 11:30 ~ 13:30\n🍜 석식: 17:30 ~ 19:00\n☕ 카페: 월~목 08:00~18:30 / 금 08:00~15:30\n🛒 무인매점: 24시간 운영\n✅ 식비·숙박비 전액 무료 (정부 지원)'},
-  welfare:{icon:'🏃',name:'편의시설',sub:'인화2관 · 캠퍼스 내',img:'https://ssup.kosmes.or.kr/img/sub/img_insititution04.png',body:'💪 헬스장: 인화2관 (무료)\n🏓 탁구장: 인화2관 (무료)\n📖 도서실: 자유 이용\n🖥️ PC방: 자유 이용\n🎮 플스방: 자유 이용\n⚽ 운동장·다목적구장: 무료\n🕐 자유시간(19:00~) 이용 권장'}
+  class:{icon:'🏫',name:'강의실',sub:'일반강의실 · PC실',img:'https://ssup.kosmes.or.kr/img/sub/img_insititution01.png',target:'창의관',body:'📚 일반강의실: 창의관 1~4층\n💻 PC실: 스마트실습실 (창의관 내)\n🔊 빔프로젝터·마이크 완비\n📋 세미나실 별도 운영\n🕐 교육 일정에 따라 운영'},
+  smart:{icon:'🏭',name:'스마트공장배움터',sub:'실습 · 장비 공간',img:'https://ssup.kosmes.or.kr/img/sub/img_insititution01.png',target:'실험동',body:'⚙️ 스마트공장 실습 전용 공간\n🤖 PLC·로봇·제조AI 장비 구비\n🔧 산업 현장 수준의 실습 환경\n👷 안전 수칙 필수 준수\n🕐 교육 과정 중 사용'},
+  dorm:{icon:'🏠',name:'기숙사',sub:'인화1관 · 인화2관',img:'https://ssup.kosmes.or.kr/img/sub/img_insititution02.png',target:'인화1관',body:'🛏️ 1인 1실 운영\n🚪 귀관: 평일 23:00\n📶 Wi-Fi 비밀번호: 1234512345\n👕 세탁기·건조기: 각 층 세탁실 (무료, 세제 지참)\n🔑 귀중품은 반드시 직접 관리\n📞 사감실 1관: 031-490-1325~6\n📞 사감실 2관: 031-490-1327~8'},
+  food:{icon:'🍽️',name:'식당 & 매점',sub:'3식 무료 제공',img:'https://ssup.kosmes.or.kr/img/sub/img_insititution03.png',target:'교류동',body:'🍳 조식: 07:30 ~ 09:00\n🍱 중식: 11:30 ~ 13:30\n🍜 석식: 17:30 ~ 19:00\n☕ 카페: 월~목 08:00~18:30 / 금 08:00~15:30\n🛒 무인매점: 24시간 운영\n✅ 식비·숙박비 전액 무료 (정부 지원)'},
+  welfare:{icon:'🏃',name:'편의시설',sub:'인화2관 · 캠퍼스 내',img:'https://ssup.kosmes.or.kr/img/sub/img_insititution04.png',target:'인화2관',body:'💪 헬스장: 인화2관 (무료)\n🏓 탁구장: 인화2관 (무료)\n📖 도서실: 자유 이용\n🖥️ PC방: 자유 이용\n🎮 플스방: 자유 이용\n⚽ 운동장·다목적구장: 무료\n🕐 자유시간(19:00~) 이용 권장'}
 };
 function showBld(id){
   var d=BLD_INFO[id];
@@ -1511,7 +1503,9 @@ function showBld(id){
   document.getElementById('bld-modal-title').textContent=d.name;
   document.getElementById('bld-modal-sub').textContent=d.sub;
   document.getElementById('bld-modal-body').innerHTML=d.body.replace(/\n/g,'<br>');
-  document.getElementById('bld-modal').style.display='flex';
+  var modal=document.getElementById('bld-modal');
+  modal.dataset.target=d.target||'';
+  modal.style.display='flex';
 }
 
 /* 탭 */
@@ -2085,10 +2079,16 @@ function savePinPositions(){
     });
   });
 })();function showRoute(name){
+  // 기존 dest 반짝임 제거
+  document.querySelectorAll('.cmap-pin.dest').forEach(function(p){p.classList.remove('dest');});
   const key=Object.keys(ROUTE_DATA).find(k=>name.includes(k)||k.includes(name));
   const layer=document.getElementById('route-layer');
   if(!layer)return;
   if(!key){layer.innerHTML='';layer.style.display='none';return;}
+  // 목적지 핀 반짝임
+  document.querySelectorAll('.cmap-pin[data-name]').forEach(function(p){
+    if(p.dataset.name===key||name.includes(p.dataset.name)||p.dataset.name.includes(name))p.classList.add('dest');
+  });
   const r=ROUTE_DATA[key];
   const pts=r.pts;
   const dest=r.dest;
