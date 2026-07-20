@@ -1100,7 +1100,7 @@ details[open] .faq-arr{transform:rotate(180deg);}
         <div style="background:var(--bg);border-radius:20px 20px 0 0;width:100%;max-width:430px;padding:24px 20px 32px;box-shadow:0 -4px 24px rgba(0,0,0,.18);position:relative;">
           <div style="width:40px;height:4px;background:var(--bd);border-radius:2px;margin:0 auto 16px;"></div>
           <button onclick="document.getElementById('bld-modal').style.display='none'" style="position:absolute;top:16px;right:16px;background:none;border:none;font-size:20px;cursor:pointer;color:var(--t2);">✕</button>
-          <img id="bld-modal-img" src="" alt="" style="display:none;width:100%;height:160px;object-fit:cover;border-radius:12px;margin-bottom:14px;">
+          <div id="bld-modal-gallery" style="display:none;margin-bottom:14px;"></div>
           <div id="bld-modal-icon" style="font-size:36px;margin-bottom:8px;text-align:center;"></div>
           <div id="bld-modal-title" style="font-size:17px;font-weight:800;text-align:center;margin-bottom:4px;color:var(--t0);"></div>
           <div id="bld-modal-sub" style="font-size:12px;color:var(--t2);text-align:center;margin-bottom:16px;"></div>
@@ -1530,19 +1530,32 @@ function doRep(){
 }
 
 /* 시설 카드 */
+var B='https://ssup.kosmes.or.kr/img/sub/';
 var BLD_INFO={
-  class:{icon:'🏫',name:'강의실',sub:'일반강의실 · PC실',img:'https://ssup.kosmes.or.kr/img/sub/img_insititution01.png',target:'창의관',body:'📚 일반강의실: 창의관 1~4층\n💻 PC실: 스마트실습실 (창의관 내)\n🔊 빔프로젝터·마이크 완비\n📋 세미나실 별도 운영\n🕐 교육 일정에 따라 운영'},
-  smart:{icon:'🏭',name:'스마트공장배움터',sub:'실습 · 장비 공간',img:'https://ssup.kosmes.or.kr/img/sub/img_center001.png',target:'실험동',body:'⚙️ 스마트공장 실습 전용 공간\n🤖 PLC·로봇·제조AI 장비 구비\n🔧 산업 현장 수준의 실습 환경\n👷 안전 수칙 필수 준수\n🕐 교육 과정 중 사용'},
-  dorm:{icon:'🏠',name:'기숙사',sub:'인화1관 · 인화2관',img:'https://ssup.kosmes.or.kr/img/sub/img_insititution02.png',target:'인화1관',body:'🛏️ 1인 1실 운영\n🚪 귀관: 평일 23:00\n📶 Wi-Fi 비밀번호: 1234512345\n👕 세탁기·건조기: 각 층 세탁실 (무료, 세제 지참)\n🔑 귀중품은 반드시 직접 관리\n📞 사감실 1관: 031-490-1325~6\n📞 사감실 2관: 031-490-1327~8'},
-  food:{icon:'🍽️',name:'식당 & 매점',sub:'3식 무료 제공',img:'https://ssup.kosmes.or.kr/img/sub/img_insititution03.png',target:'교류동',body:'🍳 조식: 07:30 ~ 09:00\n🍱 중식: 11:30 ~ 13:30\n🍜 석식: 17:30 ~ 19:00\n☕ 카페: 월~목 08:00~18:30 / 금 08:00~15:30\n🛒 무인매점: 24시간 운영\n✅ 식비·숙박비 전액 무료 (정부 지원)'},
-  welfare:{icon:'🏃',name:'편의시설',sub:'인화2관 · 캠퍼스 내',img:'https://ssup.kosmes.or.kr/img/sub/img_insititution04.png',target:'인화2관',body:'💪 헬스장: 인화2관 (무료)\n🏓 탁구장: 인화2관 (무료)\n📖 도서실: 자유 이용\n🖥️ PC방: 자유 이용\n🎮 플스방: 자유 이용\n⚽ 운동장·다목적구장: 무료\n🕐 자유시간(19:00~) 이용 권장'}
+  class:{icon:'🏫',name:'강의실',sub:'일반강의실 · PC실',target:'창의관',
+    imgs:[B+'img_insititution01.png',B+'img_center001.png'],
+    body:'📚 일반강의실: 창의관 1~4층\n💻 PC실: 스마트실습실 (창의관 내)\n🔊 빔프로젝터·마이크 완비\n📋 세미나실 별도 운영\n🕐 교육 일정에 따라 운영'},
+  smart:{icon:'🏭',name:'스마트공장배움터',sub:'실습 · 장비 공간',target:'실험동',
+    imgs:[B+'img_center001.png',B+'img_insititution01.png'],
+    body:'⚙️ 스마트공장 실습 전용 공간\n🤖 PLC·로봇·제조AI 장비 구비\n🔧 산업 현장 수준의 실습 환경\n👷 안전 수칙 필수 준수\n🕐 교육 과정 중 사용'},
+  dorm:{icon:'🏠',name:'기숙사',sub:'인화1관 · 인화2관',target:'인화1관',
+    imgs:[B+'img_insititution02.png',B+'img_center001.png'],
+    body:'🛏️ 1인 1실 운영\n🚪 귀관: 평일 23:00\n📶 Wi-Fi 비밀번호: 1234512345\n👕 세탁기·건조기: 각 층 세탁실 (무료, 세제 지참)\n🔑 귀중품은 반드시 직접 관리\n📞 사감실 1관: 031-490-1325~6\n📞 사감실 2관: 031-490-1327~8'},
+  food:{icon:'🍽️',name:'식당 & 매점',sub:'3식 무료 제공',target:'교류동',
+    imgs:[B+'img_insititution03.png',B+'img_center001.png'],
+    body:'🍳 조식: 07:30 ~ 09:00\n🍱 중식: 11:30 ~ 13:30\n🍜 석식: 17:30 ~ 19:00\n☕ 카페: 월~목 08:00~18:30 / 금 08:00~15:30\n🛒 무인매점: 24시간 운영\n✅ 식비·숙박비 전액 무료 (정부 지원)'}
 };
 function showBld(id){
-  var d=BLD_INFO[id];
-  if(!d)return;
-  var imgEl=document.getElementById('bld-modal-img');
-  if(d.img){imgEl.src=d.img;imgEl.style.display='block';}
-  else{imgEl.style.display='none';}
+  var d=BLD_INFO[id]; if(!d)return;
+  // 이미지 갤러리
+  var gallery=document.getElementById('bld-modal-gallery');
+  var imgs=d.imgs||[];
+  if(imgs.length>0){
+    gallery.style.display='block';
+    gallery.innerHTML='<div style="display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding-bottom:4px;">'+
+      imgs.map(function(src,i){return '<img src="'+src+'" style="height:150px;'+(i===0?'min-width:100%':'min-width:80%')+';object-fit:cover;border-radius:12px;flex-shrink:0;" onerror="this.style.display=\'none\'">';}).join('')+
+    '</div>';
+  } else { gallery.style.display='none'; }
   document.getElementById('bld-modal-icon').textContent=d.icon;
   document.getElementById('bld-modal-title').textContent=d.name;
   document.getElementById('bld-modal-sub').textContent=d.sub;
@@ -1725,6 +1738,57 @@ async function analyzeImg(input){
 function openQR(){
   const cam=document.getElementById('pf-camera');
   if(cam)cam.click();
+}
+
+/* 오는 길 탭 전환 */
+function swR(id,btn){
+  document.querySelectorAll('.rtab').forEach(function(b){b.classList.remove('on');});
+  document.querySelectorAll('.rpanel').forEach(function(p){p.classList.remove('on');});
+  if(btn)btn.classList.add('on');
+  var panel=document.getElementById('rt-'+id);
+  if(panel)panel.classList.add('on');
+}
+
+/* QR 스캔 모달 닫기 */
+var _qrStream=null;
+function stopQR(){
+  if(_qrStream){_qrStream.getTracks().forEach(function(t){t.stop();});_qrStream=null;}
+  closeModal('qr');
+}
+
+/* 대화 기록 보기 */
+function showChatLog(){
+  var body=document.getElementById('chatlog-body');
+  if(!body)return;
+  if(!hist||hist.length===0){body.innerHTML='<div style="text-align:center;padding:30px;color:var(--t2);font-size:13px;">아직 대화 기록이 없어요 💬</div>';}
+  else{
+    body.innerHTML=hist.map(function(m){
+      var isMe=m.role==='user';
+      return '<div style="margin-bottom:8px;text-align:'+(isMe?'right':'left')+'"><div style="display:inline-block;max-width:80%;padding:8px 12px;border-radius:12px;font-size:12px;line-height:1.6;background:'+(isMe?'var(--blue)':'var(--surf2)')+';color:'+(isMe?'#fff':'var(--t1)')+';">'+m.content.replace(/</g,'&lt;').replace(/\n/g,'<br>')+'</div></div>';
+    }).join('');
+  }
+  openModal('chatlog');
+}
+
+/* 대화 기록 삭제 */
+function clearChatLog(){
+  if(!confirm('대화 기록을 모두 삭제할까요?'))return;
+  hist=[];
+  var body=document.getElementById('chatlog-body');
+  if(body)body.innerHTML='<div style="text-align:center;padding:30px;color:var(--t2);font-size:13px;">대화 기록이 삭제됐어요 🗑</div>';
+}
+
+/* 식단 모달 초기화 */
+function initMealModal(){
+  var c=document.getElementById('meal-content');
+  if(!c)return;
+  var wd=new Date().getDay();if(wd===0||wd===6)wd=1;
+  var md=MEAL_DATA[wd]||MEAL_DATA[1];
+  var days=['','월','화','수','목','금'];
+  c.innerHTML='<div style="font-size:12px;color:var(--t2);margin-bottom:12px;">'+days[wd]+'요일 식단 · 교류동 식당</div>'+
+    [['🍳','조식','07:30~09:00',md.b],['🍱','중식','11:30~13:30',md.l],['🍜','석식','17:30~19:00',md.d]].map(function(row){
+      return '<div style="background:var(--surf);border-radius:12px;padding:12px 14px;margin-bottom:8px;"><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><span style="font-size:16px;">'+row[0]+'</span><span style="font-size:13px;font-weight:800;color:var(--t0);">'+row[1]+'</span><span style="font-size:10px;color:var(--t2);margin-left:auto;">'+row[2]+'</span></div><div style="font-size:11px;color:var(--t1);line-height:1.7;">'+row[3]+'</div></div>';
+    }).join('')+'<div style="font-size:10px;color:var(--t2);padding:6px 2px;">💡 전자명찰 = 식권 · SSUP 앱에서 명찰 캡처하세요</div>';
 }
 
 /* VIEW FAQ 토글 */
