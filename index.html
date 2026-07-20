@@ -944,22 +944,22 @@ details[open] .faq-arr{transform:rotate(180deg);}
         </div>
         <div class="fblock">
           <div>
-            <div class="flbl">🏭 업종</div>
+            <div class="flbl" data-i18n="pick-lbl-ind">🏭 업종</div>
             <select class="fsel" id="ind"><option value="">선택하세요</option><option>제조업</option><option>IT·소프트웨어</option><option>유통·물류</option><option>서비스업</option><option>건설·부동산</option><option>바이오·헬스케어</option><option>식품·외식</option><option>금융·핀테크</option><option>기타</option></select>
           </div>
           <div>
-            <div class="flbl">💼 직무</div>
+            <div class="flbl" data-i18n="pick-lbl-job">💼 직무</div>
             <select class="fsel" id="job"><option value="">선택하세요</option><option>경영·전략</option><option>마케팅·영업</option><option>인사·조직</option><option>재무·회계</option><option>연구·개발(R&D)</option><option>생산·품질관리</option><option>IT·개발</option><option>대외협력·홍보</option><option>기타</option></select>
           </div>
           <div>
-            <div class="flbl">📅 연차</div>
+            <div class="flbl" data-i18n="pick-lbl-yr">📅 연차</div>
             <div class="yrbox">
               <div class="yrnum" id="yrn">1<small>년차</small></div>
               <input type="range" id="yrs" min="1" max="20" value="1" oninput="uyr(this.value)">
             </div>
           </div>
           <div>
-            <div class="flbl">🎯 관심 분야 (선택)</div>
+            <div class="flbl" data-i18n="pick-lbl-inter">🎯 관심 분야 (선택)</div>
             <input class="fsel" id="inter" type="text" placeholder="예: AI 활용, 리더십...">
           </div>
           <button class="pbtn" id="pbtn" data-i18n="pick-btn" onclick="doPick()">✦ 맞춤 강좌 추천받기</button>
@@ -1008,15 +1008,15 @@ details[open] .faq-arr{transform:rotate(180deg);}
         </div>
         <div class="fblock">
           <div>
-            <div class="flbl">🏭 업종</div>
+            <div class="flbl" data-i18n="pick-lbl-ind">🏭 업종</div>
             <select class="fsel" id="ind2"><option value="">선택하세요</option><option selected>IT·소프트웨어</option><option>제조업</option><option>유통·물류</option><option>서비스업</option><option>건설·부동산</option><option>바이오·헬스케어</option><option>식품·외식</option><option>금융·핀테크</option><option>기타</option></select>
           </div>
           <div>
-            <div class="flbl">💼 직무</div>
+            <div class="flbl" data-i18n="pick-lbl-job">💼 직무</div>
             <select class="fsel" id="job2"><option value="">선택하세요</option><option>경영·전략</option><option>마케팅·영업</option><option>인사·조직</option><option>재무·회계</option><option>연구·개발(R&D)</option><option>생산·품질관리</option><option selected>IT·개발</option><option>대외협력·홍보</option><option>기타</option></select>
           </div>
           <div>
-            <div class="flbl">📅 연차</div>
+            <div class="flbl" data-i18n="pick-lbl-yr">📅 연차</div>
             <div class="yrbox">
               <div class="yrnum" id="yrn2">5<small>년차</small></div>
               <input type="range" id="yrs2" min="1" max="20" value="5" oninput="uyr2(this.value)">
@@ -1047,7 +1047,7 @@ details[open] .faq-arr{transform:rotate(180deg);}
       <!-- 캠퍼스 포토맵 -->
       <div style="margin-bottom:4px;">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
-          <div class="stitle" style="margin-bottom:0;">📸 캠퍼스 포토맵</div>
+          <div class="stitle" data-i18n="view-photomap" style="margin-bottom:0;">📸 캠퍼스 포토맵</div>
           <button onclick="togglePinEdit(this)" style="background:var(--surf2);border:1.5px solid var(--border);border-radius:20px;padding:5px 12px;font-size:11px;font-weight:700;color:var(--t1);cursor:pointer;">✏️ 핀 편집</button>
         </div>
         <div id="pin-edit-bar" class="cmap-edit-bar">📍 핀을 드래그해서 위치 조정 → 완료 후 아래 버튼 누르기</div>
@@ -1122,7 +1122,7 @@ details[open] .faq-arr{transform:rotate(180deg);}
       <!-- 시설 안내 -->
       <div>
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
-          <div class="stitle" style="margin-bottom:0;">🏢 시설 안내</div>
+          <div class="stitle" data-i18n="view-facility" style="margin-bottom:0;">🏢 시설 안내</div>
           <button onclick="openQR()" style="display:flex;align-items:center;gap:6px;background:var(--g-blue);color:#fff;border:none;border-radius:20px;padding:8px 16px;font-size:12px;font-weight:700;cursor:pointer;box-shadow:0 3px 10px rgba(76,110,245,.3);flex-shrink:0;">
             <span style="font-size:16px;">📷</span> QR 스캔
           </button>
@@ -1176,7 +1176,7 @@ details[open] .faq-arr{transform:rotate(180deg);}
 
       <!-- AI 길찾기 -->
       <div>
-        <div class="stitle">🗺️ AI 길찾기</div>
+        <div class="stitle" data-i18n="view-wayfind">🗺️ AI 길찾기</div>
         <div class="wayfind-card">
           <div style="font-size:12px;color:var(--t1);margin-bottom:10px;">📍 정문에서 목적지까지 AI가 도보 경로를 안내해드려요</div>
           <!-- 자유 텍스트 AI 입력 -->
@@ -1202,7 +1202,7 @@ details[open] .faq-arr{transform:rotate(180deg);}
 
       <!-- 불편 신고 -->
       <div>
-        <div class="stitle">📸 현장 불편 신고</div>
+        <div class="stitle" data-i18n="view-report">📸 현장 불편 신고</div>
         <div class="repcard">
           <div style="font-size:14px;font-weight:800;color:var(--t0);margin-bottom:10px;">⚠️ 불편 사항을 즉시 신고하세요</div>
           <div style="display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,var(--blue),var(--indigo));border-radius:20px;padding:4px 10px;margin-bottom:12px;">
@@ -1237,7 +1237,7 @@ details[open] .faq-arr{transform:rotate(180deg);}
       </div>
       <!-- 오는 길 -->
       <div>
-        <div class="stitle">🚌 연수원 오는 길</div>
+        <div class="stitle" data-i18n="view-route">🚌 연수원 오는 길</div>
         <div class="route-card">
           <div class="addr-box">📍 경기도 안산시 단원구 연수원로 87 (원곡동 931)<br><strong>TEL 031-490-1472</strong></div>
           <div class="rtabs">
@@ -1306,7 +1306,7 @@ details[open] .faq-arr{transform:rotate(180deg);}
 
       <!-- 시설 자주 묻는 질문 -->
       <div>
-        <div class="stitle">❓ 시설 자주 묻는 질문</div>
+        <div class="stitle" data-i18n="view-faq">❓ 시설 자주 묻는 질문</div>
         <div class="faq-sec">
           <details class="faq-item"><summary class="faq-q"><span>🏠 기숙사 귀관 시간이 언제예요?</span><span class="faq-arr">▼</span></summary><div class="faq-a">평일 오후 11시입니다. 귀관 이후에는 외출이 제한됩니다.</div></details>
           <details class="faq-item"><summary class="faq-q"><span>🛏️ 방 배정은 어떻게 되나요?</span><span class="faq-arr">▼</span></summary><div class="faq-a">기본 1인 1실로 운영됩니다. 문의사항은 고객센터(031-490-1472)로 연락해 주세요.</div></details>
@@ -2035,11 +2035,11 @@ function tgFaq(el){
 let faqOpen=false;
 let appLang='ko';
 const UI_STRINGS={
-  ko:{'tab-talk-sub':'즉시 답변','tab-pick-sub':'강좌 추천','tab-view-sub':'시설 안내','q-attend':'✅ 출석처리','q-grad':'🎓 수료기준','q-fee':'💳 교육비','q-shuttle':'🚌 셔틀버스','q-meal':'🍽️ 식당','q-wifi':'📶 Wi-Fi','q-emer':'🆘 긴급연락','q-today':'🍱 오늘식단','q-qr':'📷 QR 스캔','q-log':'📋 내 대화보기','faq-title':'자주 묻는 질문','faq-sub':'TOP 7 · 바로 확인하세요','faq1':'출석 처리는 어떻게 하나요?','faq2':'수료 기준이 어떻게 되나요?','faq3':'💳 교육비 납부는 어떻게 하나요?','faq4':'📜 수료증은 어떻게 받나요?','faq5':'📶 숙소 Wi-Fi 비밀번호가 뭐예요?','faq6':'💰 고용보험 환급은 어떻게 받나요?','faq7':'셔틀버스 시간표가 어떻게 되나요?','ich-help':'무엇을 도와드릴까요?','ich-pick':'✦ 강좌 추천','ich-view':'◎ 시설 안내','contact-btn':'📞 담당자 연결','pick-new-tab':'🆕 처음이세요?','pick-old-tab':'🔄 기존 연수생','pick-btn':'✦ 맞춤 강좌 추천받기','pick-btn2':'✦ 맞춤 강좌 추천받기','pick-nl-btn':'✦ AI 추천 받기','input-ph':'예: 셔틀버스 몇 시에 출발해요?'},
-  en:{'tab-talk-sub':'Instant Reply','tab-pick-sub':'Course Rec','tab-view-sub':'Campus','q-attend':'✅ Attendance','q-grad':'🎓 Graduation','q-fee':'💳 Tuition','q-shuttle':'🚌 Shuttle','q-meal':'🍽️ Dining','q-wifi':'📶 Wi-Fi','q-emer':'🆘 Emergency','q-today':'🍱 Today\'s Menu','q-qr':'📷 QR Scan','q-log':'📋 Chat Log','faq-title':'Frequent Questions','faq-sub':'TOP 7 · Quick Answers','faq1':'How do I check attendance?','faq2':'What are the graduation requirements?','faq3':'💳 How do I pay tuition?','faq4':'📜 How do I get my certificate?','faq5':'📶 What is the dorm Wi-Fi password?','faq6':'💰 How do I get employment insurance refund?','faq7':'What is the shuttle schedule?','ich-help':'How can I help you?','ich-pick':'✦ Course Rec','ich-view':'◎ Campus','contact-btn':'📞 Contact Staff','pick-new-tab':'🆕 New Trainee?','pick-old-tab':'🔄 Returning','pick-btn':'✦ Get AI Recommendation','pick-btn2':'✦ Get AI Recommendation','pick-nl-btn':'✦ Get AI Recommendation','input-ph':'e.g. What time does the shuttle leave?'},
-  id:{'tab-talk-sub':'Balas Instan','tab-pick-sub':'Rekomendasi','tab-view-sub':'Kampus','q-attend':'✅ Absensi','q-grad':'🎓 Kelulusan','q-fee':'💳 Biaya','q-shuttle':'🚌 Shuttle','q-meal':'🍽️ Makan','q-wifi':'📶 Wi-Fi','q-emer':'🆘 Darurat','q-today':'🍱 Menu Hari Ini','q-qr':'📷 Scan QR','q-log':'📋 Riwayat Chat','faq-title':'Pertanyaan Umum','faq-sub':'TOP 7 · Jawaban Cepat','faq1':'Bagaimana cara absensi?','faq2':'Apa syarat kelulusan?','faq3':'💳 Bagaimana cara membayar biaya?','faq4':'📜 Bagaimana cara mendapat sertifikat?','faq5':'📶 Apa kata sandi Wi-Fi asrama?','faq6':'💰 Bagaimana cara klaim asuransi?','faq7':'Apa jadwal shuttle bus?','ich-help':'Apa yang bisa saya bantu?','ich-pick':'✦ Rekomendasi','ich-view':'◎ Kampus','contact-btn':'📞 Hubungi Staf','pick-new-tab':'🆕 Peserta Baru?','pick-old-tab':'🔄 Peserta Lama','pick-btn':'✦ Dapatkan Rekomendasi AI','pick-btn2':'✦ Dapatkan Rekomendasi AI','pick-nl-btn':'✦ Dapatkan Rekomendasi AI','input-ph':'mis. Jam berapa shuttle berangkat?'},
-  ja:{'tab-talk-sub':'すぐ回答','tab-pick-sub':'講座推薦','tab-view-sub':'キャンパス','q-attend':'✅ 出席処理','q-grad':'🎓 修了基準','q-fee':'💳 教育費','q-shuttle':'🚌 シャトル','q-meal':'🍽️ 食堂','q-wifi':'📶 Wi-Fi','q-emer':'🆘 緊急連絡','q-today':'🍱 今日の食事','q-qr':'📷 QRスキャン','q-log':'📋 会話履歴','faq-title':'よくある質問','faq-sub':'TOP 7 · 即時確認','faq1':'出席処理はどうすればいいですか？','faq2':'修了基準はどうなっていますか？','faq3':'💳 教育費の支払いは？','faq4':'📜 修了証はどうやって受け取れますか？','faq5':'📶 宿泊Wi-Fiのパスワードは？','faq6':'💰 雇用保険の払い戻しは？','faq7':'シャトルバスの時刻表は？','ich-help':'どのようにお手伝いできますか？','ich-pick':'✦ 講座推薦','ich-view':'◎ キャンパス','contact-btn':'📞 担当者に連絡','pick-new-tab':'🆕 初めてですか？','pick-old-tab':'🔄 既受講者','pick-btn':'✦ AI推薦を受ける','pick-btn2':'✦ AI推薦を受ける','pick-nl-btn':'✦ AI推薦を受ける','input-ph':'例：シャトルバスは何時に出発しますか？'},
-  zh:{'tab-talk-sub':'即时回答','tab-pick-sub':'课程推荐','tab-view-sub':'校园','q-attend':'✅ 出勤处理','q-grad':'🎓 结业标准','q-fee':'💳 培训费','q-shuttle':'🚌 班车','q-meal':'🍽️ 餐厅','q-wifi':'📶 Wi-Fi','q-emer':'🆘 紧急联系','q-today':'🍱 今日菜单','q-qr':'📷 QR扫描','q-log':'📋 聊天记录','faq-title':'常见问题','faq-sub':'TOP 7 · 快速查看','faq1':'如何处理出勤？','faq2':'结业标准是什么？','faq3':'💳 如何缴纳培训费？','faq4':'📜 如何获得结业证书？','faq5':'📶 宿舍Wi-Fi密码是什么？','faq6':'💰 如何申请就业保险退款？','faq7':'班车时刻表是什么？','ich-help':'我能帮您什么？','ich-pick':'✦ 课程推荐','ich-view':'◎ 校园','contact-btn':'📞 联系负责人','pick-new-tab':'🆕 初次参加？','pick-old-tab':'🔄 已有学员','pick-btn':'✦ 获取AI推荐','pick-btn2':'✦ 获取AI推荐','pick-nl-btn':'✦ 获取AI推荐','input-ph':'例如：班车几点出发？'}
+  ko:{'tab-talk-sub':'즉시 답변','tab-pick-sub':'강좌 추천','tab-view-sub':'시설 안내','q-attend':'✅ 출석처리','q-grad':'🎓 수료기준','q-fee':'💳 교육비','q-shuttle':'🚌 셔틀버스','q-meal':'🍽️ 식당','q-wifi':'📶 Wi-Fi','q-emer':'🆘 긴급연락','q-today':'🍱 오늘식단','q-qr':'📷 QR 스캔','q-log':'📋 내 대화보기','faq-title':'자주 묻는 질문','faq-sub':'TOP 7 · 바로 확인하세요','faq1':'출석 처리는 어떻게 하나요?','faq2':'수료 기준이 어떻게 되나요?','faq3':'💳 교육비 납부는 어떻게 하나요?','faq4':'📜 수료증은 어떻게 받나요?','faq5':'📶 숙소 Wi-Fi 비밀번호가 뭐예요?','faq6':'💰 고용보험 환급은 어떻게 받나요?','faq7':'셔틀버스 시간표가 어떻게 되나요?','ich-help':'무엇을 도와드릴까요?','ich-pick':'✦ 강좌 추천','ich-view':'◎ 시설 안내','contact-btn':'📞 담당자 연결','pick-new-tab':'🆕 처음이세요?','pick-old-tab':'🔄 기존 연수생','pick-btn':'✦ 맞춤 강좌 추천받기','pick-btn2':'✦ 맞춤 강좌 추천받기','pick-nl-btn':'✦ AI 추천 받기','pick-lbl-ind':'🏭 업종','pick-lbl-job':'💼 직무','pick-lbl-yr':'📅 연차','pick-lbl-inter':'🎯 관심 분야 (선택)','view-photomap':'📸 캠퍼스 포토맵','view-facility':'🏢 시설 안내','view-wayfind':'🗺️ AI 길찾기','view-report':'📸 현장 불편 신고','view-route':'🚌 연수원 오는 길','view-faq':'❓ 시설 자주 묻는 질문','input-ph':'예: 셔틀버스 몇 시에 출발해요?','wf-input-ph':'어디로 가고 싶으세요? (예: 식당, 봉사관 206호)','nl-input-ph':'예) 저는 제조업 품질담당자이고 AI를 처음 접합니다.'},
+  en:{'tab-talk-sub':'Instant Reply','tab-pick-sub':'Course Rec','tab-view-sub':'Campus','q-attend':'✅ Attendance','q-grad':'🎓 Graduation','q-fee':'💳 Tuition','q-shuttle':'🚌 Shuttle','q-meal':'🍽️ Dining','q-wifi':'📶 Wi-Fi','q-emer':'🆘 Emergency','q-today':'🍱 Today\'s Menu','q-qr':'📷 QR Scan','q-log':'📋 Chat Log','faq-title':'Frequent Questions','faq-sub':'TOP 7 · Quick Answers','faq1':'How do I check attendance?','faq2':'What are the graduation requirements?','faq3':'💳 How do I pay tuition?','faq4':'📜 How do I get my certificate?','faq5':'📶 What is the dorm Wi-Fi password?','faq6':'💰 How do I get employment insurance refund?','faq7':'What is the shuttle schedule?','ich-help':'How can I help you?','ich-pick':'✦ Course Rec','ich-view':'◎ Campus','contact-btn':'📞 Contact Staff','pick-new-tab':'🆕 New Trainee?','pick-old-tab':'🔄 Returning','pick-btn':'✦ Get AI Recommendation','pick-btn2':'✦ Get AI Recommendation','pick-nl-btn':'✦ Get AI Recommendation','pick-lbl-ind':'🏭 Industry','pick-lbl-job':'💼 Role','pick-lbl-yr':'📅 Years Exp.','pick-lbl-inter':'🎯 Interest (optional)','view-photomap':'📸 Campus Map','view-facility':'🏢 Facilities','view-wayfind':'🗺️ AI Navigation','view-report':'📸 Report Issue','view-route':'🚌 Getting Here','view-faq':'❓ Facility FAQ','input-ph':'e.g. What time does the shuttle leave?','wf-input-ph':'Where do you want to go? (e.g. cafeteria)','nl-input-ph':'e.g. I work in manufacturing and want AI training.'},
+  id:{'tab-talk-sub':'Balas Instan','tab-pick-sub':'Rekomendasi','tab-view-sub':'Kampus','q-attend':'✅ Absensi','q-grad':'🎓 Kelulusan','q-fee':'💳 Biaya','q-shuttle':'🚌 Shuttle','q-meal':'🍽️ Makan','q-wifi':'📶 Wi-Fi','q-emer':'🆘 Darurat','q-today':'🍱 Menu Hari Ini','q-qr':'📷 Scan QR','q-log':'📋 Riwayat Chat','faq-title':'Pertanyaan Umum','faq-sub':'TOP 7 · Jawaban Cepat','faq1':'Bagaimana cara absensi?','faq2':'Apa syarat kelulusan?','faq3':'💳 Bagaimana cara membayar biaya?','faq4':'📜 Bagaimana cara mendapat sertifikat?','faq5':'📶 Apa kata sandi Wi-Fi asrama?','faq6':'💰 Bagaimana cara klaim asuransi?','faq7':'Apa jadwal shuttle bus?','ich-help':'Apa yang bisa saya bantu?','ich-pick':'✦ Rekomendasi','ich-view':'◎ Kampus','contact-btn':'📞 Hubungi Staf','pick-new-tab':'🆕 Peserta Baru?','pick-old-tab':'🔄 Peserta Lama','pick-btn':'✦ Dapatkan Rekomendasi AI','pick-btn2':'✦ Dapatkan Rekomendasi AI','pick-nl-btn':'✦ Dapatkan Rekomendasi AI','pick-lbl-ind':'🏭 Industri','pick-lbl-job':'💼 Jabatan','pick-lbl-yr':'📅 Tahun Kerja','pick-lbl-inter':'🎯 Minat (opsional)','view-photomap':'📸 Peta Kampus','view-facility':'🏢 Fasilitas','view-wayfind':'🗺️ Navigasi AI','view-report':'📸 Laporkan Masalah','view-route':'🚌 Cara ke Sini','view-faq':'❓ FAQ Fasilitas','input-ph':'mis. Jam berapa shuttle berangkat?','wf-input-ph':'Ke mana Anda ingin pergi?','nl-input-ph':'mis. Saya bekerja di manufaktur dan ingin pelatihan AI.'},
+  ja:{'tab-talk-sub':'すぐ回答','tab-pick-sub':'講座推薦','tab-view-sub':'キャンパス','q-attend':'✅ 出席処理','q-grad':'🎓 修了基準','q-fee':'💳 教育費','q-shuttle':'🚌 シャトル','q-meal':'🍽️ 食堂','q-wifi':'📶 Wi-Fi','q-emer':'🆘 緊急連絡','q-today':'🍱 今日の食事','q-qr':'📷 QRスキャン','q-log':'📋 会話履歴','faq-title':'よくある質問','faq-sub':'TOP 7 · 即時確認','faq1':'出席処理はどうすればいいですか？','faq2':'修了基準はどうなっていますか？','faq3':'💳 教育費の支払いは？','faq4':'📜 修了証はどうやって受け取れますか？','faq5':'📶 宿泊Wi-Fiのパスワードは？','faq6':'💰 雇用保険の払い戻しは？','faq7':'シャトルバスの時刻表は？','ich-help':'どのようにお手伝いできますか？','ich-pick':'✦ 講座推薦','ich-view':'◎ キャンパス','contact-btn':'📞 担当者に連絡','pick-new-tab':'🆕 初めてですか？','pick-old-tab':'🔄 既受講者','pick-btn':'✦ AI推薦を受ける','pick-btn2':'✦ AI推薦を受ける','pick-nl-btn':'✦ AI推薦を受ける','pick-lbl-ind':'🏭 業種','pick-lbl-job':'💼 職務','pick-lbl-yr':'📅 年次','pick-lbl-inter':'🎯 関心分野 (任意)','view-photomap':'📸 キャンパスマップ','view-facility':'🏢 施設案内','view-wayfind':'🗺️ AIナビ','view-report':'📸 不便申告','view-route':'🚌 アクセス','view-faq':'❓ 施設FAQ','input-ph':'例：シャトルバスは何時に出発しますか？','wf-input-ph':'どこへ行きたいですか？','nl-input-ph':'例）製造業の品質担当者でAI研修を希望します。'},
+  zh:{'tab-talk-sub':'即时回答','tab-pick-sub':'课程推荐','tab-view-sub':'校园','q-attend':'✅ 出勤处理','q-grad':'🎓 结业标准','q-fee':'💳 培训费','q-shuttle':'🚌 班车','q-meal':'🍽️ 餐厅','q-wifi':'📶 Wi-Fi','q-emer':'🆘 紧急联系','q-today':'🍱 今日菜单','q-qr':'📷 QR扫描','q-log':'📋 聊天记录','faq-title':'常见问题','faq-sub':'TOP 7 · 快速查看','faq1':'如何处理出勤？','faq2':'结业标准是什么？','faq3':'💳 如何缴纳培训费？','faq4':'📜 如何获得结业证书？','faq5':'📶 宿舍Wi-Fi密码是什么？','faq6':'💰 如何申请就业保险退款？','faq7':'班车时刻表是什么？','ich-help':'我能帮您什么？','ich-pick':'✦ 课程推荐','ich-view':'◎ 校园','contact-btn':'📞 联系负责人','pick-new-tab':'🆕 初次参加？','pick-old-tab':'🔄 已有学员','pick-btn':'✦ 获取AI推荐','pick-btn2':'✦ 获取AI推荐','pick-nl-btn':'✦ 获取AI推荐','pick-lbl-ind':'🏭 行业','pick-lbl-job':'💼 职务','pick-lbl-yr':'📅 工作年限','pick-lbl-inter':'🎯 兴趣领域 (可选)','view-photomap':'📸 校园地图','view-facility':'🏢 设施介绍','view-wayfind':'🗺️ AI导航','view-report':'📸 报告问题','view-route':'🚌 来园路线','view-faq':'❓ 设施FAQ','input-ph':'例如：班车几点出发？','wf-input-ph':'您想去哪里？','nl-input-ph':'例：我是制造业质量负责人，想了解AI培训课程。'}
 };
 function applyUILang(l){
   var d=UI_STRINGS[l]||UI_STRINGS.ko;
@@ -2049,6 +2049,10 @@ function applyUILang(l){
   });
   var ph=document.getElementById('txtin');
   if(ph)ph.placeholder=d['input-ph']||UI_STRINGS.ko['input-ph'];
+  var wfph=document.getElementById('wf-input');
+  if(wfph)wfph.placeholder=d['wf-input-ph']||UI_STRINGS.ko['wf-input-ph'];
+  var nlph=document.getElementById('nl-input');
+  if(nlph)nlph.placeholder=d['nl-input-ph']||UI_STRINGS.ko['nl-input-ph'];
 }
 function setLang(l,btn){
   appLang=l;
