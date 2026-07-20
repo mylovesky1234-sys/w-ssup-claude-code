@@ -751,6 +751,16 @@ details[open] .faq-arr{transform:rotate(180deg);}
       <div class="hdr-name">W-SSUP</div>
       <div class="hdr-sub" id="hdr-sub">중소벤처기업연수원 AI 스마트비서</div>
     </div>
+    <div style="position:relative;">
+      <button id="lang-btn" onclick="var p=document.getElementById('lang-pop');p.style.display=p.style.display==='none'?'flex':'none';" style="display:flex;align-items:center;gap:4px;background:var(--surf2);border:1.5px solid var(--border);border-radius:20px;padding:4px 10px;font-size:12px;font-weight:700;cursor:pointer;flex-shrink:0;">
+        <span id="lang-btn-ico">🇰🇷</span><span style="font-size:9px;color:var(--t2);">▼</span>
+      </button>
+      <div id="lang-pop" style="display:none;position:absolute;top:36px;right:0;background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:8px;box-shadow:0 4px 20px rgba(0,0,0,.15);z-index:600;flex-direction:column;gap:4px;white-space:nowrap;">
+        <button class="lang-tab on" onclick="setLang('ko',this)" style="display:flex;align-items:center;gap:6px;padding:7px 12px;border:1.5px solid var(--blue);border-radius:10px;background:var(--blue-lt);font-size:12px;font-weight:700;cursor:pointer;width:100%;">🇰🇷 한국어</button>
+        <button class="lang-tab" onclick="setLang('en',this)" style="display:flex;align-items:center;gap:6px;padding:7px 12px;border:1.5px solid transparent;border-radius:10px;background:var(--surf2);font-size:12px;font-weight:700;cursor:pointer;width:100%;">🇺🇸 English</button>
+        <button class="lang-tab" onclick="setLang('id',this)" style="display:flex;align-items:center;gap:6px;padding:7px 12px;border:1.5px solid transparent;border-radius:10px;background:var(--surf2);font-size:12px;font-weight:700;cursor:pointer;width:100%;">🇮🇩 Bahasa</button>
+      </div>
+    </div>
     <div class="live"><div class="live-dot"></div><span>LIVE</span></div>
   </div>
 
@@ -1119,6 +1129,25 @@ details[open] .faq-arr{transform:rotate(180deg);}
         </div>
       </div>
 
+      <!-- AI 길찾기 -->
+      <div>
+        <div class="stitle">🗺️ AI 길찾기</div>
+        <div class="wayfind-card">
+          <div style="font-size:12px;color:var(--t1);margin-bottom:10px;">📍 정문에서 목적지까지의 경로를 지도에서 안내해드려요</div>
+          <div class="wf-chips">
+            <button class="wf-chip" onclick="wfGo('창의관')">🏫 창의관</button>
+            <button class="wf-chip" onclick="wfGo('봉사관')">🏛️ 봉사관</button>
+            <button class="wf-chip" onclick="wfGo('인화1관')">🏠 인화1관</button>
+            <button class="wf-chip" onclick="wfGo('인화2관')">🏠 인화2관</button>
+            <button class="wf-chip" onclick="wfGo('교류동')">🍽️ 교류동</button>
+            <button class="wf-chip" onclick="wfGo('실험동')">🔬 실험동</button>
+            <button class="wf-chip" onclick="wfGo('대강당')">🏟️ 대강당</button>
+            <button class="wf-chip" onclick="wfGo('운동장')">⚽ 운동장</button>
+          </div>
+          <div id="wf-result" class="wf-result"></div>
+        </div>
+      </div>
+
       <!-- 불편 신고 -->
       <div>
         <div class="stitle">📸 현장 불편 신고</div>
@@ -1338,8 +1367,8 @@ function isExp(ds){const p=ds.replace('수료예정','').trim().split('.');retur
 function swUser(type,btn){
   document.querySelectorAll('.utab').forEach(function(b){b.classList.remove('on');});
   btn.classList.add('on');
-  document.getElementById('upanel-new').style.display=type==='new'?'':'none';
-  document.getElementById('upanel-ex').style.display=type==='ex'?'':'none';
+  document.getElementById('upanel-new').style.display=type==='new'?'block':'none';
+  document.getElementById('upanel-ex').style.display=type==='ex'?'block':'none';
   if(type==='ex')selT(0,document.querySelector('.trainee-btn'));
 }
 
@@ -1631,6 +1660,7 @@ let hist=[];
 function ar(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,80)+'px';}
 function hk(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send();}}
 function sq(t){go('talk',document.querySelector('.tab'));document.getElementById('txtin').value=t;send();}
+function getLangPrompt(){var m={'en':' (Please respond in English.)','id':' (Harap jawab dalam Bahasa Indonesia.)'};return m[appLang]||'';}
 function scr(){const c=document.getElementById('msgs');c.scrollTop=c.scrollHeight;}
 function addU(t){const c=document.getElementById('msgs'),r=document.createElement('div');r.className='mrow me';r.innerHTML=`<div class="bwrap"><div class="bbl me">${t.replace(/\n/g,'<br>')}</div><span class="ts">${gt()}</span></div>`;c.appendChild(r);scr();}
 function showT(){const c=document.getElementById('msgs'),r=document.createElement('div');r.className='typing-r';r.id='tr';r.innerHTML=`<div class="bico">🤖</div><div class="typing-b"><span></span><span></span><span></span></div>`;c.appendChild(r);scr();}
@@ -1685,11 +1715,12 @@ async function send(){
   const inp=document.getElementById('txtin');
   const t=inp.value.trim();
   if(!t)return;
+  const tWithLang=t+getLangPrompt();
   addU(t);
   inp.value='';inp.style.height='auto';
   showT();
-  // RAG 우선 검색
-  const rag=RAG.find(r=>r.kw.some(k=>t.toLowerCase().includes(k.toLowerCase())));
+  // RAG 우선 검색 (한국어만)
+  const rag=appLang==='ko'?RAG.find(r=>r.kw.some(k=>t.toLowerCase().includes(k.toLowerCase()))):null;
   if(rag){
     await new Promise(r=>setTimeout(r,500));
     rmT();
@@ -1700,7 +1731,7 @@ async function send(){
   }
   // API 스트리밍
   try{
-    const res=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:t,history:hist.slice(-10)})});
+    const res=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:tWithLang,history:hist.slice(-10)})});
     if(!res.ok){rmT();addB('죄송합니다. 오류가 발생했습니다. ('+res.status+')');return;}
     const reader=res.body.getReader();
     const dec=new TextDecoder();
@@ -1847,6 +1878,32 @@ function tgFaq(el){
 
 /* FAQ 접기 */
 let faqOpen=false;
+let appLang='ko';
+function setLang(l,btn){
+  appLang=l;
+  document.querySelectorAll('.lang-tab').forEach(function(b){
+    b.style.borderColor='transparent';b.style.background='var(--surf2)';b.classList.remove('on');
+  });
+  if(btn){btn.style.borderColor='var(--blue)';btn.style.background='var(--blue-lt)';btn.classList.add('on');}
+  document.getElementById('lang-pop').style.display='none';
+  var lbl={'ko':'🇰🇷','en':'🇺🇸','id':'🇮🇩'};
+  document.getElementById('lang-btn-ico').textContent=lbl[l]||'🇰🇷';
+}
+
+function wfGo(name){
+  const res=document.getElementById('wf-result');
+  const key=Object.keys(ROUTE_DATA).find(k=>name.includes(k)||k.includes(name));
+  if(!key){res.style.display='block';res.innerHTML='<div style="padding:10px;color:var(--t2);font-size:12px;">경로 정보가 없습니다.</div>';return;}
+  const r=ROUTE_DATA[key];
+  res.style.display='block';
+  res.innerHTML='<div style="font-size:13px;font-weight:700;color:var(--t0);margin-bottom:8px;">📍 정문 → <span style="color:var(--teal);">'+name+'</span></div>'+
+    r.steps.map(function(s,i){return '<div class="wf-step"><div class="wf-num">'+(i+1)+'</div><div><div class="wf-main">'+s+'</div></div></div>';}).join('');
+  showCampusPin(name);
+  setTimeout(function(){
+    var map=document.querySelector('.cmap-wrap');
+    if(map)map.scrollIntoView({behavior:'smooth',block:'center'});
+  },250);
+}
 function toggleFaq(){
   faqOpen=!faqOpen;
   document.getElementById('faq-list').style.maxHeight=faqOpen?'500px':'0';
@@ -1856,7 +1913,7 @@ function toggleFaq(){
 /* RAG */
 const RAG=[
   // ── FAQ.xlsx 반영 데이터 ──
-  {kw:['연수신청','신청방법','과정신청','등록방법','어떻게 신청'],ans:`📋 연수 신청 방법\n\n**온라인 신청**\nssup.kosmes.or.kr 로그인 → 과정 검색 → 일정 클릭 → 고용보험 선택 → 기업정보 입력\n※ 고용보험 환급 원하시면 '고용보험 적용' 선택 필수!\n\n**오프라인(팩스) 신청**\n홈페이지 Quick MENU '연수신청서 다운로드' → 작성 후 직인 날인 → 팩스(031-490-1116)\n\n🔗 [연수 신청 바로가기](https://ssup.kosmes.or.kr)
+  {kw:['연수신청','신청방법','과정신청','등록방법','어떻게 신청','연수 신청','신청은','신청하'],ans:`📋 연수 신청 방법\n\n**온라인 신청**\nssup.kosmes.or.kr 로그인 → 과정 검색 → 일정 클릭 → 고용보험 선택 → 기업정보 입력\n※ 고용보험 환급 원하시면 '고용보험 적용' 선택 필수!\n\n**오프라인(팩스) 신청**\n홈페이지 Quick MENU '연수신청서 다운로드' → 작성 후 직인 날인 → 팩스(031-490-1116)\n\n🔗 [연수 신청 바로가기](https://ssup.kosmes.or.kr)
 
 더 궁금한 점 있으시면 편하게 물어보세요 😊`},
   {kw:['회원가입','아이디','id','계정'],ans:`👤 회원가입 방법\n\n회원가입 클릭 → 실명확인 → 개인정보 입력\n\n💡 교육 담당자 권한 신청 시 한 ID로 여러 명 신청 가능해요!\n\n🔗 [회원가입](https://ssup.kosmes.or.kr)
@@ -1872,7 +1929,7 @@ const RAG=[
   {kw:['미납','수납상태','입금확인'],ans:`✅ 수납상태 미납 표시\n\n걱정 안 하셔도 돼요!\n연수 시작일 당일 등록 완료 후 수납 처리가 진행돼서, 등록 전에는 미납으로 표시돼요.\n\n입금 확인: 고객센터(031-490-1214, 1216)\n계산서는 등록 완료 후 연수 기간 내 전자발행됩니다.\n\n더 궁금한 점 있으시면 편하게 물어보세요 😊`},
   {kw:['소기업','할인'],ans:`🏢 소기업 할인제도\n\n중소기업기본법 시행령 제8조에 따른 소기업은 연수비 할인 가능!\n\n신청 시 아래 서류 중 하나 제출:\n① 최근 3개년 재무제표 증명원 표준손익계산서 (국세청)\n② 중소기업(소기업)확인서 (sminfo.mss.go.kr)\n\n※ 연수 시작일까지 접수된 서류만 할인 적용, 당해년도까지 유효\n\n더 궁금한 점 있으시면 편하게 물어보세요 😊`},
   {kw:['환급액','얼마','고용보험금액'],ans:`💰 고용보험 환급액 확인\n\n과정명 클릭 → 과정 상세 소개에서 환급액 예시 확인!\n\n💡 예시 금액은 최근 수료 과정 기준으로 약간 차이 있을 수 있어요.\n정확한 환급액은 수료 후 이메일 수료증에 기재돼 있습니다.\n\n더 궁금한 점 있으시면 편하게 물어보세요 😊`},
-  {kw:['환급절차','환급신청','산인공','고용24환급','환급받','환급과정','고용보험환급','환급방법','환급어떻게'],ans:`📋 고용보험 환급 절차\n\n재직자 향상훈련은 연수비의 30~50% 수준 환급!\n\n**산인공 환급과정**: 연수 종료 14일 이후 관할 산업인력공단 신청\n- 구비서류: 지원신청서, 수료증 사본, 통장 사본, 계산서 사본\n\n**연수원 환급과정**: 훈련위탁계약서 + 회사통장 사본만 송부\n\n💡 고용24(work24.go.kr)에서 사업주 계좌 미리 등록 필수!\n\n더 궁금한 점 있으시면 편하게 물어보세요 😊`},
+  {kw:['환급절차','환급신청','산인공','고용24환급','환급받','환급과정','고용보험환급','환급방법','환급어떻게','환급','고용보험 환급','환급은','환급을'],ans:`📋 고용보험 환급 절차\n\n재직자 향상훈련은 연수비의 30~50% 수준 환급!\n\n**산인공 환급과정**: 연수 종료 14일 이후 관할 산업인력공단 신청\n- 구비서류: 지원신청서, 수료증 사본, 통장 사본, 계산서 사본\n\n**연수원 환급과정**: 훈련위탁계약서 + 회사통장 사본만 송부\n\n💡 고용24(work24.go.kr)에서 사업주 계좌 미리 등록 필수!\n\n더 궁금한 점 있으시면 편하게 물어보세요 😊`},
   {kw:['합숙','출퇴근가능','2인1실'],ans:`🏠 합숙 여부 안내\n\n숙박이 원칙이지만 출·퇴근도 가능해요! (연수비 동일)\n\n- 숙박/출퇴근: 연수 등록 시 본인이 직접 선택\n- 기본 2인 1실 (특별한 사유 외 변경 불가)\n- 동료와 같이 숙박 원하시면 등록 후 고객센터 방문 요청\n\n더 궁금한 점 있으시면 편하게 물어보세요 😊`},
   {kw:['계산서','세금계산서','재발급'],ans:`🧾 계산서·수료증 재발급\n\n모두 재발급 가능해요!\n\n- **계산서**: 031-490-1214, 1216\n- **수료증**: 고객센터 031-490-1472\n\n※ 수료증은 수료 및 수납 완료 후 이메일로 전송됩니다.\n\n더 궁금한 점 있으시면 편하게 물어보세요 😊`},
   {kw:['100%환불','전액환불','환불가능'],ans:`↩️ 연수비 환불 안내\n\n연수비는 100% 환불 가능해요!\n\n홈페이지 Quick MENU → 연수신청서 다운로드 → 연수부담금 반환신청서 작성 → 통장사본과 함께 팩스(031-490-1116)\n\n※ 예금주가 회사 또는 대표자 명의 통장이어야 해요.\n\n더 궁금한 점 있으시면 편하게 물어보세요 😊`},
@@ -1881,7 +1938,7 @@ const RAG=[
   {kw:['준비물','가져올','지참'],ans:`🎒 연수 준비물\n\n특별히 가져오셔야 할 서류는 없어요!\n\n세면도구, 개인물품, 필기도구만 챙겨오시면 됩니다 😊`},
 
   {kw:['출석','출결','입실','퇴실','체크인','출석처리'],fn:getAttendCard},
-  {kw:['수료기준','수료기준이','기준이어떻게','80%','이수기준','수료조건'],ans:`🎓 수료 기준 및 수료증\n\n**수료 기준**\n→ 전체 교육시간의 80% 이상 출석 시 수료!\n\n**수료증 발급**\n→ 교육 종료 후 이메일로 자동 발송\n→ SSUP 홈페이지 MY학습 → 수료증 버튼\n\n더 궁금한 점 있으시면 편하게 물어보세요 😊`},
+  {kw:['수료기준','수료기준이','기준이어떻게','80%','이수기준','수료조건','수료 기준','수료증','수료받','수료하'],ans:`🎓 수료 기준 및 수료증\n\n**수료 기준**\n→ 전체 교육시간의 80% 이상 출석 시 수료!\n\n**수료증 발급**\n→ 교육 종료 후 이메일로 자동 발송\n→ SSUP 홈페이지 MY학습 → 수료증 버튼\n\n더 궁금한 점 있으시면 편하게 물어보세요 😊`},
   {kw:['고용24','QR','큐알','QR출석'],ans:`📱 고용24 QR 출석 안내\n\n① 고용24 앱 실행\n② QR 버튼 → 입실 클릭\n③ 화면의 QR코드 인식\n\n★ 하루에 2번 QR코드 필수!\n⚠️ 교육시작 10분 이후 QR → 지각\n⚠️ 교육종료 10분 이전 QR → 조퇴\n\n더 궁금한 점 있으시면 편하게 물어보세요 😊`},
   {kw:['셔틀','버스','초지역','시간표','탑승','셔틀버스','버스시간','초지역버스','버스언제','셔틀시간','셔틀시간표','상세시간','셔틀운행','오전셔틀','오후셔틀'],fn:getShuttleCard},
   {kw:['주차','주차장','차가져','자가용주차'],ans:`🅿️ 주차 안내\n\n연수원 내 주차장 이용 가능합니다.\n만차 시 **후문 건너편 제2주차장** 이용!\n\n🗺️ 네비: "중소벤처기업연수원" 검색\n주소: 경기도 안산시 단원구 연수원로 87\n\n더 궁금한 점 있으시면 편하게 물어보세요 😊`},
