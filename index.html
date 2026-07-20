@@ -16,6 +16,7 @@
   --sh:0 1px 3px rgba(0,0,0,.05),0 4px 12px rgba(76,110,245,.06);
   --sh2:0 4px 16px rgba(76,110,245,.12),0 1px 4px rgba(0,0,0,.04);
   --sh3:0 8px 28px rgba(76,110,245,.18);
+  --c2:#EEF2FF;
   --g-blue:linear-gradient(135deg,#4C6EF5,#6C5CE7);
   --g-purple:linear-gradient(135deg,#7048E8,#AE3EC9);
   --g-teal:linear-gradient(135deg,#0B9E83,#20C997);
@@ -787,13 +788,13 @@ details[open] .faq-arr{transform:rotate(180deg);}
   <!-- 탭 -->
   <div class="tabs" id="main-tabs">
     <button class="tab on" id="tab-talk" onclick="document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));this.classList.add('on');document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));document.getElementById('p-talk').classList.add('on');">
-      <span class="tab-ico">💬</span><span>TALK</span><span class="tab-sub">즉시 답변</span>
+      <span class="tab-ico">💬</span><span>TALK</span><span class="tab-sub" data-i18n="tab-talk-sub">즉시 답변</span>
     </button>
     <button class="tab" id="tab-pick" onclick="document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));this.classList.add('on');document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));document.getElementById('p-pick').classList.add('on');">
-      <span class="tab-ico">✦</span><span>PICK</span><span class="tab-sub">강좌 추천</span>
+      <span class="tab-ico">✦</span><span>PICK</span><span class="tab-sub" data-i18n="tab-pick-sub">강좌 추천</span>
     </button>
     <button class="tab" id="tab-view" onclick="document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));this.classList.add('on');document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));document.getElementById('p-view').classList.add('on');">
-      <span class="tab-ico">◎</span><span>VIEW</span><span class="tab-sub">시설 안내</span>
+      <span class="tab-ico">◎</span><span>VIEW</span><span class="tab-sub" data-i18n="tab-view-sub">시설 안내</span>
     </button>
   </div>
 
@@ -1912,15 +1913,17 @@ async function send(){
     const wrap=row.querySelector('.bwrap');
     const ad=document.createElement('div');
     ad.innerHTML=`<div class="msg-actions"><button class="mact" onclick="doMsgAct('sum','${bid}',this)">📝 3줄 요약</button><button class="mact" onclick="doMsgAct('easy','${bid}',this)">💡 쉽게 설명</button></div><div class="lang-row"><button class="lbtn on" onclick="doLang('ko','${bid}',this)">🇰🇷 한국어</button><button class="lbtn" onclick="doLang('en','${bid}',this)">🇺🇸 EN</button><button class="lbtn" onclick="doLang('id','${bid}',this)">🇮🇩 ID</button><button class="lbtn" onclick="doLang('ja','${bid}',this)">🇯🇵 JP</button><button class="lbtn" onclick="doLang('zh','${bid}',this)">🇨🇳 中文</button></div>`;
-    wrap.appendChild(ad.children[0]);wrap.appendChild(ad.children[0]);
+    while(ad.firstChild)wrap.appendChild(ad.firstChild);
     hist.push({role:'user',content:t},{role:'assistant',content:full});
   }catch(e){rmT();addB('네트워크 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');}
 }
 
 async function doMsgAct(type,bid,btn){
   const el=document.getElementById(bid);if(!el)return;
+  if(type==='raw'){el.innerHTML=el.getAttribute('data-orig')||el.innerHTML;return;}
   const orig=el.innerText;
   const pm=type==='sum'?`다음 내용을 핵심만 3줄로 요약해주세요:\n${orig}`:`다음 내용을 중학생도 이해할 수 있게 쉽게 설명해주세요:\n${orig}`;
+  if(!el.getAttribute('data-orig'))el.setAttribute('data-orig',el.innerHTML);
   btn.disabled=true;btn.style.opacity='0.5';
   try{
     const res=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:pm,history:[],simple:true})});
@@ -2077,6 +2080,7 @@ async function aiWayFind(){
   const dest=input?input.value.trim():'';
   if(!dest){input&&input.focus();return;}
   const res=document.getElementById('ai-wf-result');
+  if(!res)return;
   res.style.display='block';
   res.innerHTML='<div style="text-align:center;color:var(--t2);font-size:12px;">🤖 경로 안내 중...</div>';
   const prompt='중소벤처기업연수원(경기도 안산시) 캠퍼스 내 도보 길찾기. 건물 배치: 정문→봉사관(정면), 교류동·실험동(좌측), 창의관·대강당(우측), 인화1관·인화2관(후방 좌측), 운동장(우측 끝). 목적지: "'+dest+'" 까지 정문에서 출발하는 도보 경로를 단계별로 간단히 안내해주세요. 3~4단계로 간결하게.'+getLangPrompt();
