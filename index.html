@@ -1879,7 +1879,7 @@ function setLang(l,btn){
   var sub={'ko':'중소벤처기업연수원 AI 스마트비서','en':'KOSME Training Center AI Assistant','id':'Asisten AI Pusat Pelatihan KOSME','ja':'中小企業研修院 AIアシスタント','zh':'中小企业研修院AI助手'};
   var hdrSub=document.getElementById('hdr-sub');
   if(hdrSub)hdrSub.textContent=sub[l]||sub['ko'];
-  var greet={'ko':'안녕하세요 😊 저는 <strong>왓썹(W-SSUP)</strong>이에요!<br>연수 신청·교육비·교통편 등 궁금한 점이라면 무엇이든 24시간 도와드릴게요!','en':'Hello 😊 I'm <strong>W-SSUP</strong>!<br>Ask me anything about registration, fees, shuttle bus, and more — available 24/7!','id':'Halo 😊 Saya <strong>W-SSUP</strong>!<br>Tanyakan apa saja tentang pendaftaran, biaya, shuttle bus, dan lainnya — tersedia 24 jam!','ja':'こんにちは 😊 <strong>W-SSUP</strong>です！<br>研修申込・教育費・交通など、何でもお気軽にどうぞ！24時間対応しています！','zh':'您好 😊 我是<strong>W-SSUP</strong>！<br>培训申请、教育费用、交通等问题随时为您解答，24小时服务！'};
+  var greet={'ko':'안녕하세요 😊 저는 <strong>왓썹(W-SSUP)</strong>이에요!<br>연수 신청·교육비·교통편 등 궁금한 점이라면 무엇이든 24시간 도와드릴게요!','en':'Hello 😊 I\'m <strong>W-SSUP</strong>!<br>Ask me anything about registration, fees, shuttle bus, and more — available 24/7!','id':'Halo 😊 Saya <strong>W-SSUP</strong>!<br>Tanyakan apa saja tentang pendaftaran, biaya, shuttle bus, dan lainnya — tersedia 24 jam!','ja':'こんにちは 😊 <strong>W-SSUP</strong>です！<br>研修申込・教育費・交通など、何でもお気軽にどうぞ！24時間対応しています！','zh':'您好 😊 我是<strong>W-SSUP</strong>！<br>培训申请、教育费用、交通等问题随时为您解答，24小时服务！'};
   var botGreet=document.getElementById('bot-greet');
   if(botGreet)botGreet.innerHTML=greet[l]||greet['ko'];
 }
