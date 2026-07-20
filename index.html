@@ -275,24 +275,37 @@ details[open] .faq-arr{transform:rotate(180deg);}
 @keyframes marchDiv{0%{background-position:0 0,0 100%,0 0,100% 0;}100%{background-position:16px 0,-16px 100%,0 -16px,100% 16px;}}
 
 /* Splash */
-.splash{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px 24px;}
-.splash-bg{position:absolute;inset:0;background:linear-gradient(160deg,#0F1229 0%,#1A1E45 45%,#2D1B69 100%);pointer-events:none;}
-.splash-bg::before{content:'';position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(99,102,241,.25),transparent 65%);top:-120px;right:-120px;animation:rotateSlow 20s linear infinite;}
-.splash-bg::after{content:'';position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(139,92,246,.2),transparent 65%);bottom:-80px;left:-80px;}
-.splash.hide{animation:fadeOut .4s forwards;}
-.splash-logo{font-family:'Outfit',sans-serif;font-size:76px;font-weight:800;background:linear-gradient(135deg,#818CF8,#C084FC,#38BDF8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-3px;margin-bottom:4px;animation:splashIn .8s cubic-bezier(.16,1,.3,1) both;position:relative;z-index:1;filter:drop-shadow(0 0 32px rgba(129,140,248,.5));}
-.splash-sub{font-size:13px;color:rgba(255,255,255,.75);margin-bottom:4px;animation:splashIn .8s .1s cubic-bezier(.16,1,.3,1) both;position:relative;z-index:1;font-weight:600;letter-spacing:.5px;}
-.splash-desc{font-size:11px;color:rgba(255,255,255,.4);margin-bottom:24px;animation:splashIn .8s .15s cubic-bezier(.16,1,.3,1) both;position:relative;z-index:1;letter-spacing:.3px;}
-.splash-cards{display:flex;gap:8px;width:100%;margin-bottom:24px;animation:splashIn .8s .2s cubic-bezier(.16,1,.3,1) both;position:relative;z-index:1;}
-.splash-card{flex:1;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:14px 6px;text-align:center;backdrop-filter:blur(12px);transition:all .2s;}
-.splash-card:active{background:rgba(255,255,255,.12);transform:scale(.97);}
-.splash-card-ico{font-size:24px;margin-bottom:6px;}
-.splash-card-title{font-size:13px;font-weight:800;color:#fff;margin-bottom:3px;font-family:'Outfit',sans-serif;}
-.splash-card-desc{font-size:9.5px;color:rgba(255,255,255,.5);line-height:1.5;}
-.splash-btn{width:100%;padding:16px;background:linear-gradient(135deg,#6366F1,#8B5CF6);border:none;border-radius:16px;font-size:15px;font-weight:800;color:#fff;cursor:pointer;animation:splashIn .8s .35s cubic-bezier(.16,1,.3,1) both;font-family:'Outfit',sans-serif;letter-spacing:.5px;position:relative;z-index:10000;pointer-events:auto;transition:all .15s;box-shadow:0 8px 32px rgba(99,102,241,.45);}
-.splash-btn:active{transform:scale(.97);box-shadow:0 4px 16px rgba(99,102,241,.3);}
-@keyframes splashIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-@keyframes rotateSlow{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+/* ── SPLASH ── */
+.splash{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;background:linear-gradient(160deg,#3B5BDB 0%,#4C6EF5 40%,#6C5CE7 100%);}
+.splash-bg{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
+.splash-bg::before{content:'';position:absolute;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.12),transparent 65%);top:-80px;right:-80px;}
+.splash-bg::after{content:'';position:absolute;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.08),transparent 65%);bottom:200px;left:-60px;}
+.splash.hide{animation:fadeOut .35s forwards;}
+/* 상단 브랜드 영역 */
+.splash-top{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 28px 24px;position:relative;z-index:1;}
+.splash-logo{font-family:'Outfit',sans-serif;font-size:72px;font-weight:800;color:#fff;letter-spacing:-3px;margin-bottom:6px;animation:splashIn .7s cubic-bezier(.16,1,.3,1) both;text-shadow:0 4px 24px rgba(0,0,0,.2);}
+.splash-sub{font-size:14px;color:rgba(255,255,255,.85);font-weight:700;animation:splashIn .7s .08s cubic-bezier(.16,1,.3,1) both;margin-bottom:28px;}
+.splash-feats{display:flex;gap:20px;animation:splashIn .7s .16s cubic-bezier(.16,1,.3,1) both;}
+.splash-feat{display:flex;flex-direction:column;align-items:center;gap:5px;}
+.splash-feat-ico{width:48px;height:48px;border-radius:14px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:22px;border:1.5px solid rgba(255,255,255,.25);}
+.splash-feat-nm{font-size:11px;font-weight:800;color:#fff;font-family:'Outfit',sans-serif;}
+.splash-feat-desc{font-size:9px;color:rgba(255,255,255,.6);text-align:center;line-height:1.4;}
+/* 하단 입력 카드 */
+.splash-bot{background:#fff;border-radius:28px 28px 0 0;padding:28px 24px 40px;animation:slideUp .6s .2s cubic-bezier(.16,1,.3,1) both;position:relative;z-index:2;box-shadow:0 -8px 40px rgba(0,0,0,.12);}
+.splash-bot-title{font-size:17px;font-weight:800;color:var(--t0);margin-bottom:4px;}
+.splash-bot-sub{font-size:12px;color:var(--t2);margin-bottom:18px;line-height:1.5;}
+.splash-input-wrap{position:relative;margin-bottom:12px;}
+.splash-input-wrap input{width:100%;padding:14px 16px 14px 46px;border:1.5px solid var(--border);border-radius:14px;font-size:15px;font-weight:600;color:var(--t0);background:var(--surf);outline:none;font-family:'Noto Sans KR',sans-serif;transition:border-color .2s,background .2s;}
+.splash-input-wrap input:focus{border-color:var(--blue);background:#fff;}
+.splash-input-wrap input::placeholder{color:var(--t2);font-weight:400;}
+.splash-input-ico{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:18px;pointer-events:none;}
+.splash-btn{width:100%;padding:15px;background:var(--g-blue);border:none;border-radius:14px;font-size:15px;font-weight:800;color:#fff;cursor:pointer;font-family:'Outfit',sans-serif;letter-spacing:.3px;position:relative;z-index:10000;pointer-events:auto;transition:all .15s;box-shadow:0 6px 20px rgba(76,110,245,.35);}
+.splash-btn:active{transform:scale(.98);box-shadow:0 3px 10px rgba(76,110,245,.2);}
+.splash-note{font-size:10px;color:var(--t2);text-align:center;margin-top:12px;line-height:1.6;}
+/* 레거시 호환 */
+.splash-card,.splash-cards,.splash-card-ico,.splash-card-title,.splash-card-desc{display:none;}
+@keyframes splashIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
 
 @media(min-width:600px){
   .app{width:100%;max-width:100%;padding-bottom:100px;}
@@ -703,49 +716,41 @@ details[open] .faq-arr{transform:rotate(180deg);}
 <div class="splash" id="splash">
   <div class="splash-bg"></div>
 
-  <!-- 브랜드 -->
-  <div style="position:relative;z-index:1;text-align:center;margin-bottom:32px;">
-    <div style="font-size:11px;color:var(--t2);letter-spacing:2px;margin-bottom:10px;animation:fadeIn .7s ease;">중소벤처기업연수원</div>
+  <!-- 상단 브랜드 -->
+  <div class="splash-top">
+    <div style="font-size:11px;color:rgba(255,255,255,.6);letter-spacing:2.5px;font-weight:600;margin-bottom:10px;">중소벤처기업연수원</div>
     <div class="splash-logo">W-SSUP</div>
     <div class="splash-sub">AI 스마트비서</div>
-  </div>
-
-  <!-- 기능 카드 3개 -->
-  <div class="splash-cards">
-    <div class="splash-card">
-      <div class="splash-card-ico">💬</div>
-      <div class="splash-card-title" style="color:#4C6EF5;">TALK</div>
-      <div class="splash-card-desc" style="word-break:keep-all;">24시간<br>즉시 답변</div>
-    </div>
-    <div class="splash-card">
-      <div class="splash-card-ico">✦</div>
-      <div class="splash-card-title" style="color:#7048E8;">PICK</div>
-      <div class="splash-card-desc" style="word-break:keep-all;">맞춤<br>강좌 추천</div>
-    </div>
-    <div class="splash-card">
-      <div class="splash-card-ico">◎</div>
-      <div class="splash-card-title" style="color:#0CA678;">VIEW</div>
-      <div class="splash-card-desc" style="word-break:keep-all;">시설 안내<br>불편 신고</div>
+    <div class="splash-feats">
+      <div class="splash-feat">
+        <div class="splash-feat-ico">💬</div>
+        <div class="splash-feat-nm">TALK</div>
+        <div class="splash-feat-desc">24시간<br>즉시 답변</div>
+      </div>
+      <div class="splash-feat">
+        <div class="splash-feat-ico">✦</div>
+        <div class="splash-feat-nm">PICK</div>
+        <div class="splash-feat-desc">맞춤<br>강좌 추천</div>
+      </div>
+      <div class="splash-feat">
+        <div class="splash-feat-ico">◎</div>
+        <div class="splash-feat-nm">VIEW</div>
+        <div class="splash-feat-desc">시설 안내<br>길찾기</div>
+      </div>
     </div>
   </div>
 
-  <!-- 현장 불편 ZERO -->
-  <div style="position:relative;z-index:1;text-align:center;margin-bottom:20px;animation:fadeIn .7s .3s ease both;">
-    <p style="font-size:13px;font-weight:700;color:var(--t1);">TALK + PICK + VIEW =&nbsp;<span style="color:#4C6EF5;">현장 불편 ZERO 🎯</span></p>
-  </div>
-
-  <div style="position:relative;z-index:1;width:100%;max-width:360px;animation:splashIn .8s .3s cubic-bezier(.16,1,.3,1) both;">
-    <div style="position:relative;margin-bottom:10px;">
-      <span style="position:absolute;left:16px;top:50%;transform:translateY(-50%);font-size:16px;">👤</span>
+  <!-- 하단 입력 카드 -->
+  <div class="splash-bot">
+    <div class="splash-bot-title">안녕하세요! 👋</div>
+    <div class="splash-bot-sub">이름을 입력하면 개인화된 인사와<br>맞춤 연수 일정을 바로 확인할 수 있어요</div>
+    <div class="splash-input-wrap">
+      <span class="splash-input-ico">👤</span>
       <input id="uname-input" type="text" maxlength="10" placeholder="이름을 입력하세요"
-        style="width:100%;padding:14px 18px 14px 44px;border:1.5px solid rgba(255,255,255,.15);border-radius:14px;font-size:14px;font-weight:600;color:#fff;background:rgba(255,255,255,.1);box-sizing:border-box;outline:none;font-family:'Noto Sans KR',sans-serif;backdrop-filter:blur(8px);"
-        onkeydown="if(event.key==='Enter')startWithName()"
-        onfocus="this.style.borderColor='rgba(129,140,248,.6)';this.style.background='rgba(255,255,255,.15)'"
-        onblur="this.style.borderColor='rgba(255,255,255,.15)';this.style.background='rgba(255,255,255,.1)'">
+        onkeydown="if(event.key==='Enter')startWithName()">
     </div>
     <button class="splash-btn" id="start-btn" onclick="document.getElementById('splash').style.display='none';try{var n=document.getElementById('uname-input').value.trim()||'연수생';localStorage.setItem('w_username',n);document.getElementById('welcome-name').textContent=n+'님';}catch(e){}">시작하기 →</button>
-    <p style="font-size:11px;color:rgba(255,255,255,.45);text-align:center;margin-top:10px;line-height:1.6;">이름을 입력하면 개인화된 인사를 받을 수 있어요 😊</p>
-    <p style="font-size:10px;color:rgba(255,255,255,.28);text-align:center;margin-top:5px;line-height:1.5;">💡 데모 버전 · 향후 SSUP 계정과 자동 연동 예정</p>
+    <div class="splash-note">💡 데모 버전 · 향후 SSUP 계정과 자동 연동 예정</div>
   </div>
 </div>
 <div class="app">
