@@ -849,7 +849,17 @@ details[open] .faq-arr{transform:rotate(180deg);}
       </div>
     </div>
     <div class="ibar">
-      <button class="mbtn" id="micBtn" onclick="toggleMic()" title="음성 입력"><svg viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm-1 1.93c-3.94-.49-7-3.86-7-7.93H2c0 4.42 3.05 8.13 7 9.28V20h2v-2.09c.34-.05.67-.12 1-.2v-2.06c-.32.09-.65.15-1 .15zm2-1.93c1.66 0 3-1.34 3-3v-.28l-6-6V11c0 1.66 1.34 3 3 3z"/></svg></button>
+      <div style="position:relative;">
+        <button class="mbtn" id="micBtn" onclick="toggleMic()" title="음성 입력"><svg viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm-1 1.93c-3.94-.49-7-3.86-7-7.93H2c0 4.42 3.05 8.13 7 9.28V20h2v-2.09c.34-.05.67-.12 1-.2v-2.06c-.32.09-.65.15-1 .15zm2-1.93c1.66 0 3-1.34 3-3v-.28l-6-6V11c0 1.66 1.34 3 3 3z"/></svg></button>
+        <div id="mic-lang-pop" style="display:none;position:absolute;bottom:46px;left:50%;transform:translateX(-50%);background:var(--bg);border:1.5px solid var(--border);border-radius:14px;padding:8px;box-shadow:0 4px 20px rgba(0,0,0,.18);z-index:200;white-space:nowrap;">
+          <div style="font-size:10px;color:var(--t2);text-align:center;margin-bottom:6px;font-weight:700;">언어 선택</div>
+          <div style="display:flex;gap:5px;">
+            <button onclick="startStt('ko-KR',this)" style="padding:6px 10px;border:1.5px solid var(--border);border-radius:10px;background:var(--surf2);font-size:12px;font-weight:700;cursor:pointer;">🇰🇷 한국어</button>
+            <button onclick="startStt('en-US',this)" style="padding:6px 10px;border:1.5px solid var(--border);border-radius:10px;background:var(--surf2);font-size:12px;font-weight:700;cursor:pointer;">🇺🇸 English</button>
+            <button onclick="startStt('id-ID',this)" style="padding:6px 10px;border:1.5px solid var(--border);border-radius:10px;background:var(--surf2);font-size:12px;font-weight:700;cursor:pointer;">🇮🇩 Bahasa</button>
+          </div>
+        </div>
+      </div>
       <textarea id="txtin" rows="1" placeholder="궁금한 점을 입력하세요..." onkeydown="hk(event)" oninput="ar(this)"></textarea>
       <button class="sbtn" onclick="send()"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></button>
     </div>
@@ -1634,7 +1644,41 @@ function addB(t){
   c.appendChild(r);scr();
 }
 
-function toggleMic(){alert('음성 입력은 준비 중입니다.');}
+var _stt=null;
+function toggleMic(){
+  var pop=document.getElementById('mic-lang-pop');
+  if(_stt){stopStt();return;}
+  pop.style.display=pop.style.display==='none'?'block':'none';
+  if(pop.style.display==='block'){
+    setTimeout(function(){document.addEventListener('click',function h(e){if(!pop.contains(e.target)&&e.target.id!=='micBtn'){pop.style.display='none';document.removeEventListener('click',h);}});},0);
+  }
+}
+function startStt(lang,btn){
+  document.getElementById('mic-lang-pop').style.display='none';
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){alert('이 브라우저는 음성 인식을 지원하지 않습니다.\nChrome 사용을 권장해요.');return;}
+  _stt=new SR();
+  _stt.lang=lang; _stt.continuous=false; _stt.interimResults=true;
+  var mb=document.getElementById('micBtn');
+  mb.classList.add('active');
+  var inp=document.getElementById('txtin');
+  var langLabel={'ko-KR':'🇰🇷 듣는 중...','en-US':'🇺🇸 Listening...','id-ID':'🇮🇩 Mendengarkan...'};
+  inp.placeholder=langLabel[lang]||'듣는 중...';
+  _stt.onresult=function(e){
+    var t=Array.from(e.results).map(function(r){return r[0].transcript;}).join('');
+    inp.value=t; ar(inp);
+  };
+  _stt.onend=function(){stopStt();};
+  _stt.onerror=function(e){stopStt();if(e.error!=='no-speech')alert('음성 인식 오류: '+e.error);};
+  _stt.start();
+}
+function stopStt(){
+  if(_stt){try{_stt.stop();}catch(e){}; _stt=null;}
+  var mb=document.getElementById('micBtn');
+  if(mb)mb.classList.remove('active');
+  var inp=document.getElementById('txtin');
+  if(inp)inp.placeholder='궁금한 점을 입력하세요...';
+}
 
 /* ── TALK 핵심 함수 ── */
 async function send(){
