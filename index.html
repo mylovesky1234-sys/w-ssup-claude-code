@@ -285,6 +285,14 @@ details[open] .faq-arr{transform:rotate(180deg);}
 @keyframes fadeOut{from{opacity:1;}to{opacity:0;pointer-events:none;}}
 @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
 @keyframes spin{to{transform:rotate(360deg);}}
+@keyframes slideUpIn{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);}}
+.app-enter{animation:slideUpIn .5s cubic-bezier(.22,1,.36,1) both;}
+.psl{font-size:15px;font-weight:700;padding:5px 0;display:flex;align-items:center;gap:8px;opacity:0;transition:opacity .25s;}
+.psl.show{opacity:1;}
+.psl.done{color:var(--blue);}
+.psl.active{color:var(--t0);}
+.match-bar-wrap{margin-top:4px;height:5px;background:rgba(255,255,255,.2);border-radius:3px;overflow:hidden;}
+.match-bar{height:100%;background:rgba(255,255,255,.8);border-radius:3px;transition:width 1s cubic-bezier(.22,1,.36,1);}
 @keyframes ping{0%{transform:scale(1);opacity:.8;}100%{transform:scale(2.2);opacity:0;}}
 @keyframes bld-box{0%,100%{box-shadow:0 0 0 0 currentColor;}50%{box-shadow:0 0 0 4px currentColor;}}
 @keyframes routeDash{to{stroke-dashoffset:-14;}}
@@ -753,7 +761,7 @@ details[open] .faq-arr{transform:rotate(180deg);}
     <input id="uname-input" type="text" maxlength="10" placeholder="이름을 입력하세요" data-i18n-ph="splash-name-ph"
       style="width:100%;padding:14px 18px;border:1.5px solid #C5D0FF;border-radius:16px;font-size:16px;font-weight:600;color:var(--t0);background:#fff;box-sizing:border-box;outline:none;margin-bottom:10px;font-family:'Noto Sans KR',sans-serif;"
       onkeydown="if(event.key==='Enter')startWithName()">
-    <button class="splash-btn" id="start-btn" data-i18n="splash-start" onclick="document.getElementById('splash').style.display='none';try{var n=document.getElementById('uname-input').value.trim()||'연수생';localStorage.setItem('w_username',n);document.getElementById('welcome-name').textContent=n+'님';}catch(e){}">시작하기 →</button>
+    <button class="splash-btn" id="start-btn" data-i18n="splash-start" onclick="startApp()">시작하기 →</button>
     <p style="font-size:15px;color:var(--t2);text-align:center;margin-top:10px;line-height:1.6;position:relative;z-index:1;" data-i18n="splash-name-hint">이름을 입력하면 개인화된 인사를 받을 수 있어요 😊</p>
     <p style="font-size:15px;color:var(--t2);text-align:center;margin-top:5px;line-height:1.5;position:relative;z-index:1;">💡 데모 버전 · 향후 SSUP 계정과 자동 연동 예정</p>
   </div>
@@ -1489,6 +1497,7 @@ var SSUP_COURSES = [
 
 function ssupPickCards(courses, resEl, intro){
   var colors=[['#4C6EF5','#7048E8'],['#7048E8','#E64980'],['#0CA678','#15AABF']];
+  var matchPcts=[97,93,89];
   var header='<div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;padding:10px 12px;background:var(--blue-lt);border-radius:12px;border:1px solid rgba(76,110,245,.2);">'
     +'<span style="font-size:18px;">🔗</span>'
     +'<div><div style="font-size:15px;font-weight:800;color:var(--blue);">SSUP 과정 연동 완료</div>'
@@ -1497,15 +1506,21 @@ function ssupPickCards(courses, resEl, intro){
     +'</div>';
   var footer='<a href="https://ssup.kosmes.or.kr" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px;background:var(--surf);border:1.5px solid var(--border);border-radius:14px;font-size:15px;font-weight:800;color:var(--blue);text-decoration:none;margin-top:4px;">📋 SSUP 전체 과정 보기 →</a>'
     +'<div style="font-size:13px;color:var(--t2);text-align:center;padding:8px 4px 0;">※ 데모용 과정입니다. 실제 과정과 다를 수 있으며, 정확한 일정은 SSUP 홈페이지를 확인해주세요.</div>';
+  var cardId='spc'+Date.now();
   resEl.innerHTML = header + courses.slice(0,3).map(function(c,i){
     var g='linear-gradient(135deg,'+colors[i][0]+','+colors[i][1]+')';
     var badgeHtml=c.badge?'<span style="background:rgba(255,255,255,.25);color:#fff;font-size:13px;font-weight:700;padding:2px 8px;border-radius:10px;margin-left:8px;">'+c.badge+'</span>':'';
+    var pct=matchPcts[i]||85;
     return '<div class="ccard" style="margin-bottom:10px;overflow:hidden;padding:0;">'
       +'<div style="background:'+g+';padding:12px 14px 10px;">'
         +'<div style="display:flex;align-items:center;margin-bottom:3px;">'
           +'<div style="font-size:13px;font-weight:800;color:rgba(255,255,255,.7);letter-spacing:.5px;">PICK '+(i+1)+'</div>'+badgeHtml
-          +'<div style="margin-left:auto;font-size:13px;color:rgba(255,255,255,.7);">'+c.code+'</div>'
+          +'<div style="margin-left:auto;display:flex;align-items:center;gap:6px;">'
+            +'<span style="font-size:13px;font-weight:800;color:#fff;">적합도 '+pct+'%</span>'
+            +'<span style="font-size:11px;color:rgba(255,255,255,.6);">'+c.code+'</span>'
+          +'</div>'
         +'</div>'
+        +'<div class="match-bar-wrap"><div class="match-bar" id="mb'+cardId+i+'" style="width:0%"></div></div>'
         +'<div style="font-size:16px;font-weight:800;color:#fff;line-height:1.4;">'+c.title+'</div>'
         +'<div style="display:flex;gap:8px;margin-top:6px;">'
           +'<span style="background:rgba(255,255,255,.2);color:#fff;font-size:13px;font-weight:700;padding:2px 7px;border-radius:6px;">📅 '+c.days+'일 과정</span>'
@@ -1528,6 +1543,12 @@ function ssupPickCards(courses, resEl, intro){
       +'</div>'
     +'</div>';
   }).join('') + footer;
+  setTimeout(function(){
+    courses.slice(0,3).forEach(function(c,i){
+      var bar=resEl.querySelector('#mb'+cardId+i);
+      if(bar)bar.style.width=matchPcts[i]+'%';
+    });
+  },80);
 }
 
 function pickFromDB(tags, count){
@@ -1552,30 +1573,26 @@ function doPick(){
   var job=document.getElementById('job').value;
   if(!ind||!job){alert('업종과 직무를 선택해주세요.');return;}
   var res=document.getElementById('pres');
-  res.innerHTML='<div class="spinn"><div class="spin"></div>SSUP 연동 중...</div>';
-  setTimeout(function(){
+  ssupLoading(res,['🔍 SSUP 데이터 연결 중...','📊 맞춤 과정 매칭 중...','✅ 추천 완료!'],900,function(){
     var picks=pickFromDB([ind,job],3);
     ssupPickCards(picks,res);
-  },900);
+  });
 }
 
 function doPick2(){
   var ind=document.getElementById('ind2').value;
   var job=document.getElementById('job2').value;
   var res=document.getElementById('pres2');
-  res.innerHTML='<div class="spinn"><div class="spin"></div>SSUP 연동 중...</div>';
-  setTimeout(function(){
+  ssupLoading(res,['🔍 SSUP 데이터 연결 중...','📊 맞춤 과정 매칭 중...','✅ 추천 완료!'],900,function(){
     var picks=pickFromDB([ind,job],3);
     ssupPickCards(picks,res);
-  },900);
+  });
 }
 
 function doNLPick(){
   var input=document.getElementById('nl-input').value.trim();
   if(!input){alert('상황을 입력해주세요.');return;}
   var res=document.getElementById('nl-result');
-  res.innerHTML='<div class="spinn"><div class="spin"></div>AI가 분석 중...</div>';
-  // 키워드로 태그 매칭
   var kw=input;
   var tags=[];
   if(/제조|공장|생산|품질|PLC|로봇|자동화/.test(kw)) tags.push('제조업','스마트공장');
@@ -1586,22 +1603,42 @@ function doNLPick(){
   if(/리더|관리자|팀장|HRD|HR/.test(kw)) tags.push('계층·리더십','HR·교육');
   if(/IT|소프트웨어|보안|프로그램/.test(kw)) tags.push('IT·소프트웨어');
   if(tags.length===0) tags=['제조업','경영·전략','IT·소프트웨어'];
-  setTimeout(function(){
+  ssupLoading(res,['🤖 내용 분석 중...','📊 맞춤 과정 매칭 중...','✅ 추천 완료!'],1200,function(){
     var picks=pickFromDB(tags,3);
     ssupPickCards(picks,res);
-  },1200);
+  });
 }
 
-function startWithName(){
-  const splash=document.getElementById('splash');
-  if(splash) splash.style.display='none';
+function startApp(){
   try{
-    const inp=document.getElementById('uname-input');
-    const name=(inp&&inp.value.trim())?inp.value.trim():'연수생';
+    var inp=document.getElementById('uname-input');
+    var name=(inp&&inp.value.trim())?inp.value.trim():'연수생';
     try{localStorage.setItem('w_username',name);}catch(e){}
     personalizeApp(name);
   }catch(e){}
-  setTimeout(showOnboarding, 600);
+  var splash=document.getElementById('splash');
+  if(splash){splash.classList.add('hide');setTimeout(function(){splash.style.display='none';},420);}
+  var app=document.querySelector('.app');
+  if(app){app.classList.add('app-enter');}
+  setTimeout(showOnboarding, 700);
+}
+function startWithName(){
+  startApp();
+}
+function ssupLoading(resEl, steps, delay, onDone){
+  var html='<div class="spinn" style="text-align:left;padding:20px 16px;">';
+  steps.forEach(function(s,i){html+='<div class="psl" id="psl'+i+'">'+s+'</div>';});
+  html+='</div>';
+  resEl.innerHTML=html;
+  steps.forEach(function(s,i){
+    setTimeout(function(){
+      var el=resEl.querySelector('#psl'+i);
+      if(!el)return;
+      el.classList.add('show','active');
+      if(i>0){var prev=resEl.querySelector('#psl'+(i-1));if(prev){prev.classList.remove('active');prev.classList.add('done');}}
+    },i*(delay/steps.length));
+  });
+  setTimeout(onDone, delay);
 }
 function showOnboarding(){
   if(document.getElementById('onboard-overlay'))return;
