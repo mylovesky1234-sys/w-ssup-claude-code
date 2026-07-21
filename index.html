@@ -615,15 +615,24 @@ details[open] .faq-arr{transform:rotate(180deg);}
 .wf-input{flex:1;padding:10px 13px;border:1.5px solid var(--border);border-radius:12px;font-size:16px;font-family:inherit;outline:none;background:var(--surf);transition:border-color .2s;}
 .wf-input:focus{border-color:var(--teal);background:#fff;}
 .wf-btn{padding:10px 14px;background:var(--g-teal);color:#fff;border:none;border-radius:12px;font-size:16px;font-weight:700;cursor:pointer;flex-shrink:0;white-space:nowrap;}
-.wf-result{margin-top:12px;display:none;}
-.wf-step{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);}
-.wf-step:last-child{border:none;}
-.wf-num{width:22px;height:22px;border-radius:50%;background:var(--teal);color:#fff;font-size:15px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
-.wf-main{font-size:16px;font-weight:700;color:var(--t0);}
-.wf-sub{font-size:15px;color:var(--t2);margin-top:2px;}
-.wf-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
-.wf-chip{padding:6px 12px;border-radius:20px;background:var(--teal-lt);color:var(--teal);border:1.5px solid #96F2D7;font-size:15px;font-weight:700;cursor:pointer;transition:all .15s;}
-.wf-chip:hover{background:var(--teal);color:#fff;}
+.wf-result{margin-top:4px;display:none;}
+/* 목적지 버튼 */
+.wf-dest-btn{display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:14px;background:var(--surf);border:1.5px solid var(--border);cursor:pointer;text-align:left;width:100%;transition:all .15s;}
+.wf-dest-btn:hover,.wf-dest-btn.active{background:var(--blue-lt);border-color:rgba(76,110,245,.4);}
+.wf-dest-ico{font-size:22px;flex-shrink:0;}
+.wf-dest-name{font-size:15px;font-weight:800;color:var(--t0);}
+.wf-dest-sub{font-size:12px;color:var(--t2);margin-top:1px;}
+.wf-dest-time{margin-left:auto;flex-shrink:0;font-size:12px;font-weight:700;color:var(--teal);background:var(--teal-lt);padding:3px 7px;border-radius:20px;}
+/* 경로 카드 */
+.wf-route-card{background:var(--surf);border-radius:16px;overflow:hidden;border:1px solid var(--border);}
+.wf-step-row{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-top:1px solid var(--border);}
+.wf-step-row:first-child{border-top:none;}
+.wf-step-dot{flex-shrink:0;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;background:var(--bg);border:2px solid var(--border);}
+.wf-step-dir{font-size:15px;font-weight:700;color:var(--t0);line-height:1.4;}
+.wf-step-dist{font-size:13px;color:var(--t2);margin-top:2px;}
+.wf-dest-info{padding:12px 14px;background:rgba(12,166,120,.06);border-top:2px solid rgba(12,166,120,.2);}
+.wf-dest-floors{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
+.wf-floor-tag{font-size:13px;font-weight:700;padding:3px 8px;border-radius:8px;background:var(--bg);border:1px solid var(--border);color:var(--t1);}
 /* QR 시나리오 */
 .qr-scenarios{margin-top:12px;display:flex;flex-direction:column;gap:8px;}
 .qr-scen-btn{display:flex;align-items:center;gap:10px;padding:12px;background:var(--surf);border:1px solid var(--border);border-radius:12px;cursor:pointer;transition:all .15s;text-align:left;width:100%;}
@@ -1151,30 +1160,53 @@ details[open] .faq-arr{transform:rotate(180deg);}
         </div>
       </div>
 
-      <!-- AI 길찾기 -->
+      <!-- 길찾기 -->
       <div>
-        <div class="stitle" data-i18n="view-wayfind">🗺️ AI 길찾기</div>
-        <div class="wayfind-card">
-          <div style="font-size:16px;color:var(--t1);margin-bottom:10px;" data-i18n="view-wf-desc">📍 정문에서 목적지까지 AI가 도보 경로를 안내해드려요</div>
-          <!-- 자유 텍스트 AI 입력 -->
-          <div style="display:flex;gap:8px;margin-bottom:12px;">
-            <input id="wf-input" placeholder="어디로 가고 싶으세요? (예: 식당, 봉사관 206호)" style="flex:1;border:1.5px solid var(--border);border-radius:12px;padding:10px 12px;font-size:16px;background:var(--bg);color:var(--t0);outline:none;" onkeydown="if(event.key==='Enter')aiWayFind()">
-            <button onclick="aiWayFind()" style="background:linear-gradient(135deg,#4C6EF5,#7048E8);color:#fff;border:none;border-radius:12px;padding:10px 14px;font-size:16px;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0;">🤖 AI 안내</button>
-          </div>
-          <div id="ai-wf-result" style="display:none;background:var(--surf);border-radius:12px;padding:12px;border:1px solid var(--border);font-size:16px;color:var(--t1);line-height:1.8;margin-bottom:10px;"></div>
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;"><div style="flex:1;height:1px;background:var(--border);"></div><span style="font-size:15px;color:var(--t2);font-weight:600;" data-i18n="view-or">또는 건물 선택</span><div style="flex:1;height:1px;background:var(--border);"></div></div>
-          <div class="wf-chips">
-            <button class="wf-chip" onclick="wfGo('창의관')">🏫 창의관</button>
-            <button class="wf-chip" onclick="wfGo('봉사관')">🏛️ 봉사관</button>
-            <button class="wf-chip" onclick="wfGo('인화1관')">🏠 인화1관</button>
-            <button class="wf-chip" onclick="wfGo('인화2관')">🏠 인화2관</button>
-            <button class="wf-chip" onclick="wfGo('교류동')">🍽️ 교류동</button>
-            <button class="wf-chip" onclick="wfGo('실험동')">🔬 실험동</button>
-            <button class="wf-chip" onclick="wfGo('대강당')">🏟️ 대강당</button>
-            <button class="wf-chip" onclick="wfGo('운동장')">⚽ 운동장</button>
-          </div>
-          <div id="wf-result" class="wf-result"></div>
+        <div class="stitle">🗺️ 캠퍼스 길찾기</div>
+        <div style="font-size:15px;color:var(--t2);margin-bottom:10px;">📍 정문 기준 도보 경로 · 건물을 선택하세요</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;">
+          <button class="wf-dest-btn" onclick="wfGo('봉사관')">
+            <span class="wf-dest-ico">🏛️</span>
+            <div><div class="wf-dest-name">봉사관</div><div class="wf-dest-sub">강의실·헬스장·라운지</div></div>
+            <span class="wf-dest-time">약 2분</span>
+          </button>
+          <button class="wf-dest-btn" onclick="wfGo('창의관')">
+            <span class="wf-dest-ico">🏫</span>
+            <div><div class="wf-dest-name">창의관</div><div class="wf-dest-sub">강의실·PC실·회의실</div></div>
+            <span class="wf-dest-time">약 4분</span>
+          </button>
+          <button class="wf-dest-btn" onclick="wfGo('교류동')">
+            <span class="wf-dest-ico">🍽️</span>
+            <div><div class="wf-dest-name">교류동 (식당)</div><div class="wf-dest-sub">1F 식당·2F 다목적홀</div></div>
+            <span class="wf-dest-time">약 4분</span>
+          </button>
+          <button class="wf-dest-btn" onclick="wfGo('인화1관')">
+            <span class="wf-dest-ico">🏠</span>
+            <div><div class="wf-dest-name">인화1관 (기숙사)</div><div class="wf-dest-sub">1~5F 기숙사 객실</div></div>
+            <span class="wf-dest-time">약 6분</span>
+          </button>
+          <button class="wf-dest-btn" onclick="wfGo('인화2관')">
+            <span class="wf-dest-ico">🏠</span>
+            <div><div class="wf-dest-name">인화2관 (기숙사)</div><div class="wf-dest-sub">1~5F 기숙사 객실</div></div>
+            <span class="wf-dest-time">약 5분</span>
+          </button>
+          <button class="wf-dest-btn" onclick="wfGo('실험동')">
+            <span class="wf-dest-ico">🔬</span>
+            <div><div class="wf-dest-name">실험동</div><div class="wf-dest-sub">스마트공장 배움터</div></div>
+            <span class="wf-dest-time">약 4분</span>
+          </button>
+          <button class="wf-dest-btn" onclick="wfGo('대강당')">
+            <span class="wf-dest-ico">🏟️</span>
+            <div><div class="wf-dest-name">대강당</div><div class="wf-dest-sub">입교식·수료식</div></div>
+            <span class="wf-dest-time">약 5분</span>
+          </button>
+          <button class="wf-dest-btn" onclick="wfGo('운동장')">
+            <span class="wf-dest-ico">⚽</span>
+            <div><div class="wf-dest-name">운동장</div><div class="wf-dest-sub">축구·농구·배드민턴</div></div>
+            <span class="wf-dest-time">약 6분</span>
+          </button>
         </div>
+        <div id="wf-result" class="wf-result"></div>
       </div>
 
       <!-- 시설 안내 -->
@@ -2475,17 +2507,50 @@ async function aiWayFind(){
 
 function wfGo(name){
   const res=document.getElementById('wf-result');
-  const key=Object.keys(ROUTE_DATA).find(k=>name.includes(k)||k.includes(name));
-  if(!key){res.style.display='block';res.innerHTML='<div style="padding:10px;color:var(--t2);font-size:16px;">경로 정보가 없습니다.</div>';return;}
+  const key=Object.keys(ROUTE_DATA).find(function(k){return name.includes(k)||k.includes(name);});
+  // 버튼 active 상태
+  document.querySelectorAll('.wf-dest-btn').forEach(function(b){b.classList.remove('active');});
+  var clickedBtn=Array.from(document.querySelectorAll('.wf-dest-btn')).find(function(b){return b.textContent.includes(name.replace('관','').replace('동',''));});
+  if(clickedBtn)clickedBtn.classList.add('active');
+  if(!key){res.style.display='block';res.innerHTML='<div style="padding:12px;color:var(--t2);font-size:15px;">경로 정보가 없습니다.</div>';return;}
   const r=ROUTE_DATA[key];
+  const stepsHtml=r.steps.map(function(s){
+    var dotCls='wf-step-dot'+(s.dot?' '+s.dot:'');
+    return '<div class="wf-step-row">'
+      +'<div class="'+dotCls+'">'+s.ico+'</div>'
+      +'<div style="flex:1;">'
+        +'<div class="wf-step-dir">'+s.dir+'</div>'
+        +(s.dist?'<div class="wf-step-dist">'+s.dist+'</div>':'')
+      +'</div>'
+    +'</div>';
+  }).join('');
+  const floorsHtml=r.floors?r.floors.map(function(f){
+    return '<div class="wf-floor-tag"><span style="color:var(--blue);font-weight:800;">'+f.tag+'</span> '+f.txt+'</div>';
+  }).join(''):'';
   res.style.display='block';
-  res.innerHTML='<div style="font-size:16px;font-weight:700;color:var(--t0);margin-bottom:8px;">📍 정문 → <span style="color:var(--teal);">'+name+'</span></div>'+
-    r.steps.map(function(s,i){return '<div class="wf-step"><div class="wf-num">'+(i+1)+'</div><div><div class="wf-main">'+s+'</div></div></div>';}).join('');
-  showCampusPin(name);
+  res.innerHTML='<div class="wf-route-card">'
+    // 헤더
+    +'<div style="background:linear-gradient(135deg,#0CA678,#15AABF);padding:12px 14px;display:flex;align-items:center;gap:10px;">'
+      +'<span style="font-size:22px;">'+r.icon+'</span>'
+      +'<div style="flex:1;">'
+        +'<div style="font-size:15px;font-weight:800;color:#fff;">정문 → '+key+'</div>'
+        +'<div style="font-size:13px;color:rgba(255,255,255,.75);">'+r.time+' · '+r.dist+'</div>'
+      +'</div>'
+      +'<div style="background:rgba(255,255,255,.2);border-radius:20px;padding:4px 10px;font-size:13px;font-weight:800;color:#fff;">도보</div>'
+    +'</div>'
+    // 경로 단계
+    +stepsHtml
+    // 건물 정보
+    +(floorsHtml?'<div class="wf-dest-info">'
+      +'<div style="font-size:13px;font-weight:800;color:var(--teal);margin-bottom:6px;">🏢 층별 안내</div>'
+      +'<div class="wf-dest-floors">'+floorsHtml+'</div>'
+    +'</div>':'')
+  +'</div>';
+  showCampusPin(key);
   setTimeout(function(){
     var map=document.querySelector('.cmap-wrap');
     if(map)map.scrollIntoView({behavior:'smooth',block:'center'});
-  },250);
+  },200);
 }
 function toggleFaq(){
   faqOpen=!faqOpen;
@@ -2709,65 +2774,154 @@ const CAMPUS_BLD={
   '제2주차장':{desc:'정문 좌측 제2주차장.',rooms:['외부주차'],photo:null},
 }
 const ROUTE_DATA={
-  '인화1관':{
-    pts:[[48,45],[45,38],[35,28],[20,18],[10,10]],
-    dest:[10,10],
-    steps:['정문 통과','중앙 로터리 경유','좌측 언덕 도로','인화1관 도착']
-  },
-  '인화2관':{
-    pts:[[48,45],[45,38],[30,32],[15,28],[8,24]],
-    dest:[8,24],
-    steps:['정문 통과','중앙 로터리 경유','좌측 도로','인화2관 도착']
-  },
-  '교류동':{
-    pts:[[48,45],[45,38],[35,28],[25,20]],
-    dest:[25,20],
-    steps:['정문 통과','중앙 로터리 경유','좌측 전방 교류동 도착']
-  },
-  '실습동':{
-    pts:[[48,45],[45,38],[35,28],[22,28],[22,24]],
-    dest:[22,24],
-    steps:['정문 통과','중앙 로터리 경유','좌측 도로','실습동 도착']
-  },
-  '배움터':{
-    pts:[[48,45],[45,38],[35,28],[22,28],[22,18]],
-    dest:[22,18],
-    steps:['정문 통과','중앙 로터리 경유','좌측 도로','실습동 지나 배움터 도착']
-  },
-  '실험동':{
-    pts:[[48,45],[45,38],[35,28],[30,24]],
-    dest:[30,24],
-    steps:['정문 통과','중앙 로터리 경유','실험동 도착']
-  },
   '봉사관':{
-    pts:[[48,45],[45,38],[42,30]],
-    dest:[42,30],
-    steps:['정문 통과','중앙 로터리 정면','봉사관 도착']
+    pts:[[48,78],[46,62],[42,46]],dest:[42,46],
+    icon:'🏛️',time:'약 2분',dist:'약 150m',
+    steps:[
+      {ico:'🚶',dot:'start',dir:'정문 통과 후 중앙 도로 직진',dist:'약 80m · 오르막 없음'},
+      {ico:'⬆️',dot:'',dir:'원형 로터리 직전 — 정면 봉사관이 보입니다',dist:'약 50m'},
+      {ico:'✅',dot:'end',dir:'봉사관 1층 정면 출입구 도착',dist:''}
+    ],
+    floors:[
+      {tag:'B2F',txt:'헬스장·탈의실'},
+      {tag:'B1F',txt:'주차장·기계실'},
+      {tag:'1F',txt:'로비·라운지·편의점'},
+      {tag:'2~5F',txt:'강의실 201~502호'},
+      {tag:'6F',txt:'대회의실·세미나실'}
+    ]
   },
   '창의관':{
-    pts:[[48,45],[45,38],[50,28],[60,18]],
-    dest:[60,18],
-    steps:['정문 통과','중앙 로터리 경유','우측 전방 창의관 도착']
+    pts:[[48,78],[46,62],[50,48],[60,32]],dest:[60,32],
+    icon:'🏫',time:'약 4분',dist:'약 280m',
+    steps:[
+      {ico:'🚶',dot:'start',dir:'정문 통과 후 중앙 도로 직진',dist:'약 80m'},
+      {ico:'↗️',dot:'',dir:'로터리에서 우측 방향으로 진입',dist:'약 70m · 봉사관 오른쪽 길'},
+      {ico:'⬆️',dot:'',dir:'오르막 도로 직진 — 우측으로 창의관 간판이 보입니다',dist:'약 100m'},
+      {ico:'✅',dot:'end',dir:'창의관 1층 정면 출입구 도착',dist:''}
+    ],
+    floors:[
+      {tag:'1F',txt:'로비·행정실'},
+      {tag:'2F',txt:'강의실 201~206호'},
+      {tag:'3F',txt:'PC실·멀티미디어실'},
+      {tag:'4F',txt:'세미나실·소회의실'}
+    ]
+  },
+  '교류동':{
+    pts:[[48,78],[46,62],[40,48],[28,36]],dest:[28,36],
+    icon:'🍽️',time:'약 4분',dist:'약 260m',
+    steps:[
+      {ico:'🚶',dot:'start',dir:'정문 통과 후 중앙 도로 직진',dist:'약 80m'},
+      {ico:'↖️',dot:'',dir:'로터리에서 좌측 방향 도로 진입',dist:'약 70m · 봉사관 왼쪽 길'},
+      {ico:'⬆️',dot:'',dir:'직진 — 좌측에 교류동 건물이 보입니다',dist:'약 80m'},
+      {ico:'✅',dot:'end',dir:'교류동 1층 식당 입구 도착',dist:''}
+    ],
+    floors:[
+      {tag:'1F',txt:'조·중·석식 식당 (무료 제공)'},
+      {tag:'2F',txt:'다목적홀·소모임실'},
+      {tag:'옥상',txt:'휴게 공간'}
+    ]
+  },
+  '실험동':{
+    pts:[[48,78],[46,62],[40,48],[32,40]],dest:[32,40],
+    icon:'🔬',time:'약 4분',dist:'약 250m',
+    steps:[
+      {ico:'🚶',dot:'start',dir:'정문 통과 후 중앙 도로 직진',dist:'약 80m'},
+      {ico:'↖️',dot:'',dir:'로터리에서 좌측 방향 도로 진입',dist:'약 60m'},
+      {ico:'↖️',dot:'',dir:'교류동 방향 직진 — 좌측 갈림길에서 실험동 간판 확인',dist:'약 80m'},
+      {ico:'✅',dot:'end',dir:'실험동 입구 도착 (스마트공장 배움터 포함)',dist:''}
+    ],
+    floors:[
+      {tag:'1F',txt:'스마트공장 배움터 전시·체험'},
+      {tag:'2F',txt:'실습실·장비 실습실'},
+      {tag:'3F',txt:'PLC·로봇 실습실'}
+    ]
+  },
+  '인화1관':{
+    pts:[[48,78],[46,62],[40,48],[28,36],[18,22],[10,14]],dest:[10,14],
+    icon:'🏠',time:'약 6분',dist:'약 380m',
+    steps:[
+      {ico:'🚶',dot:'start',dir:'정문 통과 후 중앙 도로 직진',dist:'약 80m'},
+      {ico:'↖️',dot:'',dir:'로터리에서 좌측 방향 도로 진입',dist:'약 70m'},
+      {ico:'⬆️',dot:'',dir:'교류동 지나 언덕길 직진',dist:'약 130m · 완만한 오르막'},
+      {ico:'↖️',dot:'',dir:'갈림길에서 좌측 — 인화1관 표지판 따라',dist:'약 70m'},
+      {ico:'✅',dot:'end',dir:'인화1관 로비 도착',dist:''}
+    ],
+    floors:[
+      {tag:'1~5F',txt:'기숙사 객실 (2인 1실)'},
+      {tag:'1F',txt:'세탁실·라운지'},
+      {tag:'B1F',txt:'체력단련실'}
+    ]
+  },
+  '인화2관':{
+    pts:[[48,78],[46,62],[40,48],[22,42],[10,38]],dest:[10,38],
+    icon:'🏠',time:'약 5분',dist:'약 300m',
+    steps:[
+      {ico:'🚶',dot:'start',dir:'정문 통과 후 중앙 도로 직진',dist:'약 80m'},
+      {ico:'↖️',dot:'',dir:'로터리에서 좌측 방향 도로 진입',dist:'약 70m'},
+      {ico:'↖️',dot:'',dir:'교류동 지나 직진 후 좌측 갈림길 진입',dist:'약 100m'},
+      {ico:'✅',dot:'end',dir:'인화2관 로비 도착',dist:''}
+    ],
+    floors:[
+      {tag:'1~5F',txt:'기숙사 객실 (2인 1실)'},
+      {tag:'1F',txt:'세탁실·공용 라운지'},
+      {tag:'옥상',txt:'휴게 테라스'}
+    ]
   },
   '대강당':{
-    pts:[[48,45],[45,38],[50,28],[60,24],[68,22]],
-    dest:[68,22],
-    steps:['정문 통과','중앙 로터리 경유','우측 도로','대강당 도착']
+    pts:[[48,78],[46,62],[50,48],[60,38],[68,32]],dest:[68,32],
+    icon:'🏟️',time:'약 5분',dist:'약 320m',
+    steps:[
+      {ico:'🚶',dot:'start',dir:'정문 통과 후 중앙 도로 직진',dist:'약 80m'},
+      {ico:'↗️',dot:'',dir:'로터리에서 우측 방향으로 진입',dist:'약 70m · 창의관 오른쪽 길'},
+      {ico:'↗️',dot:'',dir:'창의관 지나 오르막 계속 직진',dist:'약 100m'},
+      {ico:'✅',dot:'end',dir:'대강당 정면 출입구 도착',dist:''}
+    ],
+    floors:[
+      {tag:'1F',txt:'로비·접수 데스크'},
+      {tag:'대강당',txt:'입교식·수료식·전체 행사 (300석)'},
+      {tag:'소강당',txt:'세미나·특강 (80석)'}
+    ]
   },
   '운동장':{
-    pts:[[48,45],[50,38],[60,35],[75,34],[85,28]],
-    dest:[85,28],
-    steps:['정문 통과','우측 도로','운동장 도착']
+    pts:[[48,78],[50,65],[60,56],[75,48],[85,40]],dest:[85,40],
+    icon:'⚽',time:'약 6분',dist:'약 400m',
+    steps:[
+      {ico:'🚶',dot:'start',dir:'정문 통과 후 우측 외부 도로로 진입',dist:'약 80m · 건물 바깥 쪽'},
+      {ico:'↗️',dot:'',dir:'우측 도로 따라 계속 직진',dist:'약 200m'},
+      {ico:'⬆️',dot:'',dir:'끝 지점에 운동장 철망 입구가 보입니다',dist:'약 80m'},
+      {ico:'✅',dot:'end',dir:'운동장 출입구 도착',dist:''}
+    ],
+    floors:[
+      {tag:'야외',txt:'축구장 (야간 조명 있음)'},
+      {tag:'야외',txt:'농구장 · 배드민턴장'},
+      {tag:'운영',txt:'18:00 ~ 22:00 (저녁 이후)'}
+    ]
   },
   '주차장':{
-    pts:[[48,45],[55,44],[70,44],[80,44]],
-    dest:[80,44],
-    steps:['정문 통과','우측 외부 도로','주차장 도착']
+    pts:[[48,78],[55,76],[70,74],[80,72]],dest:[80,72],
+    icon:'🅿️',time:'약 3분',dist:'약 200m',
+    steps:[
+      {ico:'🚶',dot:'start',dir:'정문 통과 후 우측 외부 도로 진입',dist:'약 60m'},
+      {ico:'↗️',dot:'',dir:'외부 도로 따라 우측 직진',dist:'약 120m · 건물 바깥 편도'},
+      {ico:'✅',dot:'end',dir:'제1주차장 입구 도착',dist:''}
+    ],
+    floors:[
+      {tag:'제1주차장',txt:'정문 우측 · 일반 차량'},
+      {tag:'제2주차장',txt:'정문 좌측 하단 · 추가 주차'},
+      {tag:'안내',txt:'연수생 무료 이용 가능'}
+    ]
   },
   '정문':{
-    pts:[[48,45]],
-    dest:[48,45],
-    steps:['현재 위치: 정문','셔틀버스 정류장 정문 안쪽']
+    pts:[[48,78]],dest:[48,78],
+    icon:'🚪',time:'현재 위치',dist:'',
+    steps:[
+      {ico:'📍',dot:'start',dir:'현재 위치 — 정문',dist:'셔틀버스 정류장 정문 안쪽 (우측)'}
+    ],
+    floors:[
+      {tag:'셔틀',txt:'안산역·수원역 방면 오전 출발'},
+      {tag:'경비실',txt:'24시간 운영'},
+      {tag:'무인민원',txt:'주민등록등본 발급 가능'}
+    ]
   }
 };
 
