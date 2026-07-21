@@ -299,6 +299,27 @@ details[open] .faq-arr{transform:rotate(180deg);}
 @keyframes marchBox{to{stroke-dashoffset:-24;}}
 @keyframes marchDiv{0%{background-position:0 0,0 100%,0 0,100% 0;}100%{background-position:16px 0,-16px 100%,0 -16px,100% 16px;}}
 
+/* Onboarding tour */
+.onboard-overlay{position:fixed;inset:0;z-index:8000;background:rgba(15,18,41,.58);display:flex;align-items:flex-end;justify-content:center;padding:0 16px calc(72px + env(safe-area-inset-bottom,0px));animation:fadeIn .3s ease;}
+.onboard-card{background:#fff;border-radius:24px;padding:22px 20px 18px;width:100%;max-width:400px;box-shadow:0 12px 48px rgba(0,0,0,.22);}
+.onboard-hero{font-size:44px;text-align:center;margin-bottom:6px;line-height:1;}
+.onboard-dots{display:flex;gap:6px;justify-content:center;margin-bottom:14px;}
+.onboard-dot{width:7px;height:7px;border-radius:50%;background:var(--border2);transition:all .25s;}
+.onboard-dot.on{width:20px;border-radius:4px;background:var(--blue);}
+.onboard-feats{display:flex;flex-direction:column;gap:7px;margin:12px 0 16px;}
+.onboard-feat{display:flex;align-items:flex-start;gap:8px;font-size:15px;color:var(--t1);line-height:1.55;}
+.onboard-feat-ico{flex-shrink:0;font-size:16px;margin-top:1px;}
+.onboard-tabs{display:flex;gap:8px;margin:12px 0 16px;}
+.onboard-tab{flex:1;text-align:center;padding:10px 6px;border-radius:14px;background:var(--surf);border:1.5px solid var(--border);}
+.onboard-tab-ico{font-size:22px;margin-bottom:4px;}
+.onboard-tab-nm{font-size:14px;font-weight:800;color:var(--t0);}
+.onboard-tab-sub{font-size:12px;color:var(--t2);margin-top:2px;line-height:1.3;}
+.onboard-btns{display:flex;gap:8px;margin-top:4px;}
+.onboard-btn{flex:1;padding:12px;border-radius:14px;font-size:15px;font-weight:800;cursor:pointer;font-family:inherit;border:none;transition:all .15s;}
+.onboard-btn-sec{background:var(--surf2);color:var(--t1);}
+.onboard-btn-pri{background:var(--g-blue);color:#fff;box-shadow:0 4px 14px rgba(76,110,245,.25);}
+.onboard-btn-skip{background:none;color:var(--t2);font-size:14px;font-weight:600;padding:8px;width:100%;margin-top:4px;cursor:pointer;border:none;font-family:inherit;}
+
 /* Splash */
 /* Splash */
 .splash{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px;overflow:hidden;}
@@ -787,7 +808,8 @@ details[open] .faq-arr{transform:rotate(180deg);}
       <div class="hdr-name">W-SSUP</div>
       <div class="hdr-sub" id="hdr-sub">중소벤처기업연수원 AI 스마트비서</div>
     </div>
-    <div style="position:relative;">
+    <div style="position:relative;display:flex;align-items:center;gap:6px;flex-shrink:0;">
+      <button id="help-btn" onclick="showOnboarding(true)" title="사용 가이드" style="width:32px;height:32px;display:flex;align-items:center;justify-content:center;background:var(--surf2);border:1.5px solid var(--border);border-radius:50%;font-size:16px;font-weight:800;color:var(--blue);cursor:pointer;flex-shrink:0;">?</button>
       <button id="lang-btn" onclick="var p=document.getElementById('lang-pop');p.style.display=p.style.display==='none'?'flex':'none';" style="display:flex;align-items:center;gap:4px;background:var(--surf2);border:1.5px solid var(--border);border-radius:20px;padding:4px 10px;font-size:16px;font-weight:700;cursor:pointer;flex-shrink:0;">
         <span id="lang-btn-ico">🇰🇷</span><span style="font-size:11px;color:var(--t2);">▼</span>
       </button>
@@ -1681,6 +1703,8 @@ function applyViewPickLang(l){
   if(navBtn){var d=UI_STRINGS[lang]||UI_STRINGS.ko;navBtn.textContent=d['bld-nav-btn']||'🗺️ 지도에서 길찾기';}
   var qrBtn=document.getElementById('view-qr-btn');
   if(qrBtn){var d2=UI_STRINGS[lang]||UI_STRINGS.ko;qrBtn.textContent=d2['view-qr-scan']||'📷 QR 스캔';}
+  var helpBtn=document.getElementById('help-btn');
+  if(helpBtn)helpBtn.title=(UI_STRINGS[lang]||UI_STRINGS.ko)['help-guide']||'사용 가이드';
 }
 
 
@@ -1954,41 +1978,125 @@ function ssupLoading(resEl, steps, delay, onDone){
   });
   setTimeout(onDone, delay);
 }
-function showOnboarding(){
-  if(document.getElementById('onboard-overlay'))return;
-  try{if(localStorage.getItem('w_onboarded'))return;}catch(e){}
-  const ov=document.createElement('div');
-  ov.id='onboard-overlay';
-  ov.style.cssText='position:fixed;inset:0;z-index:8000;background:rgba(15,18,41,.55);display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:80px;animation:fadeIn .3s ease;';
-  ov.innerHTML=`
-    <div style="background:#fff;border-radius:24px;padding:22px 20px 18px;width:calc(100% - 32px);max-width:380px;box-shadow:0 8px 40px rgba(0,0,0,.2);">
-      <div style="font-size:16px;font-weight:800;color:var(--t0);margin-bottom:4px;">👋 이렇게 사용해보세요!</div>
-      <div style="font-size:16px;color:var(--t2);margin-bottom:14px;">아래 기능을 직접 눌러보세요</div>
-      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px;">
-        <div style="display:flex;align-items:center;gap:10px;background:var(--surf);border-radius:12px;padding:10px 12px;" onclick="dismissOnboarding();sq('출석 처리는 어떻게 하나요?')">
-          <span style="font-size:20px;">💬</span>
-          <div><div style="font-size:16px;font-weight:700;color:var(--t0);">TALK — AI에게 질문하기</div><div style="font-size:15px;color:var(--t2);">"출석 처리는 어떻게 하나요?" 눌러보기</div></div>
-          <span style="margin-left:auto;color:var(--blue);font-size:16px;">→</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:10px;background:var(--surf);border-radius:12px;padding:10px 12px;" onclick="dismissOnboarding();go('pick',document.querySelectorAll('.tab')[1])">
-          <span style="font-size:20px;">✦</span>
-          <div><div style="font-size:16px;font-weight:700;color:var(--t0);">PICK — 강좌 추천받기</div><div style="font-size:15px;color:var(--t2);">업종·직무 선택 후 AI 추천 확인</div></div>
-          <span style="margin-left:auto;color:var(--blue);font-size:16px;">→</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:10px;background:var(--surf);border-radius:12px;padding:10px 12px;" onclick="dismissOnboarding();go('view',document.querySelectorAll('.tab')[2])">
-          <span style="font-size:20px;">◎</span>
-          <div><div style="font-size:16px;font-weight:700;color:var(--t0);">VIEW — 캠퍼스 길찾기</div><div style="font-size:15px;color:var(--t2);">건물 핀 누르거나 AI 길찾기 사용</div></div>
-          <span style="margin-left:auto;color:var(--blue);font-size:16px;">→</span>
-        </div>
-      </div>
-      <button onclick="dismissOnboarding()" style="width:100%;padding:13px;background:var(--g-blue);border:none;border-radius:14px;font-size:16px;font-weight:800;color:#fff;cursor:pointer;font-family:inherit;">직접 탐색할게요 →</button>
-    </div>`;
-  document.body.appendChild(ov);
+var onboardStep=0;
+var ONBOARD_L={
+  ko:{next:'다음',prev:'이전',skip:'건너뛰기',done:'시작할게요! 🎉',tryBtn:'직접 해보기 →',steps:[
+    {ico:'👋',title:'왓썹(W-SSUP)에 오신 걸 환영해요!',desc:'연수원 AI 스마트비서가 24시간 도와드려요.',tabs:[{ico:'💬',nm:'TALK',sub:'즉시 답변'},{ico:'✦',nm:'PICK',sub:'강좌 추천'},{ico:'◎',nm:'VIEW',sub:'시설 안내'}],feats:[]},
+    {ico:'💬',title:'TALK — AI에게 질문하기',desc:'궁금한 건 무엇이든 물어보세요!',feats:['✅ 출석·수료·셔틀 등 빠른 질문 칩','🎤 음성으로 질문하기 (마이크 버튼)','📋 자주 묻는 질문 TOP 7 확인','🌐 5개국어 답변 지원'],action:'talk'},
+    {ico:'✦',title:'PICK — 맞춤 강좌 추천',desc:'업종·직무에 맞는 교육과정을 AI가 추천해요.',feats:['🤖 자연어로 상황 설명 후 추천','🏭 업종·직무·연차 직접 선택','📅 강의 일정표도 확인 가능'],action:'pick'},
+    {ico:'◎',title:'VIEW — 캠퍼스·시설 안내',desc:'연수원 안에서 길을 잃지 마세요!',feats:['🗺️ 건물별 도보 길찾기','🏢 시설 정보·사진 확인','📸 현장 불편 신고 (AI 사진 분석)','🚌 오는 길·셔틀 시간표'],action:'view'},
+    {ico:'💡',title:'이제 시작해볼까요?',desc:'언제든 우측 상단 ? 버튼으로 이 가이드를 다시 볼 수 있어요.',feats:['하단 탭으로 TALK · PICK · VIEW 전환','🌐 언어 버튼으로 5개국어 변경','📞 긴급연락·오늘식단 등 빠른 메뉴 활용'],action:''}
+  ]},
+  en:{next:'Next',prev:'Back',skip:'Skip',done:'Let\'s go! 🎉',tryBtn:'Try it →',steps:[
+    {ico:'👋',title:'Welcome to W-SSUP!',desc:'Your 24/7 AI training center assistant.',tabs:[{ico:'💬',nm:'TALK',sub:'Instant answers'},{ico:'✦',nm:'PICK',sub:'Course rec'},{ico:'◎',nm:'VIEW',sub:'Campus info'}],feats:[]},
+    {ico:'💬',title:'TALK — Ask AI Anything',desc:'Get instant answers to your questions!',feats:['✅ Quick chips for attendance, shuttle, etc.','🎤 Voice input (mic button)','📋 TOP 7 FAQ at a glance','🌐 Answers in 5 languages'],action:'talk'},
+    {ico:'✦',title:'PICK — Course Recommendations',desc:'AI recommends courses for your industry & role.',feats:['🤖 Describe your situation in natural language','🏭 Select industry, role & years','📅 View course schedules'],action:'pick'},
+    {ico:'◎',title:'VIEW — Campus & Facilities',desc:'Never get lost on campus!',feats:['🗺️ Walking directions to each building','🏢 Facility info & photos','📸 Report issues (AI photo analysis)','🚌 Directions & shuttle times'],action:'view'},
+    {ico:'💡',title:'Ready to start?',desc:'Tap the ? button anytime to see this guide again.',feats:['Switch tabs at the bottom: TALK · PICK · VIEW','🌐 Change language (5 languages)','📞 Quick access to emergency & meals'],action:''}
+  ]},
+  zh:{next:'下一步',prev:'上一步',skip:'跳过',done:'开始使用！🎉',tryBtn:'试试看 →',steps:[
+    {ico:'👋',title:'欢迎使用 W-SSUP！',desc:'研修院AI助手24小时为您服务。',tabs:[{ico:'💬',nm:'TALK',sub:'即时回答'},{ico:'✦',nm:'PICK',sub:'课程推荐'},{ico:'◎',nm:'VIEW',sub:'设施介绍'}],feats:[]},
+    {ico:'💬',title:'TALK — 向AI提问',desc:'有任何问题随时提问！',feats:['✅ 出勤·班车等快速问题按钮','🎤 语音输入（麦克风按钮）','📋 常见问题TOP 7','🌐 支持5种语言'],action:'talk'},
+    {ico:'✦',title:'PICK — 定制课程推荐',desc:'AI根据行业和职务推荐课程。',feats:['🤖 用自然语言描述情况后推荐','🏭 选择行业·职务·年限','📅 查看课程时间表'],action:'pick'},
+    {ico:'◎',title:'VIEW — 校园·设施指南',desc:'在研修院内不迷路！',feats:['🗺️ 各建筑步行导航','🏢 设施信息和照片','📸 现场问题报告（AI照片分析）','🚌 来园路线·班车时刻'],action:'view'},
+    {ico:'💡',title:'准备好了吗？',desc:'随时点击右上角 ? 按钮重新查看指南。',feats:['底部标签切换 TALK · PICK · VIEW','🌐 切换5种语言','📞 紧急联系·今日菜单等快捷功能'],action:''}
+  ]},
+  ja:{next:'次へ',prev:'戻る',skip:'スキップ',done:'始めましょう！🎉',tryBtn:'試してみる →',steps:[
+    {ico:'👋',title:'W-SSUPへようこそ！',desc:'研修院AIアシスタントが24時間サポートします。',tabs:[{ico:'💬',nm:'TALK',sub:'すぐ回答'},{ico:'✦',nm:'PICK',sub:'講座推薦'},{ico:'◎',nm:'VIEW',sub:'施設案内'}],feats:[]},
+    {ico:'💬',title:'TALK — AIに質問',desc:'何でもお気軽にどうぞ！',feats:['✅ 出席·シャトル等のクイックボタン','🎤 音声入力（マイクボタン）','📋 よくある質問TOP 7','🌐 5言語対応'],action:'talk'},
+    {ico:'✦',title:'PICK — 講座おすすめ',desc:'業種·職務に合った講座をAIが推薦。',feats:['🤖 自然言語で状況を説明','🏭 業種·職務·年次を選択','📅 講義時間割の確認'],action:'pick'},
+    {ico:'◎',title:'VIEW — キャンパス·施設案内',desc:'研修院内で迷わない！',feats:['🗺️ 建物別徒歩ナビ','🏢 施設情報·写真','📸 不便申告（AI写真分析）','🚌 アクセス·シャトル時刻'],action:'view'},
+    {ico:'💡',title:'準備はいいですか？',desc:'右上の ? ボタンでいつでも再表示できます。',feats:['下部タブで TALK · PICK · VIEW 切替','🌐 5言語切替','📞 緊急連絡·今日の食事など'],action:''}
+  ]},
+  id:{next:'Lanjut',prev:'Kembali',skip:'Lewati',done:'Mulai! 🎉',tryBtn:'Coba sekarang →',steps:[
+    {ico:'👋',title:'Selamat datang di W-SSUP!',desc:'Asisten AI pusat pelatihan 24 jam.',tabs:[{ico:'💬',nm:'TALK',sub:'Jawaban instan'},{ico:'✦',nm:'PICK',sub:'Rekomendasi'},{ico:'◎',nm:'VIEW',sub:'Info kampus'}],feats:[]},
+    {ico:'💬',title:'TALK — Tanya AI',desc:'Tanyakan apa saja!',feats:['✅ Chip cepat: absensi, shuttle, dll.','🎤 Input suara (tombol mikrofon)','📋 FAQ TOP 7','🌐 Jawaban dalam 5 bahasa'],action:'talk'},
+    {ico:'✦',title:'PICK — Rekomendasi Kursus',desc:'AI merekomendasikan kursus sesuai industri & jabatan.',feats:['🤖 Jelaskan situasi dalam bahasa alami','🏭 Pilih industri, jabatan & tahun','📅 Lihat jadwal kursus'],action:'pick'},
+    {ico:'◎',title:'VIEW — Kampus & Fasilitas',desc:'Jangan tersesat di kampus!',feats:['🗺️ Navigasi berjalan ke setiap gedung','🏢 Info & foto fasilitas','📸 Laporkan masalah (analisis foto AI)','🚌 Akses & jadwal shuttle'],action:'view'},
+    {ico:'💡',title:'Siap mulai?',desc:'Tekan tombol ? kapan saja untuk melihat panduan ini lagi.',feats:['Ganti tab di bawah: TALK · PICK · VIEW','🌐 Ganti bahasa (5 bahasa)','📞 Kontak darurat & menu hari ini'],action:''}
+  ]}
+};
+function OL(){return ONBOARD_L[appLang]||ONBOARD_L.ko;}
+function showOnboarding(force){
+  if(!force){
+    if(document.getElementById('onboard-overlay'))return;
+    try{if(localStorage.getItem('w_onboarded'))return;}catch(e){}
+  }
+  onboardStep=0;
+  var ov=document.getElementById('onboard-overlay');
+  if(!ov){
+    ov=document.createElement('div');
+    ov.id='onboard-overlay';
+    ov.className='onboard-overlay';
+    ov.onclick=function(e){if(e.target===ov)dismissOnboarding();};
+    document.body.appendChild(ov);
+  }
+  renderOnboardStep();
+}
+function renderOnboardStep(){
+  var ov=document.getElementById('onboard-overlay');
+  if(!ov)return;
+  var L=OL();
+  var steps=L.steps;
+  var s=steps[onboardStep];
+  var total=steps.length;
+  var isLast=onboardStep===total-1;
+  var isFirst=onboardStep===0;
+  var dotsHtml=steps.map(function(_,i){
+    return '<div class="onboard-dot'+(i===onboardStep?' on':'')+'"></div>';
+  }).join('');
+  var bodyHtml='';
+  if(s.tabs&&s.tabs.length){
+    bodyHtml='<div class="onboard-tabs">'+s.tabs.map(function(t){
+      return '<div class="onboard-tab"><div class="onboard-tab-ico">'+t.ico+'</div><div class="onboard-tab-nm">'+t.nm+'</div><div class="onboard-tab-sub">'+t.sub+'</div></div>';
+    }).join('')+'</div>';
+  }
+  if(s.feats&&s.feats.length){
+    bodyHtml+='<div class="onboard-feats">'+s.feats.map(function(f){
+      return '<div class="onboard-feat"><span>'+f+'</span></div>';
+    }).join('')+'</div>';
+  }
+  var actionBtn='';
+  if(s.action&&!isLast){
+    actionBtn='<button class="onboard-btn onboard-btn-sec" style="width:100%;margin-bottom:8px;" onclick="onboardTry(\''+s.action+'\')">'+L.tryBtn+'</button>';
+  }
+  var btnsHtml='<div class="onboard-btns">'
+    +(isFirst?'':'<button class="onboard-btn onboard-btn-sec" onclick="onboardPrev()">'+L.prev+'</button>')
+    +'<button class="onboard-btn onboard-btn-pri" onclick="'+(isLast?'dismissOnboarding()':'onboardNext()')+'">'+(isLast?L.done:L.next)+'</button>'
+    +'</div>';
+  ov.innerHTML='<div class="onboard-card" onclick="event.stopPropagation()">'
+    +'<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">'
+      +'<div style="font-size:13px;font-weight:700;color:var(--t2);">'+(onboardStep+1)+' / '+total+'</div>'
+      +'<button onclick="dismissOnboarding()" style="background:none;border:none;font-size:18px;color:var(--t2);cursor:pointer;padding:2px 6px;">✕</button>'
+    +'</div>'
+    +'<div class="onboard-dots">'+dotsHtml+'</div>'
+    +'<div class="onboard-hero">'+s.ico+'</div>'
+    +'<div style="font-size:17px;font-weight:800;color:var(--t0);text-align:center;margin-bottom:6px;line-height:1.4;">'+s.title+'</div>'
+    +'<div style="font-size:15px;color:var(--t2);text-align:center;margin-bottom:4px;line-height:1.55;">'+s.desc+'</div>'
+    +bodyHtml
+    +actionBtn
+    +btnsHtml
+    +(!isLast?'<button class="onboard-btn-skip" onclick="dismissOnboarding()">'+L.skip+'</button>':'')
+  +'</div>';
+}
+function onboardNext(){
+  var L=OL();
+  if(onboardStep<L.steps.length-1){onboardStep++;renderOnboardStep();}
+  else dismissOnboarding();
+}
+function onboardPrev(){
+  if(onboardStep>0){onboardStep--;renderOnboardStep();}
+}
+function onboardTry(action){
+  dismissOnboarding();
+  if(action==='talk'){sq('출석 처리는 어떻게 하나요?');}
+  else if(action==='pick'){go('pick',document.getElementById('tab-pick'));}
+  else if(action==='view'){go('view',document.getElementById('tab-view'));}
 }
 function dismissOnboarding(){
   try{localStorage.setItem('w_onboarded','1');}catch(e){}
-  const ov=document.getElementById('onboard-overlay');
-  if(ov){ov.style.animation='fadeOut .25s forwards';setTimeout(()=>ov.remove(),250);}
+  var ov=document.getElementById('onboard-overlay');
+  if(ov){ov.style.animation='fadeOut .25s forwards';setTimeout(function(){ov.remove();},250);}
 }
 function personalizeApp(name){
   try{
@@ -2499,11 +2607,11 @@ function tgFaq(el){
 let faqOpen=false;
 let appLang='ko';
 const UI_STRINGS={
-  ko:{'tab-talk-sub':'즉시 답변','tab-pick-sub':'강좌 추천','tab-view-sub':'시설 안내','q-attend':'✅ 출석처리','q-grad':'🎓 수료기준','q-fee':'💳 교육비','q-shuttle':'🚌 셔틀버스','q-meal':'🍽️ 식당','q-wifi':'📶 Wi-Fi','q-emer':'🆘 긴급연락','q-today':'🍱 오늘식단','q-qr':'📷 QR 스캔','q-log':'📋 내 대화보기','faq-title':'자주 묻는 질문','faq-sub':'TOP 7 · 바로 확인하세요','faq1':'출석 처리는 어떻게 하나요?','faq2':'수료 기준이 어떻게 되나요?','faq3':'💳 교육비 납부는 어떻게 하나요?','faq4':'📜 수료증은 어떻게 받나요?','faq5':'📶 숙소 Wi-Fi 비밀번호가 뭐예요?','faq6':'💰 고용보험 환급은 어떻게 받나요?','faq7':'셔틀버스 시간표가 어떻게 되나요?','ich-help':'무엇을 도와드릴까요?','ich-pick':'✦ 강좌 추천','ich-view':'◎ 시설 안내','contact-btn':'📞 담당자 연결','pick-new-tab':'🆕 처음이세요?','pick-old-tab':'🔄 기존 연수생','pick-btn':'✦ 맞춤 강좌 추천받기','pick-btn2':'✦ 맞춤 강좌 추천받기','pick-nl-btn':'✦ AI 추천 받기','pick-lbl-ind':'🏭 업종','pick-lbl-job':'💼 직무','pick-lbl-yr':'📅 연차','pick-lbl-inter':'🎯 관심 분야 (선택)','view-photomap':'📸 캠퍼스 포토맵','view-facility':'🏢 시설 안내','view-wayfind':'🗺️ 캠퍼스 길찾기','view-wf-desc':'📍 정문 기준 도보 경로 · 건물을 선택하세요','view-report':'📸 현장 불편 신고','view-route':'🚌 연수원 오는 길','view-faq':'❓ 시설 자주 묻는 질문','input-ph':'예: 셔틀버스 몇 시에 출발해요?','wf-input-ph':'어디로 가고 싶으세요? (예: 식당, 봉사관 206호)','nl-input-ph':'예) 저는 제조업 품질담당자이고 AI를 처음 접합니다.','splash-sub':'AI 스마트비서','splash-start':'시작하기 →','splash-name-ph':'이름을 입력하세요','splash-name-hint':'이름을 입력하면 개인화된 인사를 받을 수 있어요 😊','splash-talk-desc':'24시간 즉시 답변','splash-pick-desc':'맞춤 강좌 추천','splash-view-desc':'시설 안내 · 불편 신고','welcome-profile':'W-SSUP AI 스마트비서','welcome-online':'온라인','sched-hdr':'📅 오늘의 교육 일정','hist-hdr':'📚 수강 이력','quick-apply':'연수 신청','quick-fee':'교육비','quick-cert':'수료·환급','pick-nl-title':'🤖 자연어로 추천받기','pick-nl-hint':'본인 상황을 자유롭게 입력하면 AI가 맞춤 과정을 추천해드려요','pick-or':'또는 직접 선택','view-hero-sub':'◎ 연수원 현장 VIEW','view-wf-desc':'📍 정문에서 목적지까지 AI가 도보 경로를 안내해드려요','view-or':'또는 건물 선택','view-map-hint':'핀을 눌러 건물 정보 확인','view-fac-hint':'카드를 누르면 시설 정보와 사진을 볼 수 있어요 📍','view-report-title':'⚠️ 불편 사항을 즉시 신고하세요','modal-emer':'🆘 긴급 연락처','modal-meal':'🍱 이번 주 식단','modal-log':'💬 내 대화 기록','hint-enter':'↵ Enter 전송 · ⇧ Shift+Enter 줄바꿈'},'pick-nl-title':'🤖 자연어로 추천받기','pick-hero-tag':'✦ AI 맞춤 추천','pick-hero-title':'강좌 PICK','pick-hero-desc':'업종·직무·연차 기반 교육과정 추천','pick-all-link':'📋 SSUP 전체 과정 보기 →','pick-inter-ph':'예: AI 활용, 리더십...','pick-ex-hist':'✦ 수강이력 기반 추천','pick-ex-next':'다음 강좌 PICK','pick-ex-select':'👤 연수생 선택','pick-ex-note':'※ 실제 서비스에서는 SSUP 로그인 후 본인 정보가 자동 표시됩니다','course-list-title':'강의 일정표','course-list-hdr':'📅 1개월 이내 개강 과정','view-qr-scan':'📷 QR 스캔','bld-nav-btn':'🗺️ 지도에서 길찾기',
-  en:{'tab-talk-sub':'Instant Reply','tab-pick-sub':'Course Rec','tab-view-sub':'Campus','q-attend':'✅ Attendance','q-grad':'🎓 Graduation','q-fee':'💳 Tuition','q-shuttle':'🚌 Shuttle','q-meal':'🍽️ Dining','q-wifi':'📶 Wi-Fi','q-emer':'🆘 Emergency','q-today':'🍱 Today\'s Menu','q-qr':'📷 QR Scan','q-log':'📋 Chat Log','faq-title':'Frequent Questions','faq-sub':'TOP 7 · Quick Answers','faq1':'How do I check attendance?','faq2':'What are the graduation requirements?','faq3':'💳 How do I pay tuition?','faq4':'📜 How do I get my certificate?','faq5':'📶 What is the dorm Wi-Fi password?','faq6':'💰 How do I get employment insurance refund?','faq7':'What is the shuttle schedule?','ich-help':'How can I help you?','ich-pick':'✦ Course Rec','ich-view':'◎ Campus','contact-btn':'📞 Contact Staff','pick-new-tab':'🆕 New Trainee?','pick-old-tab':'🔄 Returning','pick-btn':'✦ Get AI Recommendation','pick-btn2':'✦ Get AI Recommendation','pick-nl-btn':'✦ Get AI Recommendation','pick-lbl-ind':'🏭 Industry','pick-lbl-job':'💼 Role','pick-lbl-yr':'📅 Years Exp.','pick-lbl-inter':'🎯 Interest (optional)','view-photomap':'📸 Campus Map','view-facility':'🏢 Facilities','view-wayfind':'🗺️ Campus Navigation','view-wf-desc':'📍 Walking routes from Main Gate · Select a building','view-report':'📸 Report Issue','view-route':'🚌 Getting Here','view-faq':'❓ Facility FAQ','input-ph':'e.g. What time does the shuttle leave?','wf-input-ph':'Where do you want to go? (e.g. cafeteria)','nl-input-ph':'e.g. I work in manufacturing and want AI training.','splash-sub':'AI Smart Assistant','splash-start':'Get Started →','splash-name-ph':'Enter your name','splash-name-hint':'Enter your name for a personalized greeting 😊','splash-talk-desc':'24/7 Instant Reply','splash-pick-desc':'Tailored Course Rec','splash-view-desc':'Campus · Report Issue','welcome-profile':'W-SSUP AI Assistant','welcome-online':'Online','sched-hdr':'📅 Today\'s Schedule','hist-hdr':'📚 Course History','quick-apply':'Apply','quick-fee':'Tuition','quick-cert':'Certificate','pick-nl-title':'🤖 Natural Language Recommendation','pick-nl-hint':'Describe your situation freely and AI will recommend the best course','pick-or':'Or select directly','view-hero-sub':'◎ Campus VIEW','view-wf-desc':'📍 AI guides your walking route from the main gate to your destination','view-or':'Or select a building','view-map-hint':'Tap a pin to see building info','view-fac-hint':'Tap a card to see facility info and photos 📍','view-report-title':'⚠️ Report an issue immediately','modal-emer':'🆘 Emergency Contacts','modal-meal':'🍱 This Week\'s Menu','modal-log':'💬 My Chat Log','hint-enter':'↵ Enter to send · ⇧ Shift+Enter new line'},'pick-nl-title':'🤖 Natural Language Rec','pick-hero-tag':'✦ AI Tailored Rec','pick-hero-title':'Course PICK','pick-hero-desc':'Recommendations by industry·role·years','pick-all-link':'📋 View All SSUP Courses →','pick-inter-ph':'e.g. AI, Leadership...','pick-ex-hist':'✦ History-based Rec','pick-ex-next':'Next Course PICK','pick-ex-select':'👤 Select Trainee','pick-ex-note':'※ In production, your info loads after SSUP login','course-list-title':'Course Schedule','course-list-hdr':'📅 Courses starting within 1 month','view-qr-scan':'📷 QR Scan','bld-nav-btn':'🗺️ Find on Map',
-  id:{'tab-talk-sub':'Balas Instan','tab-pick-sub':'Rekomendasi','tab-view-sub':'Kampus','q-attend':'✅ Absensi','q-grad':'🎓 Kelulusan','q-fee':'💳 Biaya','q-shuttle':'🚌 Shuttle','q-meal':'🍽️ Makan','q-wifi':'📶 Wi-Fi','q-emer':'🆘 Darurat','q-today':'🍱 Menu Hari Ini','q-qr':'📷 Scan QR','q-log':'📋 Riwayat Chat','faq-title':'Pertanyaan Umum','faq-sub':'TOP 7 · Jawaban Cepat','faq1':'Bagaimana cara absensi?','faq2':'Apa syarat kelulusan?','faq3':'💳 Bagaimana cara membayar biaya?','faq4':'📜 Bagaimana cara mendapat sertifikat?','faq5':'📶 Apa kata sandi Wi-Fi asrama?','faq6':'💰 Bagaimana cara klaim asuransi?','faq7':'Apa jadwal shuttle bus?','ich-help':'Apa yang bisa saya bantu?','ich-pick':'✦ Rekomendasi','ich-view':'◎ Kampus','contact-btn':'📞 Hubungi Staf','pick-new-tab':'🆕 Peserta Baru?','pick-old-tab':'🔄 Peserta Lama','pick-btn':'✦ Dapatkan Rekomendasi AI','pick-btn2':'✦ Dapatkan Rekomendasi AI','pick-nl-btn':'✦ Dapatkan Rekomendasi AI','pick-lbl-ind':'🏭 Industri','pick-lbl-job':'💼 Jabatan','pick-lbl-yr':'📅 Tahun Kerja','pick-lbl-inter':'🎯 Minat (opsional)','view-photomap':'📸 Peta Kampus','view-facility':'🏢 Fasilitas','view-wayfind':'🗺️ Navigasi Kampus','view-wf-desc':'📍 Rute berjalan dari Gerbang Utama · Pilih gedung','view-report':'📸 Laporkan Masalah','view-route':'🚌 Cara ke Sini','view-faq':'❓ FAQ Fasilitas','input-ph':'mis. Jam berapa shuttle berangkat?','wf-input-ph':'Ke mana Anda ingin pergi?','nl-input-ph':'mis. Saya bekerja di manufaktur dan ingin pelatihan AI.','splash-sub':'Asisten AI Cerdas','splash-start':'Mulai →','splash-name-ph':'Masukkan nama Anda','splash-name-hint':'Masukkan nama Anda untuk salam yang dipersonalisasi 😊','splash-talk-desc':'24 Jam Balas Instan','splash-pick-desc':'Rekomendasi Kursus','splash-view-desc':'Fasilitas Laporan','welcome-profile':'Asisten AI W-SSUP','welcome-online':'Online','sched-hdr':'📅 Jadwal Hari Ini','hist-hdr':'📚 Riwayat Kursus','quick-apply':'Daftar','quick-fee':'Biaya','quick-cert':'Sertifikat','pick-nl-title':'🤖 Rekomendasi Bahasa Alami','pick-nl-hint':'Ceritakan situasi Anda dan AI akan merekomendasikan kursus terbaik','pick-or':'Atau pilih langsung','view-hero-sub':'◎ Kampus VIEW','view-wf-desc':'📍 AI memandu rute berjalan dari gerbang utama ke tujuan','view-or':'Atau pilih gedung','view-map-hint':'Ketuk pin untuk info gedung','view-fac-hint':'Ketuk kartu untuk info dan foto fasilitas 📍','view-report-title':'⚠️ Laporkan masalah segera','modal-emer':'🆘 Kontak Darurat','modal-meal':'🍱 Menu Minggu Ini','modal-log':'💬 Riwayat Chat Saya','hint-enter':'↵ Enter kirim · ⇧ Shift+Enter baris baru'},'pick-nl-title':'🤖 Rekomendasi Bahasa Alami','pick-hero-tag':'✦ Rekomendasi AI','pick-hero-title':'PICK Kursus','pick-hero-desc':'Rekomendasi berdasarkan industri·jabatan·tahun','pick-all-link':'📋 Lihat Semua Kursus SSUP →','pick-inter-ph':'mis. AI, Kepemimpinan...','pick-ex-hist':'✦ Berdasarkan Riwayat','pick-ex-next':'PICK Kursus Berikutnya','pick-ex-select':'👤 Pilih Peserta','pick-ex-note':'※ Dalam layanan aktual, info dimuat setelah login SSUP','course-list-title':'Jadwal Kursus','course-list-hdr':'📅 Kursus mulai dalam 1 bulan','view-qr-scan':'📷 Scan QR','bld-nav-btn':'🗺️ Cari di Peta',
-  ja:{'tab-talk-sub':'すぐ回答','tab-pick-sub':'講座推薦','tab-view-sub':'キャンパス','q-attend':'✅ 出席処理','q-grad':'🎓 修了基準','q-fee':'💳 教育費','q-shuttle':'🚌 シャトル','q-meal':'🍽️ 食堂','q-wifi':'📶 Wi-Fi','q-emer':'🆘 緊急連絡','q-today':'🍱 今日の食事','q-qr':'📷 QRスキャン','q-log':'📋 会話履歴','faq-title':'よくある質問','faq-sub':'TOP 7 · 即時確認','faq1':'出席処理はどうすればいいですか？','faq2':'修了基準はどうなっていますか？','faq3':'💳 教育費の支払いは？','faq4':'📜 修了証はどうやって受け取れますか？','faq5':'📶 宿泊Wi-Fiのパスワードは？','faq6':'💰 雇用保険の払い戻しは？','faq7':'シャトルバスの時刻表は？','ich-help':'どのようにお手伝いできますか？','ich-pick':'✦ 講座推薦','ich-view':'◎ キャンパス','contact-btn':'📞 担当者に連絡','pick-new-tab':'🆕 初めてですか？','pick-old-tab':'🔄 既受講者','pick-btn':'✦ AI推薦を受ける','pick-btn2':'✦ AI推薦を受ける','pick-nl-btn':'✦ AI推薦を受ける','pick-lbl-ind':'🏭 業種','pick-lbl-job':'💼 職務','pick-lbl-yr':'📅 年次','pick-lbl-inter':'🎯 関心分野 (任意)','view-photomap':'📸 キャンパスマップ','view-facility':'🏢 施設案内','view-wayfind':'🗺️ キャンパスナビ','view-wf-desc':'📍 正門からの徒歩ルート · 建物を選択してください','view-report':'📸 不便申告','view-route':'🚌 アクセス','view-faq':'❓ 施設FAQ','input-ph':'例：シャトルバスは何時に出発しますか？','wf-input-ph':'どこへ行きたいですか？','nl-input-ph':'例）製造業の品質担当者でAI研修を希望します。','splash-sub':'AIスマートアシスタント','splash-start':'始める →','splash-name-ph':'お名前を入力してください','splash-name-hint':'お名前を入力すると個別のご挨拶が届きます 😊','splash-talk-desc':'24時間即時回答','splash-pick-desc':'ニーズ別講座推薦','splash-view-desc':'キャンパス不便申告','welcome-profile':'W-SSUP AIアシスタント','welcome-online':'オンライン','sched-hdr':'📅 本日のスケジュール','hist-hdr':'📚 受講履歴','quick-apply':'申込','quick-fee':'教育費','quick-cert':'修了・払戻','pick-nl-title':'🤖 自然言語でおすすめ','pick-nl-hint':'状況を自由に入力するとAIが最適なコースを推薦します','pick-or':'または直接選択','view-hero-sub':'◎ キャンパス VIEW','view-wf-desc':'📍 AIが正門から目的地まで徒歩ルートをご案内します','view-or':'または建物を選択','view-map-hint':'ピンをタップして建物情報を確認','view-fac-hint':'カードをタップして施設情報と写真を確認 📍','view-report-title':'⚠️ 不便な点を今すぐ申告してください','modal-emer':'🆘 緊急連絡先','modal-meal':'🍱 今週の食事','modal-log':'💬 会話履歴','hint-enter':'↵ Enter 送信 · ⇧ Shift+Enter 改行'},'pick-nl-title':'🤖 自然言語でおすすめ','pick-hero-tag':'✦ AIおすすめ','pick-hero-title':'講座 PICK','pick-hero-desc':'業種·職務·年次に基づく推薦','pick-all-link':'📋 SSUP全コースを見る →','pick-inter-ph':'例：AI、リーダーシップ...','pick-ex-hist':'✦ 受講履歴ベース','pick-ex-next':'次の講座 PICK','pick-ex-select':'👤 研修生選択','pick-ex-note':'※ 実サービスではSSUPログイン後に自動表示','course-list-title':'講義時間割','course-list-hdr':'📅 1ヶ月以内開講','view-qr-scan':'📷 QRスキャン','bld-nav-btn':'🗺️ 地図で道案内',
-  zh:{'tab-talk-sub':'即时回答','tab-pick-sub':'课程推荐','tab-view-sub':'校园','q-attend':'✅ 出勤处理','q-grad':'🎓 结业标准','q-fee':'💳 培训费','q-shuttle':'🚌 班车','q-meal':'🍽️ 餐厅','q-wifi':'📶 Wi-Fi','q-emer':'🆘 紧急联系','q-today':'🍱 今日菜单','q-qr':'📷 QR扫描','q-log':'📋 聊天记录','faq-title':'常见问题','faq-sub':'TOP 7 · 快速查看','faq1':'如何处理出勤？','faq2':'结业标准是什么？','faq3':'💳 如何缴纳培训费？','faq4':'📜 如何获得结业证书？','faq5':'📶 宿舍Wi-Fi密码是什么？','faq6':'💰 如何申请就业保险退款？','faq7':'班车时刻表是什么？','ich-help':'我能帮您什么？','ich-pick':'✦ 课程推荐','ich-view':'◎ 校园','contact-btn':'📞 联系负责人','pick-new-tab':'🆕 初次参加？','pick-old-tab':'🔄 已有学员','pick-btn':'✦ 获取AI推荐','pick-btn2':'✦ 获取AI推荐','pick-nl-btn':'✦ 获取AI推荐','pick-lbl-ind':'🏭 行业','pick-lbl-job':'💼 职务','pick-lbl-yr':'📅 工作年限','pick-lbl-inter':'🎯 兴趣领域 (可选)','view-photomap':'📸 校园地图','view-facility':'🏢 设施介绍','view-wayfind':'🗺️ 校园导航','view-wf-desc':'📍 从正门出发的步行路线 · 请选择建筑','view-report':'📸 报告问题','view-route':'🚌 来园路线','view-faq':'❓ 设施FAQ','input-ph':'例如：班车几点出发？','wf-input-ph':'您想去哪里？','nl-input-ph':'例：我是制造业质量负责人，想了解AI培训课程。','splash-sub':'AI智能助手','splash-start':'开始 →','splash-name-ph':'输入您的姓名','splash-name-hint':'输入姓名即可获得个性化问候 😊','splash-talk-desc':'24小时即时回答','splash-pick-desc':'定制课程推荐','splash-view-desc':'校园问题报告','welcome-profile':'W-SSUP AI助手','welcome-online':'在线','sched-hdr':'📅 今日日程','hist-hdr':'📚 学习记录','quick-apply':'报名','quick-fee':'培训费','quick-cert':'结业·退款','pick-nl-title':'🤖 用自然语言推荐','pick-nl-hint':'自由描述您的情况，AI将为您推荐最合适的课程','pick-or':'或直接选择','view-hero-sub':'◎ 校园 VIEW','view-wf-desc':'📍 AI为您提供从正门到目的地的步行路线','view-or':'或选择建筑','view-map-hint':'点击图钉查看建筑信息','view-fac-hint':'点击卡片查看设施信息和照片 📍','view-report-title':'⚠️ 立即报告不便事项','modal-emer':'🆘 紧急联系','modal-meal':'🍱 本周菜单','modal-log':'💬 我的对话记录','hint-enter':'↵ Enter发送 · ⇧ Shift+Enter换行'},'pick-nl-title':'🤖 用自然语言推荐','pick-hero-tag':'✦ AI定制推荐','pick-hero-title':'课程 PICK','pick-hero-desc':'按行业·职务·年限推荐','pick-all-link':'📋 查看全部SSUP课程 →','pick-inter-ph':'例：AI、领导力...','pick-ex-hist':'✦ 基于学习记录','pick-ex-next':'下一课程 PICK','pick-ex-select':'👤 选择学员','pick-ex-note':'※ 正式服务中登录SSUP后自动显示','course-list-title':'课程时间表','course-list-hdr':'📅 一个月内开课','view-qr-scan':'📷 QR扫描','bld-nav-btn':'🗺️ 地图导航'
+  ko:{'tab-talk-sub':'즉시 답변','tab-pick-sub':'강좌 추천','tab-view-sub':'시설 안내','q-attend':'✅ 출석처리','q-grad':'🎓 수료기준','q-fee':'💳 교육비','q-shuttle':'🚌 셔틀버스','q-meal':'🍽️ 식당','q-wifi':'📶 Wi-Fi','q-emer':'🆘 긴급연락','q-today':'🍱 오늘식단','q-qr':'📷 QR 스캔','q-log':'📋 내 대화보기','faq-title':'자주 묻는 질문','faq-sub':'TOP 7 · 바로 확인하세요','faq1':'출석 처리는 어떻게 하나요?','faq2':'수료 기준이 어떻게 되나요?','faq3':'💳 교육비 납부는 어떻게 하나요?','faq4':'📜 수료증은 어떻게 받나요?','faq5':'📶 숙소 Wi-Fi 비밀번호가 뭐예요?','faq6':'💰 고용보험 환급은 어떻게 받나요?','faq7':'셔틀버스 시간표가 어떻게 되나요?','ich-help':'무엇을 도와드릴까요?','ich-pick':'✦ 강좌 추천','ich-view':'◎ 시설 안내','contact-btn':'📞 담당자 연결','pick-new-tab':'🆕 처음이세요?','pick-old-tab':'🔄 기존 연수생','pick-btn':'✦ 맞춤 강좌 추천받기','pick-btn2':'✦ 맞춤 강좌 추천받기','pick-nl-btn':'✦ AI 추천 받기','pick-lbl-ind':'🏭 업종','pick-lbl-job':'💼 직무','pick-lbl-yr':'📅 연차','pick-lbl-inter':'🎯 관심 분야 (선택)','view-photomap':'📸 캠퍼스 포토맵','view-facility':'🏢 시설 안내','view-wayfind':'🗺️ 캠퍼스 길찾기','view-wf-desc':'📍 정문 기준 도보 경로 · 건물을 선택하세요','view-report':'📸 현장 불편 신고','view-route':'🚌 연수원 오는 길','view-faq':'❓ 시설 자주 묻는 질문','input-ph':'예: 셔틀버스 몇 시에 출발해요?','wf-input-ph':'어디로 가고 싶으세요? (예: 식당, 봉사관 206호)','nl-input-ph':'예) 저는 제조업 품질담당자이고 AI를 처음 접합니다.','splash-sub':'AI 스마트비서','splash-start':'시작하기 →','splash-name-ph':'이름을 입력하세요','splash-name-hint':'이름을 입력하면 개인화된 인사를 받을 수 있어요 😊','splash-talk-desc':'24시간 즉시 답변','splash-pick-desc':'맞춤 강좌 추천','splash-view-desc':'시설 안내 · 불편 신고','welcome-profile':'W-SSUP AI 스마트비서','welcome-online':'온라인','sched-hdr':'📅 오늘의 교육 일정','hist-hdr':'📚 수강 이력','quick-apply':'연수 신청','quick-fee':'교육비','quick-cert':'수료·환급','pick-nl-title':'🤖 자연어로 추천받기','pick-nl-hint':'본인 상황을 자유롭게 입력하면 AI가 맞춤 과정을 추천해드려요','pick-or':'또는 직접 선택','view-hero-sub':'◎ 연수원 현장 VIEW','view-wf-desc':'📍 정문에서 목적지까지 AI가 도보 경로를 안내해드려요','view-or':'또는 건물 선택','view-map-hint':'핀을 눌러 건물 정보 확인','view-fac-hint':'카드를 누르면 시설 정보와 사진을 볼 수 있어요 📍','view-report-title':'⚠️ 불편 사항을 즉시 신고하세요','modal-emer':'🆘 긴급 연락처','modal-meal':'🍱 이번 주 식단','modal-log':'💬 내 대화 기록','hint-enter':'↵ Enter 전송 · ⇧ Shift+Enter 줄바꿈'},'pick-nl-title':'🤖 자연어로 추천받기','pick-hero-tag':'✦ AI 맞춤 추천','pick-hero-title':'강좌 PICK','pick-hero-desc':'업종·직무·연차 기반 교육과정 추천','pick-all-link':'📋 SSUP 전체 과정 보기 →','pick-inter-ph':'예: AI 활용, 리더십...','pick-ex-hist':'✦ 수강이력 기반 추천','pick-ex-next':'다음 강좌 PICK','pick-ex-select':'👤 연수생 선택','pick-ex-note':'※ 실제 서비스에서는 SSUP 로그인 후 본인 정보가 자동 표시됩니다','course-list-title':'강의 일정표','course-list-hdr':'📅 1개월 이내 개강 과정','view-qr-scan':'📷 QR 스캔','bld-nav-btn':'🗺️ 지도에서 길찾기','help-guide':'사용 가이드',
+  en:{'tab-talk-sub':'Instant Reply','tab-pick-sub':'Course Rec','tab-view-sub':'Campus','q-attend':'✅ Attendance','q-grad':'🎓 Graduation','q-fee':'💳 Tuition','q-shuttle':'🚌 Shuttle','q-meal':'🍽️ Dining','q-wifi':'📶 Wi-Fi','q-emer':'🆘 Emergency','q-today':'🍱 Today\'s Menu','q-qr':'📷 QR Scan','q-log':'📋 Chat Log','faq-title':'Frequent Questions','faq-sub':'TOP 7 · Quick Answers','faq1':'How do I check attendance?','faq2':'What are the graduation requirements?','faq3':'💳 How do I pay tuition?','faq4':'📜 How do I get my certificate?','faq5':'📶 What is the dorm Wi-Fi password?','faq6':'💰 How do I get employment insurance refund?','faq7':'What is the shuttle schedule?','ich-help':'How can I help you?','ich-pick':'✦ Course Rec','ich-view':'◎ Campus','contact-btn':'📞 Contact Staff','pick-new-tab':'🆕 New Trainee?','pick-old-tab':'🔄 Returning','pick-btn':'✦ Get AI Recommendation','pick-btn2':'✦ Get AI Recommendation','pick-nl-btn':'✦ Get AI Recommendation','pick-lbl-ind':'🏭 Industry','pick-lbl-job':'💼 Role','pick-lbl-yr':'📅 Years Exp.','pick-lbl-inter':'🎯 Interest (optional)','view-photomap':'📸 Campus Map','view-facility':'🏢 Facilities','view-wayfind':'🗺️ Campus Navigation','view-wf-desc':'📍 Walking routes from Main Gate · Select a building','view-report':'📸 Report Issue','view-route':'🚌 Getting Here','view-faq':'❓ Facility FAQ','input-ph':'e.g. What time does the shuttle leave?','wf-input-ph':'Where do you want to go? (e.g. cafeteria)','nl-input-ph':'e.g. I work in manufacturing and want AI training.','splash-sub':'AI Smart Assistant','splash-start':'Get Started →','splash-name-ph':'Enter your name','splash-name-hint':'Enter your name for a personalized greeting 😊','splash-talk-desc':'24/7 Instant Reply','splash-pick-desc':'Tailored Course Rec','splash-view-desc':'Campus · Report Issue','welcome-profile':'W-SSUP AI Assistant','welcome-online':'Online','sched-hdr':'📅 Today\'s Schedule','hist-hdr':'📚 Course History','quick-apply':'Apply','quick-fee':'Tuition','quick-cert':'Certificate','pick-nl-title':'🤖 Natural Language Recommendation','pick-nl-hint':'Describe your situation freely and AI will recommend the best course','pick-or':'Or select directly','view-hero-sub':'◎ Campus VIEW','view-wf-desc':'📍 AI guides your walking route from the main gate to your destination','view-or':'Or select a building','view-map-hint':'Tap a pin to see building info','view-fac-hint':'Tap a card to see facility info and photos 📍','view-report-title':'⚠️ Report an issue immediately','modal-emer':'🆘 Emergency Contacts','modal-meal':'🍱 This Week\'s Menu','modal-log':'💬 My Chat Log','hint-enter':'↵ Enter to send · ⇧ Shift+Enter new line'},'pick-nl-title':'🤖 Natural Language Rec','pick-hero-tag':'✦ AI Tailored Rec','pick-hero-title':'Course PICK','pick-hero-desc':'Recommendations by industry·role·years','pick-all-link':'📋 View All SSUP Courses →','pick-inter-ph':'e.g. AI, Leadership...','pick-ex-hist':'✦ History-based Rec','pick-ex-next':'Next Course PICK','pick-ex-select':'👤 Select Trainee','pick-ex-note':'※ In production, your info loads after SSUP login','course-list-title':'Course Schedule','course-list-hdr':'📅 Courses starting within 1 month','view-qr-scan':'📷 QR Scan','bld-nav-btn':'🗺️ Find on Map','help-guide':'User Guide',
+  id:{'tab-talk-sub':'Balas Instan','tab-pick-sub':'Rekomendasi','tab-view-sub':'Kampus','q-attend':'✅ Absensi','q-grad':'🎓 Kelulusan','q-fee':'💳 Biaya','q-shuttle':'🚌 Shuttle','q-meal':'🍽️ Makan','q-wifi':'📶 Wi-Fi','q-emer':'🆘 Darurat','q-today':'🍱 Menu Hari Ini','q-qr':'📷 Scan QR','q-log':'📋 Riwayat Chat','faq-title':'Pertanyaan Umum','faq-sub':'TOP 7 · Jawaban Cepat','faq1':'Bagaimana cara absensi?','faq2':'Apa syarat kelulusan?','faq3':'💳 Bagaimana cara membayar biaya?','faq4':'📜 Bagaimana cara mendapat sertifikat?','faq5':'📶 Apa kata sandi Wi-Fi asrama?','faq6':'💰 Bagaimana cara klaim asuransi?','faq7':'Apa jadwal shuttle bus?','ich-help':'Apa yang bisa saya bantu?','ich-pick':'✦ Rekomendasi','ich-view':'◎ Kampus','contact-btn':'📞 Hubungi Staf','pick-new-tab':'🆕 Peserta Baru?','pick-old-tab':'🔄 Peserta Lama','pick-btn':'✦ Dapatkan Rekomendasi AI','pick-btn2':'✦ Dapatkan Rekomendasi AI','pick-nl-btn':'✦ Dapatkan Rekomendasi AI','pick-lbl-ind':'🏭 Industri','pick-lbl-job':'💼 Jabatan','pick-lbl-yr':'📅 Tahun Kerja','pick-lbl-inter':'🎯 Minat (opsional)','view-photomap':'📸 Peta Kampus','view-facility':'🏢 Fasilitas','view-wayfind':'🗺️ Navigasi Kampus','view-wf-desc':'📍 Rute berjalan dari Gerbang Utama · Pilih gedung','view-report':'📸 Laporkan Masalah','view-route':'🚌 Cara ke Sini','view-faq':'❓ FAQ Fasilitas','input-ph':'mis. Jam berapa shuttle berangkat?','wf-input-ph':'Ke mana Anda ingin pergi?','nl-input-ph':'mis. Saya bekerja di manufaktur dan ingin pelatihan AI.','splash-sub':'Asisten AI Cerdas','splash-start':'Mulai →','splash-name-ph':'Masukkan nama Anda','splash-name-hint':'Masukkan nama Anda untuk salam yang dipersonalisasi 😊','splash-talk-desc':'24 Jam Balas Instan','splash-pick-desc':'Rekomendasi Kursus','splash-view-desc':'Fasilitas Laporan','welcome-profile':'Asisten AI W-SSUP','welcome-online':'Online','sched-hdr':'📅 Jadwal Hari Ini','hist-hdr':'📚 Riwayat Kursus','quick-apply':'Daftar','quick-fee':'Biaya','quick-cert':'Sertifikat','pick-nl-title':'🤖 Rekomendasi Bahasa Alami','pick-nl-hint':'Ceritakan situasi Anda dan AI akan merekomendasikan kursus terbaik','pick-or':'Atau pilih langsung','view-hero-sub':'◎ Kampus VIEW','view-wf-desc':'📍 AI memandu rute berjalan dari gerbang utama ke tujuan','view-or':'Atau pilih gedung','view-map-hint':'Ketuk pin untuk info gedung','view-fac-hint':'Ketuk kartu untuk info dan foto fasilitas 📍','view-report-title':'⚠️ Laporkan masalah segera','modal-emer':'🆘 Kontak Darurat','modal-meal':'🍱 Menu Minggu Ini','modal-log':'💬 Riwayat Chat Saya','hint-enter':'↵ Enter kirim · ⇧ Shift+Enter baris baru'},'pick-nl-title':'🤖 Rekomendasi Bahasa Alami','pick-hero-tag':'✦ Rekomendasi AI','pick-hero-title':'PICK Kursus','pick-hero-desc':'Rekomendasi berdasarkan industri·jabatan·tahun','pick-all-link':'📋 Lihat Semua Kursus SSUP →','pick-inter-ph':'mis. AI, Kepemimpinan...','pick-ex-hist':'✦ Berdasarkan Riwayat','pick-ex-next':'PICK Kursus Berikutnya','pick-ex-select':'👤 Pilih Peserta','pick-ex-note':'※ Dalam layanan aktual, info dimuat setelah login SSUP','course-list-title':'Jadwal Kursus','course-list-hdr':'📅 Kursus mulai dalam 1 bulan','view-qr-scan':'📷 Scan QR','bld-nav-btn':'🗺️ Cari di Peta','help-guide':'Panduan Penggunaan',
+  ja:{'tab-talk-sub':'すぐ回答','tab-pick-sub':'講座推薦','tab-view-sub':'キャンパス','q-attend':'✅ 出席処理','q-grad':'🎓 修了基準','q-fee':'💳 教育費','q-shuttle':'🚌 シャトル','q-meal':'🍽️ 食堂','q-wifi':'📶 Wi-Fi','q-emer':'🆘 緊急連絡','q-today':'🍱 今日の食事','q-qr':'📷 QRスキャン','q-log':'📋 会話履歴','faq-title':'よくある質問','faq-sub':'TOP 7 · 即時確認','faq1':'出席処理はどうすればいいですか？','faq2':'修了基準はどうなっていますか？','faq3':'💳 教育費の支払いは？','faq4':'📜 修了証はどうやって受け取れますか？','faq5':'📶 宿泊Wi-Fiのパスワードは？','faq6':'💰 雇用保険の払い戻しは？','faq7':'シャトルバスの時刻表は？','ich-help':'どのようにお手伝いできますか？','ich-pick':'✦ 講座推薦','ich-view':'◎ キャンパス','contact-btn':'📞 担当者に連絡','pick-new-tab':'🆕 初めてですか？','pick-old-tab':'🔄 既受講者','pick-btn':'✦ AI推薦を受ける','pick-btn2':'✦ AI推薦を受ける','pick-nl-btn':'✦ AI推薦を受ける','pick-lbl-ind':'🏭 業種','pick-lbl-job':'💼 職務','pick-lbl-yr':'📅 年次','pick-lbl-inter':'🎯 関心分野 (任意)','view-photomap':'📸 キャンパスマップ','view-facility':'🏢 施設案内','view-wayfind':'🗺️ キャンパスナビ','view-wf-desc':'📍 正門からの徒歩ルート · 建物を選択してください','view-report':'📸 不便申告','view-route':'🚌 アクセス','view-faq':'❓ 施設FAQ','input-ph':'例：シャトルバスは何時に出発しますか？','wf-input-ph':'どこへ行きたいですか？','nl-input-ph':'例）製造業の品質担当者でAI研修を希望します。','splash-sub':'AIスマートアシスタント','splash-start':'始める →','splash-name-ph':'お名前を入力してください','splash-name-hint':'お名前を入力すると個別のご挨拶が届きます 😊','splash-talk-desc':'24時間即時回答','splash-pick-desc':'ニーズ別講座推薦','splash-view-desc':'キャンパス不便申告','welcome-profile':'W-SSUP AIアシスタント','welcome-online':'オンライン','sched-hdr':'📅 本日のスケジュール','hist-hdr':'📚 受講履歴','quick-apply':'申込','quick-fee':'教育費','quick-cert':'修了・払戻','pick-nl-title':'🤖 自然言語でおすすめ','pick-nl-hint':'状況を自由に入力するとAIが最適なコースを推薦します','pick-or':'または直接選択','view-hero-sub':'◎ キャンパス VIEW','view-wf-desc':'📍 AIが正門から目的地まで徒歩ルートをご案内します','view-or':'または建物を選択','view-map-hint':'ピンをタップして建物情報を確認','view-fac-hint':'カードをタップして施設情報と写真を確認 📍','view-report-title':'⚠️ 不便な点を今すぐ申告してください','modal-emer':'🆘 緊急連絡先','modal-meal':'🍱 今週の食事','modal-log':'💬 会話履歴','hint-enter':'↵ Enter 送信 · ⇧ Shift+Enter 改行'},'pick-nl-title':'🤖 自然言語でおすすめ','pick-hero-tag':'✦ AIおすすめ','pick-hero-title':'講座 PICK','pick-hero-desc':'業種·職務·年次に基づく推薦','pick-all-link':'📋 SSUP全コースを見る →','pick-inter-ph':'例：AI、リーダーシップ...','pick-ex-hist':'✦ 受講履歴ベース','pick-ex-next':'次の講座 PICK','pick-ex-select':'👤 研修生選択','pick-ex-note':'※ 実サービスではSSUPログイン後に自動表示','course-list-title':'講義時間割','course-list-hdr':'📅 1ヶ月以内開講','view-qr-scan':'📷 QRスキャン','bld-nav-btn':'🗺️ 地図で道案内','help-guide':'使い方ガイド',
+  zh:{'tab-talk-sub':'即时回答','tab-pick-sub':'课程推荐','tab-view-sub':'校园','q-attend':'✅ 出勤处理','q-grad':'🎓 结业标准','q-fee':'💳 培训费','q-shuttle':'🚌 班车','q-meal':'🍽️ 餐厅','q-wifi':'📶 Wi-Fi','q-emer':'🆘 紧急联系','q-today':'🍱 今日菜单','q-qr':'📷 QR扫描','q-log':'📋 聊天记录','faq-title':'常见问题','faq-sub':'TOP 7 · 快速查看','faq1':'如何处理出勤？','faq2':'结业标准是什么？','faq3':'💳 如何缴纳培训费？','faq4':'📜 如何获得结业证书？','faq5':'📶 宿舍Wi-Fi密码是什么？','faq6':'💰 如何申请就业保险退款？','faq7':'班车时刻表是什么？','ich-help':'我能帮您什么？','ich-pick':'✦ 课程推荐','ich-view':'◎ 校园','contact-btn':'📞 联系负责人','pick-new-tab':'🆕 初次参加？','pick-old-tab':'🔄 已有学员','pick-btn':'✦ 获取AI推荐','pick-btn2':'✦ 获取AI推荐','pick-nl-btn':'✦ 获取AI推荐','pick-lbl-ind':'🏭 行业','pick-lbl-job':'💼 职务','pick-lbl-yr':'📅 工作年限','pick-lbl-inter':'🎯 兴趣领域 (可选)','view-photomap':'📸 校园地图','view-facility':'🏢 设施介绍','view-wayfind':'🗺️ 校园导航','view-wf-desc':'📍 从正门出发的步行路线 · 请选择建筑','view-report':'📸 报告问题','view-route':'🚌 来园路线','view-faq':'❓ 设施FAQ','input-ph':'例如：班车几点出发？','wf-input-ph':'您想去哪里？','nl-input-ph':'例：我是制造业质量负责人，想了解AI培训课程。','splash-sub':'AI智能助手','splash-start':'开始 →','splash-name-ph':'输入您的姓名','splash-name-hint':'输入姓名即可获得个性化问候 😊','splash-talk-desc':'24小时即时回答','splash-pick-desc':'定制课程推荐','splash-view-desc':'校园问题报告','welcome-profile':'W-SSUP AI助手','welcome-online':'在线','sched-hdr':'📅 今日日程','hist-hdr':'📚 学习记录','quick-apply':'报名','quick-fee':'培训费','quick-cert':'结业·退款','pick-nl-title':'🤖 用自然语言推荐','pick-nl-hint':'自由描述您的情况，AI将为您推荐最合适的课程','pick-or':'或直接选择','view-hero-sub':'◎ 校园 VIEW','view-wf-desc':'📍 AI为您提供从正门到目的地的步行路线','view-or':'或选择建筑','view-map-hint':'点击图钉查看建筑信息','view-fac-hint':'点击卡片查看设施信息和照片 📍','view-report-title':'⚠️ 立即报告不便事项','modal-emer':'🆘 紧急联系','modal-meal':'🍱 本周菜单','modal-log':'💬 我的对话记录','hint-enter':'↵ Enter发送 · ⇧ Shift+Enter换行'},'pick-nl-title':'🤖 用自然语言推荐','pick-hero-tag':'✦ AI定制推荐','pick-hero-title':'课程 PICK','pick-hero-desc':'按行业·职务·年限推荐','pick-all-link':'📋 查看全部SSUP课程 →','pick-inter-ph':'例：AI、领导力...','pick-ex-hist':'✦ 基于学习记录','pick-ex-next':'下一课程 PICK','pick-ex-select':'👤 选择学员','pick-ex-note':'※ 正式服务中登录SSUP后自动显示','course-list-title':'课程时间表','course-list-hdr':'📅 一个月内开课','view-qr-scan':'📷 QR扫描','bld-nav-btn':'🗺️ 地图导航','help-guide':'使用指南'
 };
 var PICK_OPTS={
   ind:{
@@ -2566,6 +2674,7 @@ function setLang(l,btn){
   var botGreet=document.getElementById('bot-greet');
   if(botGreet)botGreet.innerHTML=greet[l]||greet['ko'];
   applyUILang(l);
+  if(document.getElementById('onboard-overlay'))renderOnboardStep();
 }
 
 async function aiWayFind(){
