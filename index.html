@@ -1569,6 +1569,86 @@ var SSUP_COURSES = [
   {code:'START-IP-002',title:'지식재산권 전략 및 특허 실무',days:2,fee:'환급',tags:['경영·전략','제조업','IT·소프트웨어'],reason:'특허·상표·디자인권을 활용해 기업 경쟁력을 강화하는 지식재산 전략 과정입니다.',effect:'특허 출원 프로세스 이해 및 지식재산 포트폴리오 구축',badge:'',apply:'2026-09-12',sched:[{d:'1일차',am:'지식재산권 종류 및 보호 전략',pm:'특허 명세서 작성 기초'},{d:'2일차',am:'상표·디자인권 관리',pm:'침해 대응 및 분쟁 예방'}]},
 ];
 
+var SCHED_DETAIL={
+  'MFG-SF-001':[
+    {d:'1일차',slots:[{time:'09:00~10:30',subj:'스마트공장 개요 및 정책 동향',detail:['스마트공장 정의 및 수준 진단 체계','정부 지원 정책 및 사업 현황']},{time:'10:30~12:00',subj:'스마트공장 구축 사례 분석',detail:['국내외 우수 구축 사례 분석','성공 요인 및 시사점 도출']},{time:'13:30~15:30',subj:'현장 진단 실습',detail:['진단 체크리스트 작성 및 현장 적용','데이터 수집 포인트 발굴']},{time:'15:30~17:30',subj:'우선과제 도출 및 팀별 토의',detail:['개선 우선순위 설정 방법론','팀별 현장 적용 계획 공유']}]},
+    {d:'2일차',slots:[{time:'09:00~10:30',subj:'IoT·센서 기초 이론',detail:['제조용 센서 종류 및 선정 기준','IIoT 아키텍처 이해']},{time:'10:30~12:00',subj:'IoT 연동 실습',detail:['게이트웨이 설정 및 연결','실시간 데이터 수집 테스트']},{time:'13:30~15:30',subj:'데이터 수집·모니터링 시스템',detail:['SCADA·MES 연동 방법','실시간 모니터링 구현']},{time:'15:30~17:30',subj:'대시보드 구축 실습',detail:['KPI 지표 시각화','이상 알림 설정 및 확인']}]},
+    {d:'3일차',slots:[{time:'09:00~10:30',subj:'스마트공장 구축 로드맵',detail:['단계별 구축 전략 수립','투자 비용 및 ROI 분석']},{time:'10:30~12:00',subj:'팀별 로드맵 작성 실습',detail:['현장 맞춤형 계획 수립','장애 요인 분석 및 대응']},{time:'13:30~15:30',subj:'팀별 발표 준비',detail:['발표 자료 작성 및 검토','피드백 반영 수정']},{time:'15:30~17:30',subj:'최종 발표 및 종합 피드백',detail:['팀별 결과 발표','현업 적용 방안 제언']}]}
+  ],
+  'MFG-AI-002':[
+    {d:'1일차',slots:[{time:'09:00~10:30',subj:'제조 데이터 이해',detail:['제조 데이터 종류 및 품질 기준','데이터 수집 포인트 파악']},{time:'10:30~12:00',subj:'데이터 수집·전처리 실습',detail:['Python pandas 기초 실습','결측치·이상치 처리 방법']},{time:'13:30~15:30',subj:'데이터 탐색 분석(EDA)',detail:['기술통계·분포 시각화 실습','특성 선택 및 엔지니어링']},{time:'15:30~17:30',subj:'현장 데이터 실습',detail:['실제 제조 데이터셋 적용','인사이트 도출 방법']}]},
+    {d:'2일차',slots:[{time:'09:00~10:30',subj:'이상 탐지 모델',detail:['통계 기반·ML 기반 방법 비교','Scikit-learn 구현 실습']},{time:'10:30~12:00',subj:'예지정비 개념 및 설계',detail:['RUL 예측 방법론','고장 모드 분석(FMEA) 연계']},{time:'13:30~15:30',subj:'예지정비 모델 구현',detail:['LSTM·Random Forest 적용','모델 성능 평가 및 튜닝']},{time:'15:30~17:30',subj:'현장 적용 시뮬레이션',detail:['실제 데이터 적용 검증','결과 해석 및 의사결정 연계']}]},
+    {d:'3일차',slots:[{time:'09:00~10:30',subj:'품질 데이터 시각화',detail:['Matplotlib·Plotly 활용','제조 KPI 대시보드 구성']},{time:'10:30~12:00',subj:'현장 적용 파이프라인 설계',detail:['자동화 파이프라인 구성','배포 및 운영 방안 수립']},{time:'13:30~15:30',subj:'팀별 프로젝트 발표',detail:['현장 적용 계획 발표','동료 피드백 및 Q&A']},{time:'15:30~17:30',subj:'종합 정리 및 피드백',detail:['학습 내용 종합 정리','현업 활용 로드맵 수립']}]}
+  ],
+  'MFG-PLC-003':[
+    {d:'1일차',slots:[{time:'09:00~10:30',subj:'PLC 구조 및 동작 원리',detail:['PLC 하드웨어 구성 요소 이해','입출력 모듈 신호 처리']},{time:'10:30~12:00',subj:'래더 다이어그램 기초 실습',detail:['기본 접점·코일 명령어 실습','타이머·카운터 활용']},{time:'13:30~15:30',subj:'기본 시퀀스 프로그래밍',detail:['자동 운전 시퀀스 작성','에러 처리 로직 설계']},{time:'15:30~17:30',subj:'I/O 배선 및 테스트',detail:['실제 배선 실습','입출력 신호 확인 및 디버깅']}]},
+    {d:'2일차',slots:[{time:'09:00~10:30',subj:'펑션블록 다이어그램(FBD)',detail:['FBD 구조 이해','표준 펑션블록 활용']},{time:'10:30~12:00',subj:'아날로그 및 PID 제어',detail:['아날로그 입출력 처리','PID 파라미터 튜닝 실습']},{time:'13:30~15:30',subj:'HMI 연동 실습',detail:['화면 설계 및 태그 연결','알람 설정 및 데이터 기록']},{time:'15:30~17:30',subj:'통신 프로토콜 설정',detail:['Modbus·EtherNet/IP 설정','상위 시스템 연동']}]},
+    {d:'3일차',slots:[{time:'09:00~10:30',subj:'고급 기능 프로그래밍',detail:['인터럽트·특수 모듈 활용','레시피 관리 프로그램']},{time:'10:30~12:00',subj:'트러블슈팅 방법론',detail:['이상 진단 순서 및 도구','에러 코드 분석']},{time:'13:30~15:30',subj:'트러블슈팅 실습',detail:['고장 시나리오 재현','현장 대응 절차 훈련']},{time:'15:30~17:30',subj:'종합 실습 프로젝트',detail:['자동화 라인 시뮬레이션','결과 발표 및 평가']}]},
+    {d:'4일차',slots:[{time:'09:00~10:30',subj:'안전 회로 및 에너지 절감',detail:['Safety PLC 개요','인버터 연동 전력 모니터링']},{time:'10:30~12:00',subj:'최신 PLC 기술 동향',detail:['클라우드 연동 PLC','엣지 컴퓨팅 적용 사례']},{time:'13:30~15:30',subj:'종합 평가 실습',detail:['복합 시퀀스 제어 구현','동료 평가 및 피드백']},{time:'15:30~17:30',subj:'현장 적용 방안 수립 및 수료',detail:['현장 개선 계획 발표','수료증 수여']}]}
+  ],
+  'MFG-QC-004':[
+    {d:'1일차',slots:[{time:'09:00~10:30',subj:'6시그마 개요 및 DMAIC',detail:['6시그마 역사 및 철학','DMAIC 단계별 개요']},{time:'10:30~12:00',subj:'Define 단계 실습',detail:['프로젝트 헌장 작성','고객 VOC·CTQ 도출']},{time:'13:30~15:30',subj:'프로세스 맵핑',detail:['SIPOC 다이어그램 작성','세부 프로세스 흐름도']},{time:'15:30~17:30',subj:'프로젝트 주제 선정',detail:['Y=f(x) 관계 설정','팀별 프로젝트 과제 확정']}]},
+    {d:'2일차',slots:[{time:'09:00~10:30',subj:'Measure 단계 이론',detail:['데이터 수집 계획 수립','측정 시스템 이해']},{time:'10:30~12:00',subj:'MSA(측정시스템분석)',detail:['Gage R&R 실습','측정 오차 유형 분석']},{time:'13:30~15:30',subj:'공정 능력 분석',detail:['Cp·Cpk 계산 실습','공정 능력 향상 전략']},{time:'15:30~17:30',subj:'통계 분석 기초',detail:['기술통계 및 정규분포','가설 검정 개념 이해']}]},
+    {d:'3일차',slots:[{time:'09:00~10:30',subj:'Analyze 단계',detail:['원인·결과 분석 도구','특성요인도 작성']},{time:'10:30~12:00',subj:'통계적 원인 분석',detail:['회귀분석·ANOVA 실습','유의 인자 선별']},{time:'13:30~15:30',subj:'Improve 단계 기초',detail:['개선안 아이디어 도출','Pugh 매트릭스 활용']},{time:'15:30~17:30',subj:'개선 파일럿 설계',detail:['파일럿 범위 설정','위험 평가 및 대응']}]},
+    {d:'4일차',slots:[{time:'09:00~10:30',subj:'DOE(실험계획법)',detail:['완전·부분 요인 배치','L9 직교배열표 실습']},{time:'10:30~12:00',subj:'최적 조건 도출',detail:['Response Surface 분석','최적화 결과 검증']},{time:'13:30~15:30',subj:'Control 단계 이론',detail:['관리도 종류 및 작성','SPC 실시간 모니터링']},{time:'15:30~17:30',subj:'관리 계획 수립',detail:['FMEA 업데이트','표준화 문서 작성']}]},
+    {d:'5일차',slots:[{time:'09:00~10:30',subj:'프로젝트 결과 정리',detail:['재무적 성과 계산','개선 전후 비교 분석']},{time:'10:30~12:00',subj:'발표 자료 준비',detail:['스토리라인 구성','시각화 자료 작성']},{time:'13:30~15:30',subj:'팀별 프로젝트 발표',detail:['결과 발표 (팀별 15분)','질의응답']},{time:'15:30~17:30',subj:'총평 및 수료식',detail:['강사 총평 및 피드백','Green Belt 수료증 수여']}]}
+  ],
+  'MGT-CEO-001':[
+    {d:'1일차',slots:[{time:'09:00~10:30',subj:'경영환경 변화와 전략적 사고',detail:['메가트렌드 및 산업 패러다임 변화','중소기업 생존 전략 방향']},{time:'10:30~12:00',subj:'중소기업 성공 전략 사례',detail:['국내외 중소기업 성공 사례 분석','실패 원인 및 시사점 도출']},{time:'13:30~15:30',subj:'비즈니스 모델 혁신',detail:['비즈니스 모델 캔버스 작성','디지털 전환 비즈니스 모델 설계']},{time:'15:30~17:30',subj:'전략 캔버스 워크숍',detail:['업종별 전략 캔버스 작성','경쟁 우위 요소 도출']}]},
+    {d:'2일차',slots:[{time:'09:00~10:30',subj:'재무 관점의 경영 전략',detail:['재무제표 기반 전략 판단','투자 우선순위 설정 방법']},{time:'10:30~12:00',subj:'인사·조직 전략',detail:['조직 설계 및 인재 확보 전략','성과 관리 체계 구축']},{time:'13:30~15:30',subj:'마케팅·디지털 전환 전략',detail:['시장 세분화 및 채널 전략','DX 추진 로드맵 수립']},{time:'15:30~17:30',subj:'디지털 전환 전략',detail:['스마트공장·클라우드 도입 전략','AI 도구 활용 경영']}]},
+    {d:'3일차',slots:[{time:'09:00~10:30',subj:'리더십과 조직문화',detail:['CEO 리더십 스타일 진단','고성과 조직문화 구축 방법']},{time:'10:30~12:00',subj:'위기 대응 및 리스크 관리',detail:['경영 리스크 진단 및 유형화','시나리오별 대응 전략']},{time:'13:30~15:30',subj:'전략 실행 계획 수립',detail:['KPI 설계 및 모니터링 체계','실행 조직 구성 방안']},{time:'15:30~17:30',subj:'종합 발표 및 네트워킹',detail:['CEO 전략 계획 발표','참여자 간 네트워킹']}]}
+  ],
+  'MGT-STR-002':[
+    {d:'1일차',slots:[{time:'09:00~10:30',subj:'전략 수립 프레임워크',detail:['전략 경영의 이해','PESTLE 환경 분석 실습']},{time:'10:30~12:00',subj:'산업 구조 분석',detail:['Porter의 5 Forces 실습','경쟁 포지션 파악']},{time:'13:30~15:30',subj:'SWOT·전략 수립',detail:['SWOT 매트릭스 작성','SO·ST·WO·WT 전략 도출']},{time:'15:30~17:30',subj:'전략 방향성 설정',detail:['핵심역량 분석(RBV)','전략적 목표 수립']}]},
+    {d:'2일차',slots:[{time:'09:00~10:30',subj:'신사업 기획 방법론',detail:['신사업 발굴 프레임워크','블루오션 전략 실습']},{time:'10:30~12:00',subj:'비즈니스 모델 캔버스',detail:['BMC 9개 블록 작성','수익 모델 설계']},{time:'13:30~15:30',subj:'디지털 전환 전략',detail:['DX 성숙도 진단','디지털 비즈니스 모델']},{time:'15:30~17:30',subj:'파트너십·생태계 전략',detail:['전략적 제휴 유형','생태계 전략 설계']}]},
+    {d:'3일차',slots:[{time:'09:00~10:30',subj:'전략 실행 계획',detail:['전략 맵(BSC) 작성','핵심성과지표(KPI) 설정']},{time:'10:30~12:00',subj:'변화 관리',detail:['조직 변화 저항 관리','변화 관리 8단계(Kotter)']},{time:'13:30~15:30',subj:'팀별 전략 수립 발표',detail:['현업 전략 계획 발표','동료·강사 피드백']},{time:'15:30~17:30',subj:'종합 정리 및 수료',detail:['핵심 내용 리뷰','수료증 수여']}]}
+  ],
+  'MGT-HR-003':[
+    {d:'1일차',slots:[{time:'09:00~10:30',subj:'HRD 기획 방법론',detail:['HRD 트렌드 및 역할 변화','교육 니즈 분석(TNA) 방법']},{time:'10:30~12:00',subj:'연간 교육계획 수립',detail:['교육 체계도 설계','우선순위 설정 및 예산 배분']},{time:'13:30~15:30',subj:'교육 설계(ISD)',detail:['ADDIE 모델 실습','블렌디드 러닝 설계']},{time:'15:30~17:30',subj:'교육 매체 및 콘텐츠 개발',detail:['e-러닝 콘텐츠 기획','강의 교안 작성 실습']}]},
+    {d:'2일차',slots:[{time:'09:00~10:30',subj:'학습 촉진 및 퍼실리테이션',detail:['성인 학습 원리 이해','그룹 학습 촉진 기술']},{time:'10:30~12:00',subj:'학습전이 설계',detail:['전이 장애 요인 분석','전이 촉진 전략 수립']},{time:'13:30~15:30',subj:'교육 운영 실무',detail:['교육 운영 체크리스트','교육장 환경 관리']},{time:'15:30~17:30',subj:'교육 효과 측정(Kirkpatrick)',detail:['4수준 평가 체계 이해','평가 도구 설계 실습']}]},
+    {d:'3일차',slots:[{time:'09:00~10:30',subj:'HRD 성과 측정 및 보고',detail:['ROI 계산 방법론','경영층 보고 방법']},{time:'10:30~12:00',subj:'HRD 포트폴리오 작성',detail:['역량 증명 포트폴리오 구성','HRD 담당자 커리어 개발']},{time:'13:30~15:30',subj:'팀별 교육 기획 발표',detail:['연간 교육계획 발표','동료 피드백']},{time:'15:30~17:30',subj:'종합 정리 및 수료',detail:['핵심 내용 정리','수료증 수여 및 네트워킹']}]}
+  ],
+  'MKT-DIG-001':[
+    {d:'1일차',slots:[{time:'09:00~10:30',subj:'디지털 마케팅 전략 수립',detail:['디지털 마케팅 생태계 이해','채널별 특성 및 전략 방향']},{time:'10:30~12:00',subj:'고객여정 및 퍼널 설계',detail:['고객 여정 지도(CJM) 작성','유입→전환→유지 퍼널 설계']},{time:'13:30~15:30',subj:'SNS 콘텐츠 기획 실습',detail:['인스타그램·유튜브 콘텐츠 기획','바이럴 콘텐츠 요소 분석']},{time:'15:30~17:30',subj:'콘텐츠 제작 실습',detail:['카드뉴스·쇼츠 제작 실습','브랜드 톤앤매너 적용']}]},
+    {d:'2일차',slots:[{time:'09:00~10:30',subj:'검색광고(SA) 운영',detail:['네이버·구글 검색광고 구조','키워드 전략 및 입찰 설정']},{time:'10:30~12:00',subj:'Google Analytics 분석',detail:['GA4 기본 지표 이해','전환 추적 설정 실습']},{time:'13:30~15:30',subj:'퍼포먼스 마케팅 분석',detail:['ROAS·CPA 지표 분석','A/B 테스트 설계 방법']},{time:'15:30~17:30',subj:'마케팅 예산 최적화',detail:['채널별 예산 배분 전략','성과 기반 예산 재배분']}]},
+    {d:'3일차',slots:[{time:'09:00~10:30',subj:'마케팅 자동화 도구',detail:['이메일·CRM 자동화 툴 소개','고객 세분화 자동화 실습']},{time:'10:30~12:00',subj:'데이터 기반 의사결정',detail:['마케팅 대시보드 구성','인사이트 도출 방법']},{time:'13:30~15:30',subj:'통합 캠페인 설계 실습',detail:['캠페인 기획 및 KPI 설정','예산·일정 수립']},{time:'15:30~17:30',subj:'팀별 캠페인 발표',detail:['캠페인 플랜 발표','동료 피드백 및 보완']}]}
+  ],
+  'MKT-B2B-002':[
+    {d:'1일차',slots:[{time:'09:00~10:30',subj:'B2B 영업 프로세스',detail:['B2B vs B2C 영업 차이','구매 의사결정 구조 이해']},{time:'10:30~12:00',subj:'고객 니즈 파악 실습',detail:['SPIN 질문 기법 실습','고객 Pain Point 발굴']},{time:'13:30~15:30',subj:'제안서 작성 실습',detail:['솔루션 제안 구조 설계','가치 제안 작성 실습']},{time:'15:30~17:30',subj:'고객관계 관리 전략',detail:['CRM 활용 고객 관리','장기 관계 유지 방법론']}]},
+    {d:'2일차',slots:[{time:'09:00~10:30',subj:'협상 전략 이론',detail:['협상 유형 및 전략 선택','BATNA·ZOPA 개념']},{time:'10:30~12:00',subj:'협상 스킬 실습',detail:['가격 협상 시나리오','양보·교환 전술 연습']},{time:'13:30~15:30',subj:'협상 롤플레이',detail:['실제 계약 상황 시뮬레이션','상대방 심리 파악 기법']},{time:'15:30~17:30',subj:'수주 전략 및 클로징',detail:['수주 확률 향상 전략','계약 완결 기법']}]}
+  ],
+  'ICT-AI-001':[
+    {d:'1일차',slots:[{time:'09:00~10:30',subj:'생성형 AI 개요',detail:['ChatGPT·Claude·Gemini 비교','AI 도구 선택 기준']},{time:'10:30~12:00',subj:'프롬프트 엔지니어링 기초',detail:['효과적인 프롬프트 작성법','역할 부여·맥락 제공 기법']},{time:'13:30~15:30',subj:'ChatGPT 업무 활용 실습',detail:['보고서·기획서 작성 자동화','데이터 분석 및 요약']},{time:'15:30~17:30',subj:'업무별 프롬프트 최적화',detail:['부서별 활용 시나리오','반복 업무 자동화 설계']}]},
+    {d:'2일차',slots:[{time:'09:00~10:30',subj:'Microsoft Copilot 활용',detail:['Word·Excel·PPT 자동화','Teams·Outlook 연동']},{time:'10:30~12:00',subj:'AI 협업 도구 실습',detail:['Notion AI·Gamma 활용','업무 문서 자동 생성']},{time:'13:30~15:30',subj:'부서별 AI 활용 실습',detail:['마케팅·인사·회계 시나리오','실제 업무 데이터 적용']},{time:'15:30~17:30',subj:'AI 활용 계획 수립',detail:['개인 업무 자동화 로드맵','도입 시 주의사항 점검']}]}
+  ],
+  'ICT-SEC-002':[
+    {d:'1일차',slots:[{time:'09:00~10:30',subj:'보안 위협 트렌드',detail:['2026년 주요 사이버 위협','중소기업 보안 취약점 현황']},{time:'10:30~12:00',subj:'취약점 진단 실습',detail:['네트워크 스캐닝 실습','보안 취약점 체크리스트']},{time:'13:30~15:30',subj:'네트워크·엔드포인트 보안',detail:['방화벽·IDS/IPS 설정','EDR 솔루션 운영']},{time:'15:30~17:30',subj:'랜섬웨어 및 피싱 대응',detail:['랜섬웨어 대응 절차','스피어 피싱 유형 분석']}]},
+    {d:'2일차',slots:[{time:'09:00~10:30',subj:'보안 정책 수립',detail:['정보보호 관리체계 설계','접근 통제 정책 작성']},{time:'10:30~12:00',subj:'침해사고 대응 훈련',detail:['침해사고 대응 시나리오','포렌식 기초 실습']},{time:'13:30~15:30',subj:'클라우드 보안',detail:['클라우드 공유 책임 모델','보안 설정 체크리스트']},{time:'15:30~17:30',subj:'보안 체계 종합 점검',detail:['보안 아키텍처 검토','개선 우선순위 수립']}]},
+    {d:'3일차',slots:[{time:'09:00~10:30',subj:'임직원 보안 교육 설계',detail:['보안 인식 교육 커리큘럼','훈련용 피싱 시뮬레이션']},{time:'10:30~12:00',subj:'보안 감사 및 컴플라이언스',detail:['ISMS-P 인증 절차 이해','보안 감사 체크리스트']},{time:'13:30~15:30',subj:'보안 로드맵 수립 실습',detail:['우선과제 도출 및 예산 계획','단계별 보안 강화 방안']},{time:'15:30~17:30',subj:'보안 계획 발표 및 수료',detail:['보안 로드맵 발표','수료증 수여']}]}
+  ],
+  'FIN-ACC-001':[
+    {d:'1일차',slots:[{time:'09:00~10:30',subj:'재무제표 구조 이해',detail:['재무상태표·손익계산서 구조','계정 간 상호 연관 분석']},{time:'10:30~12:00',subj:'손익계산서·현금흐름표 분석',detail:['영업이익·순이익 계산','현금흐름 유형 분석']},{time:'13:30~15:30',subj:'재무비율 분석 실습',detail:['유동성·수익성·안정성 비율','동종업계 벤치마킹']},{time:'15:30~17:30',subj:'재무 의사결정 케이스',detail:['투자·차입 의사결정 사례','재무 건전성 자가 진단']}]},
+    {d:'2일차',slots:[{time:'09:00~10:30',subj:'법인세 신고 실무',detail:['법인세 계산 구조','세무조정 항목 이해']},{time:'10:30~12:00',subj:'부가가치세 신고 실무',detail:['매입·매출 세금계산서 관리','전자세금계산서 발급']},{time:'13:30~15:30',subj:'세무 리스크 점검',detail:['가산세 발생 유형','세무조사 대비 체크리스트']},{time:'15:30~17:30',subj:'세금 신고 실습',detail:['홈택스 활용 신고 실습','증빙 서류 관리 방법']}]},
+    {d:'3일차',slots:[{time:'09:00~10:30',subj:'원가 계산 방법론',detail:['제조·서비스업 원가 계산','원가 배분 방법 비교']},{time:'10:30~12:00',subj:'관리회계 실무',detail:['CVP 분석·손익분기점','예산 수립 및 통제']},{time:'13:30~15:30',subj:'재무 의사결정 케이스 스터디',detail:['설비 투자 타당성 분석','제품·고객 수익성 분석']},{time:'15:30~17:30',subj:'종합 정리 및 Q&A',detail:['실무 적용 질의응답','개인별 재무 과제 점검']}]}
+  ],
+  'LDR-MID-001':[
+    {d:'1일차',slots:[{time:'09:00~10:30',subj:'관리자 역할 전환',detail:['팀원→관리자 역할 변화','관리자의 4가지 핵심 역할']},{time:'10:30~12:00',subj:'리더십 스타일 진단',detail:['DISC 기반 리더십 진단','팀원 유형별 대응 전략']},{time:'13:30~15:30',subj:'코칭 리더십 실습',detail:['GROW 모델 기반 코칭 대화','1:1 코칭 롤플레이']},{time:'15:30~17:30',subj:'팀원 유형별 코칭',detail:['동기부여 요인별 접근','저성과자 코칭 방법']}]},
+    {d:'2일차',slots:[{time:'09:00~10:30',subj:'성과 피드백 스킬',detail:['SBI 피드백 모델 이해','긍정·개선 피드백 실습']},{time:'10:30~12:00',subj:'갈등 관리 방법론',detail:['갈등 유형 진단','Thomas-Kilmann 갈등 모델']},{time:'13:30~15:30',subj:'갈등 관리 롤플레이',detail:['팀 내 갈등 시나리오 실습','중재자 역할 훈련']},{time:'15:30~17:30',subj:'성과관리 면담 실습',detail:['성과 면담 구조 설계','어려운 대화 상황 대응']}]},
+    {d:'3일차',slots:[{time:'09:00~10:30',subj:'팀 목표 설정(OKR)',detail:['OKR 구조 및 작성 원칙','팀 OKR 작성 실습']},{time:'10:30~12:00',subj:'업무 위임 및 임파워먼트',detail:['위임 수준 판단 기준','위임 대화 스킬 실습']},{time:'13:30~15:30',subj:'리더십 액션플랜 수립',detail:['개인 리더십 과제 설정','90일 실행 계획 작성']},{time:'15:30~17:30',subj:'팀별 발표 및 수료',detail:['리더십 계획 공유','동료 피드백 및 수료']}]}
+  ],
+  'LDR-NEW-002':[
+    {d:'1일차',slots:[{time:'09:00~10:30',subj:'신임 관리자 역할 이해',detail:['관리자 역할 전환 어려움','기대 역할 vs 현실 갭 분석']},{time:'10:30~12:00',subj:'마인드셋 전환 워크숍',detail:['실무자→관리자 사고 전환','관리자 정체성 확립 방법']},{time:'13:30~15:30',subj:'팀원 관계 형성 실습',detail:['첫 1:1 면담 구조','팀원 기대 파악 방법']},{time:'15:30~17:30',subj:'커뮤니케이션 스타일',detail:['세대별 커뮤니케이션 차이','경청 및 질문 스킬 실습']}]},
+    {d:'2일차',slots:[{time:'09:00~10:30',subj:'업무 지시 및 위임 스킬',detail:['명확한 업무 지시 5단계','위임 가능 업무 선별']},{time:'10:30~12:00',subj:'팀원 동기부여',detail:['내재적·외재적 동기 이론','개인별 동기부여 요인 파악']},{time:'13:30~15:30',subj:'팀 문화 만들기',detail:['팀 규범·가치 설계','팀 회의 운영 방법']},{time:'15:30~17:30',subj:'성과 관리 기초',detail:['목표 설정 및 중간 점검','성과 피드백 대화 구조']}]},
+    {d:'3일차',slots:[{time:'09:00~10:30',subj:'어려운 상황 대응',detail:['갈등·저성과 상황 대처','상사와 소통 방법']},{time:'10:30~12:00',subj:'90일 실행계획 수립',detail:['단기 목표 및 실행과제 도출','멘토·지원 자원 파악']},{time:'13:30~15:30',subj:'팀별 실행계획 발표',detail:['90일 계획 발표','동료 피드백']},{time:'15:30~17:30',subj:'수료식 및 네트워킹',detail:['수료증 수여','참여자 간 네트워킹']}]}
+  ],
+  'ROB-AMR-001':[
+    {d:'1일차',slots:[{time:'09:00~10:30',subj:'협동로봇 개요 및 시장 동향',detail:['협동로봇 정의 및 종류','국내외 도입 사례']},{time:'10:30~12:00',subj:'안전 기준 및 법규',detail:['ISO/TS 15066 안전 기준','위험성 평가 방법론']},{time:'13:30~15:30',subj:'기본 티칭 실습',detail:['직접 교시(Direct Teaching)','기본 동작 프로그래밍']},{time:'15:30~17:30',subj:'기본 프로그램 작성',detail:['포인트 등록 및 경로 설정','속도·힘 제한 설정']}]},
+    {d:'2일차',slots:[{time:'09:00~10:30',subj:'고급 티칭 기법',detail:['오프라인 프로그래밍(OLP)','복잡 경로 최적화']},{time:'10:30~12:00',subj:'비전 시스템 연동',detail:['2D/3D 카메라 연동','비전 기반 위치 보정']},{time:'13:30~15:30',subj:'그리퍼·말단장치 선정',detail:['작업별 최적 그리퍼 선택','말단장치 교체 절차']},{time:'15:30~17:30',subj:'제어 시스템 통합',detail:['PLC·제어기 연동','통신 프로토콜 설정']}]},
+    {d:'3일차',slots:[{time:'09:00~10:30',subj:'생산라인 시뮬레이션',detail:['실제 생산 공정 모사','사이클타임 분석']},{time:'10:30~12:00',subj:'다기능 작업 프로그래밍',detail:['조립·용접·검사 시나리오','공정 전환 프로그램']},{time:'13:30~15:30',subj:'유지보수 방법론',detail:['정기점검 체크리스트','소모품 교체 기준']},{time:'15:30~17:30',subj:'트러블슈팅 실습',detail:['고장 시나리오 재현 및 복구','에러 로그 분석']}]},
+    {d:'4일차',slots:[{time:'09:00~10:30',subj:'협동로봇 도입 ROI 분석',detail:['원가 절감 효과 계산','투자 회수 기간 분석']},{time:'10:30~12:00',subj:'현장 적용 계획 수립',detail:['공정 선정 및 타당성 검토','단계별 도입 계획']},{time:'13:30~15:30',subj:'종합 평가 실습',detail:['복합 시나리오 구현','동료 평가 및 피드백']},{time:'15:30~17:30',subj:'수료 및 현장 적용 제언',detail:['성과 공유 및 수료','현업 적용 사례 Q&A']}]}
+  ]
+};
+
 function ssupPickCards(courses, resEl, intro){
   var colors=[['#4C6EF5','#7048E8'],['#7048E8','#E64980'],['#0CA678','#15AABF']];
   var matchPcts=[97,93,89];
@@ -1617,34 +1697,36 @@ function ssupPickCards(courses, resEl, intro){
               +'<div><div style="font-size:14px;font-weight:800;color:#fff;">강의 일정표</div>'
               +'<div style="font-size:12px;color:rgba(255,255,255,.75);">'+c.days+'일 과정 · 09:00~18:00</div></div>'
             +'</div>'
-            +'<div style="background:rgba(255,255,255,.2);border-radius:8px;padding:4px 10px;font-size:13px;font-weight:800;color:#fff;">개강 '+c.apply.slice(5).replace('-','/')+'</div>'
+            +'<div style="background:rgba(255,255,255,.2);border-radius:8px;padding:4px 10px;font-size:13px;font-weight:800;color:#fff;">개강 '+c.apply+'</div>'
           +'</div>'
-          +c.sched.map(function(s,si){
-            var bg=si%2===0?'var(--surf)':'var(--bg)';
-            return '<div style="display:flex;background:'+bg+';border-top:'+(si===0?'none':'1px solid var(--border)')+';">'
-              +'<div style="flex-shrink:0;width:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px 4px;background:rgba(76,110,245,.08);border-right:1px solid var(--border);">'
-                +'<div style="font-size:11px;font-weight:900;color:var(--blue);letter-spacing:.3px;">'+s.d.replace('일차','')+'일차'+'</div>'
-                +'<div style="font-size:18px;margin-top:2px;">📆</div>'
-              +'</div>'
-              +'<div style="flex:1;padding:0;">'
-                +'<div style="display:flex;align-items:stretch;border-bottom:1px solid var(--border);">'
-                  +'<div style="flex-shrink:0;width:28px;background:rgba(255,180,0,.12);display:flex;align-items:center;justify-content:center;font-size:14px;border-right:1px solid var(--border);">☀️</div>'
-                  +'<div style="padding:8px 10px;flex:1;">'
-                    +'<div style="font-size:11px;color:var(--t2);font-weight:700;margin-bottom:2px;">오전 09:00~12:00</div>'
-                    +'<div style="font-size:14px;font-weight:700;color:var(--t0);">'+s.am+'</div>'
-                  +'</div>'
-                +'</div>'
-                +'<div style="display:flex;align-items:stretch;">'
-                  +'<div style="flex-shrink:0;width:28px;background:rgba(76,110,245,.1);display:flex;align-items:center;justify-content:center;font-size:14px;border-right:1px solid var(--border);">🌙</div>'
-                  +'<div style="padding:8px 10px;flex:1;">'
-                    +'<div style="font-size:11px;color:var(--t2);font-weight:700;margin-bottom:2px;">오후 13:30~18:00</div>'
-                    +'<div style="font-size:14px;font-weight:700;color:var(--t0);">'+s.pm+'</div>'
-                  +'</div>'
-                +'</div>'
-              +'</div>'
-            +'</div>';
-          }).join('')
-          +'<div style="padding:8px 14px;background:var(--blue-lt);border-top:1px solid var(--border);display:flex;align-items:center;gap:6px;">'
+          +'<div style="overflow-x:auto;">'
+          +'<table style="width:100%;border-collapse:collapse;font-size:13px;min-width:480px;">'
+          +'<thead><tr style="background:rgba(76,110,245,.06);border-bottom:2px solid var(--border);">'
+            +'<th style="padding:7px 10px;text-align:center;font-weight:800;color:var(--blue);white-space:nowrap;border-right:1px solid var(--border);width:80px;">날짜</th>'
+            +'<th style="padding:7px 10px;text-align:center;font-weight:800;color:var(--blue);white-space:nowrap;border-right:1px solid var(--border);width:100px;">교육시간</th>'
+            +'<th style="padding:7px 10px;text-align:left;font-weight:800;color:var(--blue);border-right:1px solid var(--border);">교과목</th>'
+            +'<th style="padding:7px 10px;text-align:left;font-weight:800;color:var(--blue);">세부내용</th>'
+          +'</tr></thead>'
+          +'<tbody>'
+          +(function(){
+            var WDAYS=['일','월','화','수','목','금','토'];
+            function getDate(apply,idx){var d=new Date(apply);d.setDate(d.getDate()+idx);return (d.getMonth()+1)+'월 '+d.getDate()+'일<br><span style="color:var(--t2);">('+WDAYS[d.getDay()]+')</span>';}
+            var schedData=SCHED_DETAIL[c.code]||c.sched;
+            return schedData.map(function(s,si){
+              var slots=s.slots||[{time:'09:00~12:00',subj:s.am,detail:[]},{time:'13:30~17:30',subj:s.pm,detail:[]}];
+              var rowBg=si%2===0?'':'background:rgba(0,0,0,.02);';
+              return slots.map(function(slot,sli){
+                return '<tr style="'+rowBg+'border-top:1px solid var(--border);">'
+                  +(sli===0?'<td rowspan="'+slots.length+'" style="padding:8px 8px;text-align:center;font-size:12px;font-weight:800;color:var(--blue);border-right:2px solid var(--border);vertical-align:middle;background:rgba(76,110,245,.05);white-space:nowrap;line-height:1.5;">'+s.d+'<br><span style="font-size:11px;font-weight:600;color:var(--t2);">'+getDate(c.apply,si)+'</span></td>':'')
+                  +'<td style="padding:8px 10px;text-align:center;font-size:12px;color:var(--t1);white-space:nowrap;border-right:1px solid var(--border);font-weight:700;">'+slot.time+'</td>'
+                  +'<td style="padding:8px 10px;font-weight:700;color:var(--t0);border-right:1px solid var(--border);line-height:1.5;">'+slot.subj+'</td>'
+                  +'<td style="padding:8px 10px;color:var(--t1);line-height:1.7;">'+(slot.detail&&slot.detail.length?slot.detail.map(function(d){return '- '+d;}).join('<br>'):'<span style="color:var(--t2);">-</span>')+'</td>'
+                  +'</tr>';
+              }).join('');
+            }).join('');
+          })()
+          +'</tbody></table></div>'
+          +'<div style="padding:7px 14px;background:var(--blue-lt);border-top:1px solid var(--border);display:flex;align-items:center;gap:6px;">'
             +'<span style="font-size:13px;">🍱</span>'
             +'<span style="font-size:12px;color:var(--t2);font-weight:600;">점심시간 12:00~13:30 (별도 제공)</span>'
             +'<span style="margin-left:auto;font-size:12px;color:var(--t2);">※ 일정은 변경될 수 있습니다</span>'
