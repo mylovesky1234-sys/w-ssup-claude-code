@@ -907,12 +907,14 @@ details[open] .faq-arr{transform:rotate(180deg);}
     <div class="ibar">
       <div style="position:relative;">
         <button class="mbtn" id="micBtn" onclick="toggleMic()" title="음성 입력"><svg viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm-1 1.93c-3.94-.49-7-3.86-7-7.93H2c0 4.42 3.05 8.13 7 9.28V20h2v-2.09c.34-.05.67-.12 1-.2v-2.06c-.32.09-.65.15-1 .15zm2-1.93c1.66 0 3-1.34 3-3v-.28l-6-6V11c0 1.66 1.34 3 3 3z"/></svg></button>
-        <div id="mic-lang-pop" style="display:none;position:absolute;bottom:46px;left:50%;transform:translateX(-50%);background:var(--bg);border:1.5px solid var(--border);border-radius:14px;padding:8px;box-shadow:0 4px 20px rgba(0,0,0,.18);z-index:200;white-space:nowrap;">
-          <div style="font-size:15px;color:var(--t2);text-align:center;margin-bottom:6px;font-weight:700;">언어 선택</div>
-          <div style="display:flex;gap:5px;">
-            <button onclick="startStt('ko-KR',this)" style="padding:6px 10px;border:1.5px solid var(--border);border-radius:10px;background:var(--surf2);font-size:16px;font-weight:700;cursor:pointer;">🇰🇷 한국어</button>
-            <button onclick="startStt('en-US',this)" style="padding:6px 10px;border:1.5px solid var(--border);border-radius:10px;background:var(--surf2);font-size:16px;font-weight:700;cursor:pointer;">🇺🇸 English</button>
-            <button onclick="startStt('id-ID',this)" style="padding:6px 10px;border:1.5px solid var(--border);border-radius:10px;background:var(--surf2);font-size:16px;font-weight:700;cursor:pointer;">🇮🇩 Bahasa</button>
+        <div id="mic-lang-pop" style="display:none;position:absolute;bottom:50px;left:50%;transform:translateX(-50%);background:var(--bg);border:1.5px solid var(--border);border-radius:14px;padding:8px;box-shadow:0 4px 20px rgba(0,0,0,.18);z-index:500;min-width:150px;">
+          <div style="font-size:14px;color:var(--t2);text-align:center;margin-bottom:6px;font-weight:700;">🎤 언어 선택</div>
+          <div style="display:flex;flex-direction:column;gap:4px;">
+            <button onclick="startStt('ko-KR',this)" style="padding:7px 12px;border:1.5px solid var(--border);border-radius:10px;background:var(--surf2);font-size:15px;font-weight:700;cursor:pointer;text-align:left;">🇰🇷 한국어</button>
+            <button onclick="startStt('en-US',this)" style="padding:7px 12px;border:1.5px solid var(--border);border-radius:10px;background:var(--surf2);font-size:15px;font-weight:700;cursor:pointer;text-align:left;">🇺🇸 English</button>
+            <button onclick="startStt('zh-CN',this)" style="padding:7px 12px;border:1.5px solid var(--border);border-radius:10px;background:var(--surf2);font-size:15px;font-weight:700;cursor:pointer;text-align:left;">🇨🇳 中文</button>
+            <button onclick="startStt('ja-JP',this)" style="padding:7px 12px;border:1.5px solid var(--border);border-radius:10px;background:var(--surf2);font-size:15px;font-weight:700;cursor:pointer;text-align:left;">🇯🇵 日本語</button>
+            <button onclick="startStt('id-ID',this)" style="padding:7px 12px;border:1.5px solid var(--border);border-radius:10px;background:var(--surf2);font-size:15px;font-weight:700;cursor:pointer;text-align:left;">🇮🇩 Bahasa</button>
           </div>
         </div>
       </div>
@@ -1037,6 +1039,23 @@ details[open] .faq-arr{transform:rotate(180deg);}
           <button class="pbtn" data-i18n="pick-btn2" onclick="doPick2()">✦ 맞춤 강좌 추천받기</button>
         </div>
         <div id="pres2"></div>
+      </div>
+    </div>
+
+    <!-- 강의 일정표 -->
+    <div style="margin-top:8px;">
+      <div onclick="toggleCourseList()" style="display:flex;align-items:center;justify-content:space-between;background:var(--surf);border:1.5px solid var(--border);border-radius:14px;padding:14px 16px;cursor:pointer;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="font-size:20px;">📅</span>
+          <div>
+            <div style="font-size:16px;font-weight:800;color:var(--t0);">강의 일정표</div>
+            <div style="font-size:13px;color:var(--t2);">SSUP 개설 과정 전체 일정 보기</div>
+          </div>
+        </div>
+        <span id="course-list-arrow" style="font-size:18px;color:var(--t2);transition:transform .3s;">▼</span>
+      </div>
+      <div id="course-list-body" style="max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.22,1,.36,1);">
+        <div style="padding:12px 0 4px;" id="course-list-inner"></div>
       </div>
     </div>
   </div>
@@ -1959,6 +1978,42 @@ function toggleNlMic(){
   _nlStt.onend=function(){stopNlStt();};
   _nlStt.onerror=function(e){stopNlStt();if(e.error!=='no-speech')alert('음성 인식 오류: '+e.error);};
   _nlStt.start();
+}
+var _courseListOpen=false;
+function toggleCourseList(){
+  _courseListOpen=!_courseListOpen;
+  var body=document.getElementById('course-list-body');
+  var arrow=document.getElementById('course-list-arrow');
+  if(_courseListOpen){
+    var inner=document.getElementById('course-list-inner');
+    if(!inner.innerHTML){
+      var sorted=SSUP_COURSES.slice().sort(function(a,b){return a.apply.localeCompare(b.apply);});
+      inner.innerHTML=sorted.map(function(c){
+        return '<div style="display:flex;align-items:flex-start;gap:10px;padding:12px 4px;border-bottom:1px solid var(--border);">'
+          +'<div style="flex-shrink:0;background:var(--blue-lt);border-radius:8px;padding:6px 8px;text-align:center;min-width:54px;">'
+            +'<div style="font-size:11px;font-weight:700;color:var(--blue);">'+c.apply.slice(5).replace('-','/')+'</div>'
+            +'<div style="font-size:12px;color:var(--t2);">'+c.days+'일</div>'
+          +'</div>'
+          +'<div style="flex:1;">'
+            +'<div style="font-size:15px;font-weight:800;color:var(--t0);line-height:1.4;margin-bottom:3px;">'+c.title+'</div>'
+            +'<div style="display:flex;gap:5px;flex-wrap:wrap;">'
+              +(c.badge?'<span style="background:#FFF3CD;color:#856404;font-size:12px;font-weight:700;padding:1px 6px;border-radius:6px;">'+c.badge+'</span>':'')
+              +'<span style="background:var(--teal-lt);color:#0CA678;font-size:12px;font-weight:700;padding:1px 6px;border-radius:6px;">'+c.fee+'</span>'
+              +'<span style="font-size:12px;color:var(--t2);padding:1px 2px;">'+c.code+'</span>'
+            +'</div>'
+          +'</div>'
+          +'<a href="https://ssup.kosmes.or.kr" target="_blank" style="flex-shrink:0;background:var(--g-blue);color:#fff;font-size:13px;font-weight:800;padding:6px 12px;border-radius:10px;text-decoration:none;white-space:nowrap;">신청 →</a>'
+        +'</div>';
+      }).join('')
+      +'<a href="https://ssup.kosmes.or.kr" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:13px;background:var(--surf);border:1.5px solid var(--border);border-radius:12px;font-size:15px;font-weight:800;color:var(--blue);text-decoration:none;margin-top:8px;">📋 SSUP 홈페이지에서 전체 보기 →</a>'
+      +'<div style="font-size:12px;color:var(--t2);text-align:center;padding:6px 0;">※ 데모용 일정입니다. 실제 일정은 SSUP 홈페이지를 확인해주세요.</div>';
+    }
+    body.style.maxHeight='2000px';
+    arrow.style.transform='rotate(180deg)';
+  } else {
+    body.style.maxHeight='0';
+    arrow.style.transform='rotate(0deg)';
+  }
 }
 function stopNlStt(){
   if(_nlStt){try{_nlStt.stop();}catch(e){}; _nlStt=null;}
