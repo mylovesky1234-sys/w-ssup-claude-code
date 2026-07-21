@@ -785,9 +785,9 @@ details[open] .faq-arr{transform:rotate(180deg);}
       <div id="lang-pop" style="display:none;position:absolute;top:36px;right:0;background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:8px;box-shadow:0 4px 20px rgba(0,0,0,.15);z-index:600;flex-direction:column;gap:4px;white-space:nowrap;">
         <button class="lang-tab on" onclick="setLang('ko',this)" style="display:flex;align-items:center;gap:6px;padding:7px 12px;border:1.5px solid var(--blue);border-radius:10px;background:var(--blue-lt);font-size:16px;font-weight:700;cursor:pointer;width:100%;">🇰🇷 한국어</button>
         <button class="lang-tab" onclick="setLang('en',this)" style="display:flex;align-items:center;gap:6px;padding:7px 12px;border:1.5px solid transparent;border-radius:10px;background:var(--surf2);font-size:16px;font-weight:700;cursor:pointer;width:100%;">🇺🇸 English</button>
-        <button class="lang-tab" onclick="setLang('id',this)" style="display:flex;align-items:center;gap:6px;padding:7px 12px;border:1.5px solid transparent;border-radius:10px;background:var(--surf2);font-size:16px;font-weight:700;cursor:pointer;width:100%;">🇮🇩 Bahasa</button>
-        <button class="lang-tab" onclick="setLang('ja',this)" style="display:flex;align-items:center;gap:6px;padding:7px 12px;border:1.5px solid transparent;border-radius:10px;background:var(--surf2);font-size:16px;font-weight:700;cursor:pointer;width:100%;">🇯🇵 日本語</button>
         <button class="lang-tab" onclick="setLang('zh',this)" style="display:flex;align-items:center;gap:6px;padding:7px 12px;border:1.5px solid transparent;border-radius:10px;background:var(--surf2);font-size:16px;font-weight:700;cursor:pointer;width:100%;">🇨🇳 中文</button>
+        <button class="lang-tab" onclick="setLang('ja',this)" style="display:flex;align-items:center;gap:6px;padding:7px 12px;border:1.5px solid transparent;border-radius:10px;background:var(--surf2);font-size:16px;font-weight:700;cursor:pointer;width:100%;">🇯🇵 日本語</button>
+        <button class="lang-tab" onclick="setLang('id',this)" style="display:flex;align-items:center;gap:6px;padding:7px 12px;border:1.5px solid transparent;border-radius:10px;background:var(--surf2);font-size:16px;font-weight:700;cursor:pointer;width:100%;">🇮🇩 Bahasa</button>
       </div>
     </div>
     <div class="live"><div class="live-dot"></div><span>LIVE</span></div>
@@ -957,11 +957,11 @@ details[open] .faq-arr{transform:rotate(180deg);}
         <div class="fblock">
           <div>
             <div class="flbl" data-i18n="pick-lbl-ind">🏭 업종</div>
-            <select class="fsel" id="ind"><option value="">선택하세요</option><option>제조업</option><option>IT·소프트웨어</option><option>유통·물류</option><option>서비스업</option><option>건설·부동산</option><option>바이오·헬스케어</option><option>식품·외식</option><option>금융·핀테크</option><option>기타</option></select>
+            <select class="fsel" id="ind"><option value="">선택하세요</option><option value="제조업">제조업</option><option value="IT·소프트웨어">IT·소프트웨어</option><option value="유통·물류">유통·물류</option><option value="서비스업">서비스업</option><option value="건설·부동산">건설·부동산</option><option value="바이오·헬스케어">바이오·헬스케어</option><option value="식품·외식">식품·외식</option><option value="금융·핀테크">금융·핀테크</option><option value="기타">기타</option></select>
           </div>
           <div>
             <div class="flbl" data-i18n="pick-lbl-job">💼 직무</div>
-            <select class="fsel" id="job"><option value="">선택하세요</option><option>경영·전략</option><option>영업·마케팅</option><option>HR·교육</option><option>회계·재무</option><option>연구·개발(R&D)</option><option>생산·품질</option><option>IT·소프트웨어</option><option>계층·리더십</option><option>기타</option></select>
+            <select class="fsel" id="job"><option value="">선택하세요</option><option value="경영·전략">경영·전략</option><option value="영업·마케팅">영업·마케팅</option><option value="HR·교육">HR·교육</option><option value="회계·재무">회계·재무</option><option value="연구·개발(R&D)">연구·개발(R&D)</option><option value="생산·품질">생산·품질</option><option value="IT·소프트웨어">IT·소프트웨어</option><option value="계층·리더십">계층·리더십</option><option value="기타">기타</option></select>
           </div>
           <div>
             <div class="flbl" data-i18n="pick-lbl-yr">📅 연차</div>
@@ -1021,11 +1021,11 @@ details[open] .faq-arr{transform:rotate(180deg);}
         <div class="fblock">
           <div>
             <div class="flbl" data-i18n="pick-lbl-ind">🏭 업종</div>
-            <select class="fsel" id="ind2"><option value="">선택하세요</option><option selected>IT·소프트웨어</option><option>제조업</option><option>유통·물류</option><option>서비스업</option><option>건설·부동산</option><option>바이오·헬스케어</option><option>식품·외식</option><option>금융·핀테크</option><option>기타</option></select>
+            <select class="fsel" id="ind2"><option value="">선택하세요</option><option value="IT·소프트웨어" selected>IT·소프트웨어</option><option value="제조업">제조업</option><option value="유통·물류">유통·물류</option><option value="서비스업">서비스업</option><option value="건설·부동산">건설·부동산</option><option value="바이오·헬스케어">바이오·헬스케어</option><option value="식품·외식">식품·외식</option><option value="금융·핀테크">금융·핀테크</option><option value="기타">기타</option></select>
           </div>
           <div>
             <div class="flbl" data-i18n="pick-lbl-job">💼 직무</div>
-            <select class="fsel" id="job2"><option value="">선택하세요</option><option>경영·전략</option><option>영업·마케팅</option><option>HR·교육</option><option>회계·재무</option><option>연구·개발(R&D)</option><option>생산·품질</option><option selected>IT·소프트웨어</option><option>계층·리더십</option><option>기타</option></select>
+            <select class="fsel" id="job2"><option value="">선택하세요</option><option value="경영·전략">경영·전략</option><option value="영업·마케팅">영업·마케팅</option><option value="HR·교육">HR·교육</option><option value="회계·재무">회계·재무</option><option value="연구·개발(R&D)">연구·개발(R&D)</option><option value="생산·품질">생산·품질</option><option value="IT·소프트웨어" selected>IT·소프트웨어</option><option value="계층·리더십">계층·리더십</option><option value="기타">기타</option></select>
           </div>
           <div>
             <div class="flbl" data-i18n="pick-lbl-yr">📅 연차</div>
@@ -2146,6 +2146,35 @@ const UI_STRINGS={
   ja:{'tab-talk-sub':'すぐ回答','tab-pick-sub':'講座推薦','tab-view-sub':'キャンパス','q-attend':'✅ 出席処理','q-grad':'🎓 修了基準','q-fee':'💳 教育費','q-shuttle':'🚌 シャトル','q-meal':'🍽️ 食堂','q-wifi':'📶 Wi-Fi','q-emer':'🆘 緊急連絡','q-today':'🍱 今日の食事','q-qr':'📷 QRスキャン','q-log':'📋 会話履歴','faq-title':'よくある質問','faq-sub':'TOP 7 · 即時確認','faq1':'出席処理はどうすればいいですか？','faq2':'修了基準はどうなっていますか？','faq3':'💳 教育費の支払いは？','faq4':'📜 修了証はどうやって受け取れますか？','faq5':'📶 宿泊Wi-Fiのパスワードは？','faq6':'💰 雇用保険の払い戻しは？','faq7':'シャトルバスの時刻表は？','ich-help':'どのようにお手伝いできますか？','ich-pick':'✦ 講座推薦','ich-view':'◎ キャンパス','contact-btn':'📞 担当者に連絡','pick-new-tab':'🆕 初めてですか？','pick-old-tab':'🔄 既受講者','pick-btn':'✦ AI推薦を受ける','pick-btn2':'✦ AI推薦を受ける','pick-nl-btn':'✦ AI推薦を受ける','pick-lbl-ind':'🏭 業種','pick-lbl-job':'💼 職務','pick-lbl-yr':'📅 年次','pick-lbl-inter':'🎯 関心分野 (任意)','view-photomap':'📸 キャンパスマップ','view-facility':'🏢 施設案内','view-wayfind':'🗺️ AIナビ','view-report':'📸 不便申告','view-route':'🚌 アクセス','view-faq':'❓ 施設FAQ','input-ph':'例：シャトルバスは何時に出発しますか？','wf-input-ph':'どこへ行きたいですか？','nl-input-ph':'例）製造業の品質担当者でAI研修を希望します。','splash-sub':'AIスマートアシスタント','splash-start':'始める →','splash-name-ph':'お名前を入力してください','splash-name-hint':'お名前を入力すると個別のご挨拶が届きます 😊','splash-talk-desc':'24時間即時回答','splash-pick-desc':'ニーズ別講座推薦','splash-view-desc':'キャンパス不便申告','welcome-profile':'W-SSUP AIアシスタント','welcome-online':'オンライン','sched-hdr':'📅 本日のスケジュール','hist-hdr':'📚 受講履歴','quick-apply':'申込','quick-fee':'教育費','quick-cert':'修了・払戻','pick-nl-title':'🤖 自然言語でおすすめ','pick-nl-hint':'状況を自由に入力するとAIが最適なコースを推薦します','pick-or':'または直接選択','view-hero-sub':'◎ キャンパス VIEW','view-wf-desc':'📍 AIが正門から目的地まで徒歩ルートをご案内します','view-or':'または建物を選択','view-map-hint':'ピンをタップして建物情報を確認','view-fac-hint':'カードをタップして施設情報と写真を確認 📍','view-report-title':'⚠️ 不便な点を今すぐ申告してください','modal-emer':'🆘 緊急連絡先','modal-meal':'🍱 今週の食事','modal-log':'💬 会話履歴','hint-enter':'↵ Enter 送信 · ⇧ Shift+Enter 改行'},
   zh:{'tab-talk-sub':'即时回答','tab-pick-sub':'课程推荐','tab-view-sub':'校园','q-attend':'✅ 出勤处理','q-grad':'🎓 结业标准','q-fee':'💳 培训费','q-shuttle':'🚌 班车','q-meal':'🍽️ 餐厅','q-wifi':'📶 Wi-Fi','q-emer':'🆘 紧急联系','q-today':'🍱 今日菜单','q-qr':'📷 QR扫描','q-log':'📋 聊天记录','faq-title':'常见问题','faq-sub':'TOP 7 · 快速查看','faq1':'如何处理出勤？','faq2':'结业标准是什么？','faq3':'💳 如何缴纳培训费？','faq4':'📜 如何获得结业证书？','faq5':'📶 宿舍Wi-Fi密码是什么？','faq6':'💰 如何申请就业保险退款？','faq7':'班车时刻表是什么？','ich-help':'我能帮您什么？','ich-pick':'✦ 课程推荐','ich-view':'◎ 校园','contact-btn':'📞 联系负责人','pick-new-tab':'🆕 初次参加？','pick-old-tab':'🔄 已有学员','pick-btn':'✦ 获取AI推荐','pick-btn2':'✦ 获取AI推荐','pick-nl-btn':'✦ 获取AI推荐','pick-lbl-ind':'🏭 行业','pick-lbl-job':'💼 职务','pick-lbl-yr':'📅 工作年限','pick-lbl-inter':'🎯 兴趣领域 (可选)','view-photomap':'📸 校园地图','view-facility':'🏢 设施介绍','view-wayfind':'🗺️ AI导航','view-report':'📸 报告问题','view-route':'🚌 来园路线','view-faq':'❓ 设施FAQ','input-ph':'例如：班车几点出发？','wf-input-ph':'您想去哪里？','nl-input-ph':'例：我是制造业质量负责人，想了解AI培训课程。','splash-sub':'AI智能助手','splash-start':'开始 →','splash-name-ph':'输入您的姓名','splash-name-hint':'输入姓名即可获得个性化问候 😊','splash-talk-desc':'24小时即时回答','splash-pick-desc':'定制课程推荐','splash-view-desc':'校园问题报告','welcome-profile':'W-SSUP AI助手','welcome-online':'在线','sched-hdr':'📅 今日日程','hist-hdr':'📚 学习记录','quick-apply':'报名','quick-fee':'培训费','quick-cert':'结业·退款','pick-nl-title':'🤖 用自然语言推荐','pick-nl-hint':'自由描述您的情况，AI将为您推荐最合适的课程','pick-or':'或直接选择','view-hero-sub':'◎ 校园 VIEW','view-wf-desc':'📍 AI为您提供从正门到目的地的步行路线','view-or':'或选择建筑','view-map-hint':'点击图钉查看建筑信息','view-fac-hint':'点击卡片查看设施信息和照片 📍','view-report-title':'⚠️ 立即报告不便事项','modal-emer':'🆘 紧急联系','modal-meal':'🍱 本周菜单','modal-log':'💬 我的对话记录','hint-enter':'↵ Enter发送 · ⇧ Shift+Enter换行'}
 };
+var PICK_OPTS={
+  ind:{
+    ko:['선택하세요','제조업','IT·소프트웨어','유통·물류','서비스업','건설·부동산','바이오·헬스케어','식품·외식','금융·핀테크','기타'],
+    en:['Select','Manufacturing','IT·Software','Logistics','Services','Construction','Bio·Healthcare','Food & F&B','Finance·Fintech','Other'],
+    zh:['请选择','制造业','IT·软件','物流','服务业','建筑·房地产','生物·医疗','食品·餐饮','金融·金融科技','其他'],
+    ja:['選択','製造業','IT·ソフトウェア','流通·物流','サービス業','建設·不動産','バイオ·ヘルスケア','食品·外食','金融·フィンテック','その他'],
+    id:['Pilih','Manufaktur','IT·Perangkat Lunak','Logistik','Layanan','Konstruksi','Bio·Kesehatan','Makanan·Restoran','Keuangan·Fintech','Lainnya']
+  },
+  job:{
+    ko:['선택하세요','경영·전략','영업·마케팅','HR·교육','회계·재무','연구·개발(R&D)','생산·품질','IT·소프트웨어','계층·리더십','기타'],
+    en:['Select','Management·Strategy','Sales·Marketing','HR·Education','Finance·Accounting','R&D','Production·Quality','IT·Software','Leadership','Other'],
+    zh:['请选择','管理·战略','销售·营销','HR·培训','会计·财务','研究·开发(R&D)','生产·品质','IT·软件','领导力','其他'],
+    ja:['選択','経営·戦略','営業·マーケティング','HR·教育','会計·財務','研究·開発(R&D)','生産·品質','IT·ソフトウェア','リーダーシップ','その他'],
+    id:['Pilih','Manajemen·Strategi','Penjualan·Pemasaran','HR·Pendidikan','Keuangan·Akuntansi','R&D','Produksi·Kualitas','IT·Perangkat Lunak','Kepemimpinan','Lainnya']
+  }
+};
+function applyPickOptLang(l){
+  var lang=PICK_OPTS.ind[l]?l:'ko';
+  ['ind','ind2'].forEach(function(id){
+    var sel=document.getElementById(id);
+    if(!sel)return;
+    Array.from(sel.options).forEach(function(opt,i){if(PICK_OPTS.ind[lang][i]!==undefined)opt.textContent=PICK_OPTS.ind[lang][i];});
+  });
+  ['job','job2'].forEach(function(id){
+    var sel=document.getElementById(id);
+    if(!sel)return;
+    Array.from(sel.options).forEach(function(opt,i){if(PICK_OPTS.job[lang][i]!==undefined)opt.textContent=PICK_OPTS.job[lang][i];});
+  });
+}
 function applyUILang(l){
   var d=UI_STRINGS[l]||UI_STRINGS.ko;
   document.querySelectorAll('[data-i18n]').forEach(function(el){
@@ -2158,9 +2187,9 @@ function applyUILang(l){
   if(wfph)wfph.placeholder=d['wf-input-ph']||UI_STRINGS.ko['wf-input-ph'];
   var nlph=document.getElementById('nl-input');
   if(nlph)nlph.placeholder=d['nl-input-ph']||UI_STRINGS.ko['nl-input-ph'];
-  // splash name placeholder
   var snph=document.getElementById('uname-input');
   if(snph)snph.placeholder=d['splash-name-ph']||UI_STRINGS.ko['splash-name-ph'];
+  applyPickOptLang(l);
 }
 function setLang(l,btn){
   appLang=l;
