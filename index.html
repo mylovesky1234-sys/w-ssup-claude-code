@@ -300,8 +300,14 @@ details[open] .faq-arr{transform:rotate(180deg);}
 @keyframes marchDiv{0%{background-position:0 0,0 100%,0 0,100% 0;}100%{background-position:16px 0,-16px 100%,0 -16px,100% 16px;}}
 
 /* Onboarding tour */
-.onboard-overlay{position:fixed;inset:0;z-index:8000;background:rgba(15,18,41,.58);display:flex;align-items:flex-end;justify-content:center;padding:0 16px calc(72px + env(safe-area-inset-bottom,0px));animation:fadeIn .3s ease;}
-.onboard-card{background:#fff;border-radius:24px;padding:22px 20px 18px;width:100%;max-width:400px;box-shadow:0 12px 48px rgba(0,0,0,.22);}
+.onboard-overlay{position:fixed;inset:0;z-index:10050;background:rgba(15,18,41,.62);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:20px 16px calc(20px + env(safe-area-inset-bottom,0px));animation:fadeIn .3s ease;}
+.onboard-card{background:#fff;border-radius:24px;padding:22px 20px 18px;width:100%;max-width:420px;max-height:min(88vh,640px);overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.28);animation:onboardPop .35s cubic-bezier(.34,1.4,.64,1) both;}
+@keyframes onboardPop{from{opacity:0;transform:scale(.92) translateY(12px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.help-btn-pill{display:flex;align-items:center;gap:4px;background:var(--blue-lt);border:1.5px solid var(--blue);border-radius:20px;padding:5px 11px;font-size:13px;font-weight:800;color:var(--blue);cursor:pointer;flex-shrink:0;font-family:inherit;white-space:nowrap;}
+.help-btn-pill.pulse{animation:helpPulse 2s ease-in-out infinite;}
+@keyframes helpPulse{0%,100%{box-shadow:0 0 0 0 rgba(76,110,245,.35)}50%{box-shadow:0 0 0 6px rgba(76,110,245,0)}}
+.splash-guide-btn{width:100%;margin-top:10px;padding:13px;background:rgba(255,255,255,.85);border:1.5px solid var(--border);border-radius:16px;font-size:16px;font-weight:700;color:var(--t1);cursor:pointer;font-family:inherit;position:relative;z-index:1;transition:all .15s;}
+.splash-guide-btn:active{transform:scale(.98);background:#fff;}
 .onboard-hero{font-size:44px;text-align:center;margin-bottom:6px;line-height:1;}
 .onboard-dots{display:flex;gap:6px;justify-content:center;margin-bottom:14px;}
 .onboard-dot{width:7px;height:7px;border-radius:50%;background:var(--border2);transition:all .25s;}
@@ -792,6 +798,7 @@ details[open] .faq-arr{transform:rotate(180deg);}
       style="width:100%;padding:14px 18px;border:1.5px solid #C5D0FF;border-radius:16px;font-size:16px;font-weight:600;color:var(--t0);background:#fff;box-sizing:border-box;outline:none;margin-bottom:10px;font-family:'Noto Sans KR',sans-serif;"
       onkeydown="if(event.key==='Enter')startWithName()">
     <button class="splash-btn" id="start-btn" data-i18n="splash-start" onclick="startApp()">시작하기 →</button>
+    <button type="button" class="splash-guide-btn" id="splash-guide-btn" onclick="showOnboarding(true)" data-i18n="splash-guide">📖 W-SSUP 사용 가이드 보기</button>
     <p style="font-size:15px;color:var(--t2);text-align:center;margin-top:10px;line-height:1.6;position:relative;z-index:1;" data-i18n="splash-name-hint">이름을 입력하면 개인화된 인사를 받을 수 있어요 😊</p>
     <p style="font-size:15px;color:var(--t2);text-align:center;margin-top:5px;line-height:1.5;position:relative;z-index:1;">💡 데모 버전 · 향후 SSUP 계정과 자동 연동 예정</p>
   </div>
@@ -809,7 +816,7 @@ details[open] .faq-arr{transform:rotate(180deg);}
       <div class="hdr-sub" id="hdr-sub">중소벤처기업연수원 AI 스마트비서</div>
     </div>
     <div style="position:relative;display:flex;align-items:center;gap:6px;flex-shrink:0;">
-      <button id="help-btn" onclick="showOnboarding(true)" title="사용 가이드" style="width:32px;height:32px;display:flex;align-items:center;justify-content:center;background:var(--surf2);border:1.5px solid var(--border);border-radius:50%;font-size:16px;font-weight:800;color:var(--blue);cursor:pointer;flex-shrink:0;">?</button>
+      <button id="help-btn" class="help-btn-pill" onclick="showOnboarding(true)" data-i18n="help-guide-btn" title="사용 가이드">📖 가이드</button>
       <button id="lang-btn" onclick="var p=document.getElementById('lang-pop');p.style.display=p.style.display==='none'?'flex':'none';" style="display:flex;align-items:center;gap:4px;background:var(--surf2);border:1.5px solid var(--border);border-radius:20px;padding:4px 10px;font-size:16px;font-weight:700;cursor:pointer;flex-shrink:0;">
         <span id="lang-btn-ico">🇰🇷</span><span style="font-size:11px;color:var(--t2);">▼</span>
       </button>
@@ -1097,10 +1104,10 @@ details[open] .faq-arr{transform:rotate(180deg);}
       <!-- 히어로 -->
       <div class="view-hero">
         <div style="font-size:15px;font-weight:700;color:rgba(255,255,255,.75);margin-bottom:6px;letter-spacing:.3px;" data-i18n="view-hero-sub">◎ 연수원 현장 VIEW</div>
-        <div style="font-family:'Outfit',sans-serif;font-size:20px;font-weight:800;color:#fff;margin-bottom:8px;letter-spacing:-.3px;">중소벤처기업연수원</div>
+        <div id="view-hero-title" style="font-family:'Outfit',sans-serif;font-size:20px;font-weight:800;color:#fff;margin-bottom:8px;letter-spacing:-.3px;">중소벤처기업연수원</div>
         <div style="display:flex;gap:6px;flex-wrap:wrap;">
-          <div style="background:rgba(255,255,255,.2);border-radius:8px;padding:5px 10px;font-size:15px;font-weight:700;color:#fff;">📍 경기도 안산시</div>
-          <div style="background:rgba(255,255,255,.2);border-radius:8px;padding:5px 10px;font-size:15px;font-weight:700;color:#fff;">🚌 셔틀버스</div>
+          <div style="background:rgba(255,255,255,.2);border-radius:8px;padding:5px 10px;font-size:15px;font-weight:700;color:#fff;"><span id="view-tag-loc">📍 경기도 안산시</span></div>
+          <div style="background:rgba(255,255,255,.2);border-radius:8px;padding:5px 10px;font-size:15px;font-weight:700;color:#fff;" id="view-tag-shuttle">🚌 셔틀버스</div>
           <div style="background:rgba(255,255,255,.2);border-radius:8px;padding:5px 10px;font-size:15px;font-weight:700;color:#fff;">📶 Wi-Fi</div>
           <div style="background:rgba(255,255,255,.2);border-radius:8px;padding:5px 10px;font-size:15px;font-weight:700;color:#fff;">🅿️ 주차</div>
         </div>
@@ -1110,7 +1117,7 @@ details[open] .faq-arr{transform:rotate(180deg);}
       <div style="margin-bottom:4px;">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
           <div class="stitle" data-i18n="view-photomap" style="margin-bottom:0;">📸 캠퍼스 포토맵</div>
-          <button onclick="togglePinEdit(this)" style="background:var(--surf2);border:1.5px solid var(--border);border-radius:20px;padding:5px 12px;font-size:15px;font-weight:700;color:var(--t1);cursor:pointer;">✏️ 핀 편집</button>
+          <button id="pin-edit-btn" onclick="togglePinEdit(this)" style="background:var(--surf2);border:1.5px solid var(--border);border-radius:20px;padding:5px 12px;font-size:15px;font-weight:700;color:var(--t1);cursor:pointer;">✏️ 핀 편집</button>
         </div>
         <div id="pin-edit-bar" class="cmap-edit-bar">📍 핀을 드래그해서 위치 조정 → 완료 후 아래 버튼 누르기</div>
         <div style="font-size:15px;color:var(--t2);margin-bottom:8px;" id="map-hint" data-i18n="view-map-hint">핀을 눌러 건물 정보 확인</div>
@@ -1292,22 +1299,21 @@ details[open] .faq-arr{transform:rotate(180deg);}
         <div class="repcard">
           <div style="font-size:16px;font-weight:800;color:var(--t0);margin-bottom:10px;" data-i18n="view-report-title">⚠️ 불편 사항을 즉시 신고하세요</div>
           <div style="display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,var(--blue),var(--indigo));border-radius:20px;padding:4px 10px;margin-bottom:12px;">
-            <span style="font-size:15px;font-weight:700;color:#fff;">🤖 AI 이미지 자동 분류</span>
+            <span id="rep-ai-lbl" style="font-size:15px;font-weight:700;color:#fff;">🤖 AI 이미지 자동 분류</span>
           </div>
           <div style="display:flex;gap:8px;margin-bottom:4px;">
             <label for="pf-camera" id="lbl-camera" style="flex:1;padding:14px 8px;background:#EEF2FF;border:1.5px solid #BAC8FF;border-radius:14px;cursor:pointer;font-size:16px;font-weight:700;color:var(--blue);text-align:center;display:flex;flex-direction:column;align-items:center;">
               <div style="font-size:24px;margin-bottom:4px;">📸</div><span id="lbl-camera-txt">카메라로 찍기</span>
             </label>
             <label for="pf" style="flex:1;padding:14px 8px;background:#F3F0FF;border:1.5px solid #D0BFFF;border-radius:14px;cursor:pointer;font-size:16px;font-weight:700;color:#6C5CE7;text-align:center;display:flex;flex-direction:column;align-items:center;">
-              <div style="font-size:24px;margin-bottom:4px;">🖼️</div>앨범에서 올리기
+              <div style="font-size:24px;margin-bottom:4px;">🖼️</div><span id="lbl-album-txt">앨범에서 올리기</span>
             </label>
           </div>
-          <div style="font-size:15px;color:var(--t2);text-align:center;margin-bottom:8px;">AI가 문제 유형을 자동으로 분석합니다</div>
-          <script>if(!('ontouchstart' in window)&&navigator.maxTouchPoints===0){var el=document.getElementById('lbl-camera-txt');if(el)el.textContent='파일로 올리기';}</script>
-          <input type="file" id="pf-camera" accept="image/*" capture="environment" style="display:none" onchange="analyzeImg(this)">
+          <div id="rep-ai-hint" style="font-size:15px;color:var(--t2);text-align:center;margin-bottom:8px;">AI가 문제 유형을 자동으로 분석합니다</div>
+                    <input type="file" id="pf-camera" accept="image/*" capture="environment" style="display:none" onchange="analyzeImg(this)">
           <input type="file" id="pf" accept="image/*" style="display:none" onchange="analyzeImg(this)">
           <div id="vision-result" style="display:none;margin:10px 0;"></div>
-          <div style="font-size:16px;font-weight:700;color:var(--t1);margin:10px 0 6px;">또는 직접 선택</div>
+          <div id="rep-or-lbl" style="font-size:16px;font-weight:700;color:var(--t1);margin:10px 0 6px;">또는 직접 선택</div>
           <div style="display:flex;flex-wrap:wrap;">
             <button class="repty" onclick="document.querySelectorAll('.repty').forEach(function(b){b.style.background='';b.style.color='';b.style.borderColor='';});this.style.background='#E64980';this.style.color='#fff';this.style.borderColor='#E64980'">💡 전기·조명</button>
             <button class="repty" onclick="document.querySelectorAll('.repty').forEach(function(b){b.style.background='';b.style.color='';b.style.borderColor='';});this.style.background='#E64980';this.style.color='#fff';this.style.borderColor='#E64980'">🌡️ 냉난방</button>
@@ -1317,7 +1323,7 @@ details[open] .faq-arr{transform:rotate(180deg);}
             <button class="repty" onclick="document.querySelectorAll('.repty').forEach(function(b){b.style.background='';b.style.color='';b.style.borderColor='';});this.style.background='#E64980';this.style.color='#fff';this.style.borderColor='#E64980'">📦 기타</button>
           </div>
           <textarea class="reptxt" id="reptxt" placeholder="불편 사항을 자세히 입력해주세요..."></textarea>
-          <button class="repsub" onclick="(function(){var t=document.getElementById('reptxt'),ok=document.getElementById('repok');if(!t||!t.value.trim()){ok.style.cssText='display:block!important;text-align:center;padding:14px;margin-top:10px;background:#FFF3CD;border-radius:12px;color:#856404;font-size:16px;font-weight:800;';ok.textContent='⚠️ 불편 내용을 입력해주세요';setTimeout(function(){ok.style.cssText='display:none!important';},3000);return;}t.value='';document.querySelectorAll('.repty').forEach(function(b){b.classList.remove('sel');});ok.style.cssText='display:block!important;text-align:center;padding:14px;margin-top:10px;background:#E6FCF5;border-radius:12px;color:#0CA678;font-size:16px;font-weight:800;border:1.5px solid #96F2D7;';ok.textContent='✅ 접수 완료! 담당자가 빠르게 확인할게요 😊';setTimeout(function(){ok.style.cssText='display:none!important';},5000);})()">📨 신고 접수하기</button>
+          <button class="repsub" onclick="(function(){var t=document.getElementById('reptxt'),ok=document.getElementById('repok');if(!t||!t.value.trim()){ok.style.cssText='display:block!important;text-align:center;padding:14px;margin-top:10px;background:#FFF3CD;border-radius:12px;color:#856404;font-size:16px;font-weight:800;';ok.textContent=VL('rep-err');setTimeout(function(){ok.style.cssText='display:none!important';},3000);return;}t.value='';document.querySelectorAll('.repty').forEach(function(b){b.classList.remove('sel');});ok.style.cssText='display:block!important;text-align:center;padding:14px;margin-top:10px;background:#E6FCF5;border-radius:12px;color:#0CA678;font-size:16px;font-weight:800;border:1.5px solid #96F2D7;';ok.textContent=VL('rep-ok');setTimeout(function(){ok.style.cssText='display:none!important';},5000);})()">📨 신고 접수하기</button>
           <div class="repok" id="repok" style="display:none;">✅ 접수 완료! 담당자가 빠르게 확인할게요 😊</div>
         </div>
       </div>
@@ -1325,7 +1331,7 @@ details[open] .faq-arr{transform:rotate(180deg);}
       <div>
         <div class="stitle" data-i18n="view-route">🚌 연수원 오는 길</div>
         <div class="route-card">
-          <div class="addr-box">📍 경기도 안산시 단원구 연수원로 87 (원곡동 931)<br><strong>TEL 031-490-1472</strong></div>
+          <div class="addr-box" id="route-addr">📍 경기도 안산시 단원구 연수원로 87 (원곡동 931)<br><strong>TEL 031-490-1472</strong></div>
           <div class="rtabs">
             <button class="rtab on" onclick="swR('bus',this)">🚇 초지역</button>
             <button class="rtab" onclick="swR('siwoo',this)">🚇 시우역</button>
@@ -1335,16 +1341,16 @@ details[open] .faq-arr{transform:rotate(180deg);}
             <div class="rstep-row"><div class="rnum">1</div><div><div class="rmain">4호선 초지역 하차</div><div class="rsub">안산·오이도행 승차 → 초지역 하차</div></div></div>
             <div class="rstep-row"><div class="rnum">2</div><div><div class="rmain">1번 출구 → 도보 15분 or 셔틀버스</div><div class="rsub">연수원사거리 방향 약 900m</div><div class="rtime">⏱ 도보 15분 / 셔틀 5분</div></div></div>
             <div style="margin-top:10px;">
-              <button onclick="var el=document.getElementById('sht-img');var isOpen=el.style.display!=='none';el.style.display=isOpen?'none':'block';this.innerHTML=isOpen?'🚌 셔틀버스 시간표 보기 &nbsp;▼':'🚌 셔틀버스 시간표 닫기 &nbsp;▲';"
+              <button id="sht-toggle-btn" onclick="var el=document.getElementById('sht-img');var isOpen=el.style.display!=='none';el.style.display=isOpen?'none':'block';this.innerHTML=isOpen?VL('route-sht-open'):VL('route-sht-close');"
                 style="width:100%;background:var(--blue-lt);border:1.5px solid var(--blue)40;border-radius:10px;
                   padding:9px 14px;font-size:16px;font-weight:700;color:var(--blue);cursor:pointer;text-align:left;
                   display:flex;align-items:center;justify-content:space-between;">
                 <span>🚌 셔틀버스 시간표</span><span style="font-size:15px;">보기 ▼</span>
               </button>
               <div id="sht-img" style="display:none;margin-top:8px;background:#F0F7FF;border-radius:12px;padding:12px;border:1px solid #BAC8FF;">
-                  <div style="font-size:16px;font-weight:800;color:#1D4ED8;margin-bottom:8px;">🚌 셔틀버스 시간표</div>
+                  <div id="sht-title" style="font-size:16px;font-weight:800;color:#1D4ED8;margin-bottom:8px;">🚌 셔틀버스 시간표</div>
                   <div style="margin-bottom:8px;">
-                    <div style="font-size:15px;font-weight:700;color:#4C6EF5;background:#E0E7FF;border-radius:6px;padding:4px 8px;margin-bottom:5px;">▶ 연수원 → 초지역</div>
+                    <div id="sht-to-lbl" style="font-size:15px;font-weight:700;color:#4C6EF5;background:#E0E7FF;border-radius:6px;padding:4px 8px;margin-bottom:5px;">▶ 연수원 → 초지역</div>
                     <div style="display:flex;flex-wrap:wrap;gap:4px;">
                       <span style="background:#fff;border:1px solid #C5D0FF;border-radius:6px;padding:3px 8px;font-size:15px;font-weight:700;color:#1D4ED8;">08:30</span>
                       <span style="background:#fff;border:1px solid #C5D0FF;border-radius:6px;padding:3px 8px;font-size:15px;font-weight:700;color:#1D4ED8;">09:00</span>
@@ -1361,7 +1367,7 @@ details[open] .faq-arr{transform:rotate(180deg);}
                     </div>
                   </div>
                   <div style="margin-bottom:8px;">
-                    <div style="font-size:15px;font-weight:700;color:#0D9488;background:#CCFBF1;border-radius:6px;padding:4px 8px;margin-bottom:5px;">▶ 초지역 → 연수원</div>
+                    <div id="sht-from-lbl" style="font-size:15px;font-weight:700;color:#0D9488;background:#CCFBF1;border-radius:6px;padding:4px 8px;margin-bottom:5px;">▶ 초지역 → 연수원</div>
                     <div style="display:flex;flex-wrap:wrap;gap:4px;">
                       <span style="background:#fff;border:1px solid #99F6E4;border-radius:6px;padding:3px 8px;font-size:15px;font-weight:700;color:#0D9488;">08:45</span>
                       <span style="background:#fff;border:1px solid #99F6E4;border-radius:6px;padding:3px 8px;font-size:15px;font-weight:700;color:#0D9488;">09:10</span>
@@ -1375,7 +1381,7 @@ details[open] .faq-arr{transform:rotate(180deg);}
                       <span style="background:#fff;border:1px solid #99F6E4;border-radius:6px;padding:3px 8px;font-size:15px;font-weight:700;color:#0D9488;">17:30</span>
                     </div>
                   </div>
-                  <div style="background:#FFF9DB;border-radius:8px;padding:6px 10px;font-size:15px;color:#92400E;font-weight:600;">📍 탑승: 초지역 1번출구 앞 버스승강장 &nbsp;|&nbsp; ⚠️ 시우역 셔틀 없음</div>
+                  <div id="sht-note" style="background:#FFF9DB;border-radius:8px;padding:6px 10px;font-size:15px;color:#92400E;font-weight:600;">📍 탑승: 초지역 1번출구 앞 버스승강장 &nbsp;|&nbsp; ⚠️ 시우역 셔틀 없음</div>
                 </div>
             </div>
           </div>
@@ -1393,15 +1399,7 @@ details[open] .faq-arr{transform:rotate(180deg);}
       <!-- 시설 자주 묻는 질문 -->
       <div>
         <div class="stitle" data-i18n="view-faq">❓ 시설 자주 묻는 질문</div>
-        <div class="faq-sec">
-          <details class="faq-item"><summary class="faq-q"><span>🏠 기숙사 귀관 시간이 언제예요?</span><span class="faq-arr">▼</span></summary><div class="faq-a">평일 오후 11시입니다. 귀관 이후에는 외출이 제한됩니다.</div></details>
-          <details class="faq-item"><summary class="faq-q"><span>🛏️ 방 배정은 어떻게 되나요?</span><span class="faq-arr">▼</span></summary><div class="faq-a">기본 1인 1실로 운영됩니다. 문의사항은 고객센터(031-490-1472)로 연락해 주세요.</div></details>
-          <details class="faq-item"><summary class="faq-q"><span>👕 세탁기·건조기는 어디 있나요?</span><span class="faq-arr">▼</span></summary><div class="faq-a">인화1관·인화2관 각 층 세탁실에 세탁기·건조기가 있습니다. 무료로 이용 가능하며 세제는 개인 지참 부탁드립니다.</div></details>
-          <details class="faq-item"><summary class="faq-q"><span>🅿️ 주차는 어디에 하나요?</span><span class="faq-arr">▼</span></summary><div class="faq-a">원내 주차장을 이용하시면 됩니다. 만차 시 후문 건너편 제2주차장 이용 가능합니다.</div></details>
-          <details class="faq-item"><summary class="faq-q"><span>🚭 흡연은 어디서 할 수 있나요?</span><span class="faq-arr">▼</span></summary><div class="faq-a">지정 흡연구역 외 전 구역 금연입니다. 흡연구역은 각 건물 외부 지정 장소를 이용해 주세요.</div></details>
-          <details class="faq-item"><summary class="faq-q"><span>🏋️ 헬스장·탁구장 이용 시간은?</span><span class="faq-arr">▼</span></summary><div class="faq-a">인화2관에 위치하며 자유롭게 이용 가능합니다. 운동장은 24시간 개방이나 야간 조명은 22:00에 소등됩니다.</div></details>
-          <details class="faq-item"><summary class="faq-q"><span>📚 강의실은 어디에 있나요?</span><span class="faq-arr">▼</span></summary><div class="faq-a">창의관(주 강의동) 1~4층에 강의실이 있습니다. 스마트실습실·세미나실도 창의관 내에 있으며, 수료식·특강은 별도 대강당에서 진행됩니다.</div></details>
-        </div>
+        <div class="faq-sec" id="view-faq-list"></div>
       </div>
 
     </div>
@@ -1682,6 +1680,100 @@ function getBldLoc(id){
   var tr=(BLD_MODAL_I18N[id]&&BLD_MODAL_I18N[id][appLang])||(BLD_MODAL_I18N[id]&&BLD_MODAL_I18N[id].ko)||{};
   return Object.assign({},base,{name:tr.name||base.name,sub:tr.sub||base.sub,body:tr.body||base.body});
 }
+
+function VL(key){var d=VIEW_L[appLang]||VIEW_L.ko;return d[key]!==undefined?d[key]:VIEW_L.ko[key];}
+var VIEW_L={
+ko:{'view-hero-title':'중소벤처기업연수원','view-tag-loc':'📍 경기도 안산','view-tag-shuttle':'🚌 셔틀버스','view-tag-meal':'🍽️ 식당','pin-edit':'✏️ 핀 편집','pin-edit-done':'✅ 편집 완료','pin-edit-bar':'📍 핀을 드래그해서 위치 조정 → 완료 후 아래 버튼 누르기','pin-saved':'핀 위치가 클립보드에 복사됐어요!\n개발자에게 붙여넣기로 전달해주세요 😊','rep-ai':'🤖 AI 이미지 자동 분류','rep-camera':'카메라로 찍기','rep-album':'앨범에서 올리기','rep-file':'파일로 올리기','rep-ai-hint':'AI가 문제 유형을 자동으로 분석합니다','rep-or':'또는 직접 선택','rep-cat1':'💡 전기·조명','rep-cat2':'🌡️ 냉난방','rep-cat3':'🚪 시설 파손','rep-cat4':'🌐 인터넷','rep-cat5':'🧹 청소·위생','rep-cat6':'📦 기타','rep-ph':'불편 사항을 자세히 입력해주세요...','rep-submit':'📨 신고 접수하기','rep-err':'⚠️ 불편 내용을 입력해주세요','rep-ok':'✅ 접수 완료! 담당자가 빠르게 확인할게요 😊','route-addr':'📍 경기도 안산시 단원구 연수원로 87 (원곡동 931)','route-tab-bus':'🚇 초지역','route-tab-siwoo':'🚇 시우역','route-tab-car':'🚗 자가용','route-bus1':'4호선 초지역 하차','route-bus1s':'안산·오이도행 승차 → 초지역 하차','route-bus2':'1번 출구 → 도보 15분 or 셔틀버스','route-bus2s':'연수원사거리 방향 약 900m','route-bus2t':'⏱ 도보 15분 / 셔틀 5분','route-sht':'🚌 셔틀버스 시간표','route-sht-open':'🚌 셔틀버스 시간표 보기 ▼','route-sht-close':'🚌 셔틀버스 시간표 닫기 ▲','route-sht-to':'▶ 연수원 → 초지역','route-sht-from':'▶ 초지역 → 연수원','route-sht-note':'📍 탑승: 초지역 1번출구 앞 버스승강장 | ⚠️ 시우역 셔틀 없음','route-siwoo1':'서해선 시우역 하차','route-siwoo1s':'소사~원시 방면 서해선 이용','route-siwoo2':'도보 또는 택시 이용','route-siwoo2t':'⚠️ 시우역은 셔틀버스 운행 없어요!','route-car1':'서안산IC 진출','route-car1s':'안산·시흥시청 방면','route-car2':'연수원사거리 우회전','route-car2s':'네비: "중소벤처기업연수원" 검색','route-car2t':'🅿️ 원내 주차 / 제2주차장(후문 건너편)','route-to':' 가는 길','route-from-gate':'🟢 정문 출발','splash-guide':'📖 W-SSUP 사용 가이드 보기','help-guide-btn':'📖 가이드','help-guide':'사용 가이드'},
+en:{'view-hero-title':'KOSME Training Center','view-tag-loc':'📍 Ansan, Gyeonggi','view-tag-shuttle':'🚌 Shuttle','view-tag-meal':'🍽️ Dining','pin-edit':'✏️ Edit pins','pin-edit-done':'✅ Done editing','pin-edit-bar':'📍 Drag pins to adjust → tap Done when finished','pin-saved':'Pin positions copied to clipboard!\nPaste and send to developer 😊','rep-ai':'🤖 AI image classification','rep-camera':'Take photo','rep-album':'Upload from album','rep-file':'Upload file','rep-ai-hint':'AI automatically analyzes the issue type','rep-or':'Or select a category','rep-cat1':'💡 Electrical·Lighting','rep-cat2':'🌡️ HVAC','rep-cat3':'🚪 Facility damage','rep-cat4':'🌐 Internet','rep-cat5':'🧹 Cleaning·Hygiene','rep-cat6':'📦 Other','rep-ph':'Describe the issue in detail...','rep-submit':'📨 Submit report','rep-err':'⚠️ Please enter the issue details','rep-ok':'✅ Submitted! Staff will check soon 😊','route-addr':'📍 87 Yeonsuwon-ro, Danwon-gu, Ansan (Wongok-dong 931)<br><strong>TEL 031-490-1472</strong>','route-tab-bus':'🚇 Choji Station','route-tab-siwoo':'🚇 Siwoo Station','route-tab-car':'🚗 By car','route-bus1':'Line 4 Choji Station','route-bus1s':'Take Ansan/Oido line → exit at Choji','route-bus2':'Exit 1 → 15 min walk or shuttle','route-bus2s':'Toward Training Center intersection ~900m','route-bus2t':'⏱ Walk 15 min / Shuttle 5 min','route-sht':'🚌 Shuttle schedule','route-sht-open':'🚌 View shuttle schedule ▼','route-sht-close':'🚌 Hide shuttle schedule ▲','route-sht-to':'▶ Campus → Choji','route-sht-from':'▶ Choji → Campus','route-sht-note':'📍 Boarding: Bus stop at Choji Exit 1 | ⚠️ No shuttle from Siwoo','route-siwoo1':'West Sea Line Siwoo Station','route-siwoo1s':'Take Sosa-Wonsi West Sea Line','route-siwoo2':'Walk or take a taxi','route-siwoo2t':'⚠️ No shuttle from Siwoo Station!','route-car1':'Exit at Seoansan IC','route-car1s':'Toward Ansan/Siheung City Hall','route-car2':'Turn right at Training Center intersection','route-car2s':'Nav: search "KOSME Training Center"','route-car2t':'🅿️ On-site parking / Lot 2 (across rear gate)','route-to':' directions','route-from-gate':'🟢 From main gate','splash-guide':'📖 View W-SSUP user guide','help-guide-btn':'📖 Guide','help-guide':'User guide'},
+zh:{'view-hero-title':'中小企业研修院','view-tag-loc':'📍 京畿道安山','view-tag-shuttle':'🚌 班车','view-tag-meal':'🍽️ 餐厅','pin-edit':'✏️ 编辑图钉','pin-edit-done':'✅ 编辑完成','pin-edit-bar':'📍 拖动图钉调整位置 → 完成后点击下方按钮','pin-saved':'图钉位置已复制到剪贴板！\n请粘贴发送给开发者 😊','rep-ai':'🤖 AI图像自动分类','rep-camera':'拍照','rep-album':'从相册上传','rep-file':'上传文件','rep-ai-hint':'AI自动分析问题类型','rep-or':'或直接选择','rep-cat1':'💡 电气·照明','rep-cat2':'🌡️ 冷暖空调','rep-cat3':'🚪 设施损坏','rep-cat4':'🌐 网络','rep-cat5':'🧹 清洁·卫生','rep-cat6':'📦 其他','rep-ph':'请详细描述不便事项...','rep-submit':'📨 提交报告','rep-err':'⚠️ 请输入不便内容','rep-ok':'✅ 已受理！负责人将尽快确认 😊','route-addr':'📍 京畿道安山市檀园区研修院路87<br><strong>TEL 031-490-1472</strong>','route-tab-bus':'🚇 楚枝站','route-tab-siwoo':'🚇 始兴站','route-tab-car':'🚗 自驾','route-bus1':'4号线楚枝站下车','route-bus1s':'乘坐安山·乌耳岛方向 → 楚枝站下车','route-bus2':'1号出口 → 步行15分钟或班车','route-bus2s':'研修院十字路口方向约900米','route-bus2t':'⏱ 步行15分钟 / 班车5分钟','route-sht':'🚌 班车时刻表','route-sht-open':'🚌 查看班车时刻表 ▼','route-sht-close':'🚌 关闭班车时刻表 ▲','route-sht-to':'▶ 研修院 → 楚枝站','route-sht-from':'▶ 楚枝站 → 研修院','route-sht-note':'📍 乘车：楚枝站1号出口前公交站 | ⚠️ 始兴站无班车','route-siwoo1':'西海线始兴站下车','route-siwoo1s':'乘坐苏我~元时西海线','route-siwoo2':'步行或乘坐出租车','route-siwoo2t':'⚠️ 始兴站没有班车！','route-car1':'西安山IC出口','route-car1s':'安山·始兴市厅方向','route-car2':'研修院十字路口右转','route-car2s':'导航：搜索"中小企业研修院"','route-car2t':'🅿️ 院内停车 / 第2停车场(后门对面)','route-to':' 路线','route-from-gate':'🟢 从正门出发','splash-guide':'📖 查看W-SSUP使用指南','help-guide-btn':'📖 指南','help-guide':'使用指南'},
+ja:{'view-hero-title':'中小企業研修院','view-tag-loc':'📍 京畿道安山','view-tag-shuttle':'🚌 シャトル','view-tag-meal':'🍽️ 食堂','pin-edit':'✏️ ピン編集','pin-edit-done':'✅ 編集完了','pin-edit-bar':'📍 ピンをドラッグして調整 → 完了後ボタンを押す','pin-saved':'ピン位置をクリップボードにコピーしました！\n開発者に貼り付けて送ってください 😊','rep-ai':'🤖 AI画像自動分類','rep-camera':'カメラで撮影','rep-album':'アルバムからアップロード','rep-file':'ファイルをアップロード','rep-ai-hint':'AIが問題タイプを自動分析します','rep-or':'または直接選択','rep-cat1':'💡 電気·照明','rep-cat2':'🌡️ 冷暖房','rep-cat3':'🚪 施設破損','rep-cat4':'🌐 インターネット','rep-cat5':'🧹 清掃·衛生','rep-cat6':'📦 その他','rep-ph':'不便な点を詳しく入力してください...','rep-submit':'📨 申告する','rep-err':'⚠️ 内容を入力してください','rep-ok':'✅ 受付完了！担当者が確認します 😊','route-addr':'📍 京畿道安山市檀園区研修院路87<br><strong>TEL 031-490-1472</strong>','route-tab-bus':'🚇 楚枝駅','route-tab-siwoo':'🚇 始興駅','route-tab-car':'🚗 自家用車','route-bus1':'4号線楚枝駅下車','route-bus1s':'安山·烏耳島行き → 楚枝駅下車','route-bus2':'1番出口 → 徒歩15分 or シャトル','route-bus2s':'研修院交差点方向 約900m','route-bus2t':'⏱ 徒歩15分 / シャトル5分','route-sht':'🚌 シャトル時刻表','route-sht-open':'🚌 シャトル時刻表を見る ▼','route-sht-close':'🚌 シャトル時刻表を閉じる ▲','route-sht-to':'▶ 研修院 → 楚枝駅','route-sht-from':'▶ 楚枝駅 → 研修院','route-sht-note':'📍 乗車：楚枝駅1番出口前 | ⚠️ 始興駅シャトルなし','route-siwoo1':'西海線始興駅下車','route-siwoo1s':'蘇我~元時西海線利用','route-siwoo2':'徒歩またはタクシー','route-siwoo2t':'⚠️ 始興駅からシャトル運行なし！','route-car1':'西安山IC出口','route-car1s':'安山·始興市庁方面','route-car2':'研修院交差点右折','route-car2s':'ナビ：「中小企業研修院」検索','route-car2t':'🅿️ 構内駐車 / 第2駐車場(後門向かい)','route-to':'への道','route-from-gate':'🟢 正門出発','splash-guide':'📖 W-SSUP使い方ガイド','help-guide-btn':'📖 ガイド','help-guide':'使い方ガイド'},
+id:{'view-hero-title':'Pusat Pelatihan KOSME','view-tag-loc':'📍 Ansan, Gyeonggi','view-tag-shuttle':'🚌 Shuttle','view-tag-meal':'🍽️ Kantin','pin-edit':'✏️ Edit pin','pin-edit-done':'✅ Selesai edit','pin-edit-bar':'📍 Seret pin untuk menyesuaikan → ketuk Selesai','pin-saved':'Posisi pin disalin ke clipboard!\nKirim ke pengembang 😊','rep-ai':'🤖 Klasifikasi gambar AI','rep-camera':'Ambil foto','rep-album':'Unggah dari album','rep-file':'Unggah file','rep-ai-hint':'AI menganalisis jenis masalah secara otomatis','rep-or':'Atau pilih kategori','rep-cat1':'💡 Listrik·Pencahayaan','rep-cat2':'🌡️ AC/Pemanas','rep-cat3':'🚪 Kerusakan fasilitas','rep-cat4':'🌐 Internet','rep-cat5':'🧹 Kebersihan','rep-cat6':'📦 Lainnya','rep-ph':'Jelaskan masalah secara detail...','rep-submit':'📨 Kirim laporan','rep-err':'⚠️ Masukkan detail masalah','rep-ok':'✅ Diterima! Staf akan segera memeriksa 😊','route-addr':'📍 87 Yeonsuwon-ro, Danwon-gu, Ansan<br><strong>TEL 031-490-1472</strong>','route-tab-bus':'🚇 Stasiun Choji','route-tab-siwoo':'🚇 Stasiun Siwoo','route-tab-car':'🚗 Mobil pribadi','route-bus1':'Turun di Stasiun Choji Line 4','route-bus1s':'Naik jalur Ansan/Oido → turun Choji','route-bus2':'Pintu 1 → jalan 15 mnt atau shuttle','route-bus2s':'Arah persimpangan ~900m','route-bus2t':'⏱ Jalan 15 mnt / Shuttle 5 mnt','route-sht':'🚌 Jadwal shuttle','route-sht-open':'🚌 Lihat jadwal shuttle ▼','route-sht-close':'🚌 Tutup jadwal shuttle ▲','route-sht-to':'▶ Kampus → Choji','route-sht-from':'▶ Choji → Kampus','route-sht-note':'📍 Naik: Halte di Pintu 1 Choji | ⚠️ Tidak ada shuttle dari Siwoo','route-siwoo1':'Turun Stasiun Siwoo','route-siwoo1s':'Garis West Sea Sosa-Wonsi','route-siwoo2':'Jalan kaki atau taksi','route-siwoo2t':'⚠️ Tidak ada shuttle dari Siwoo!','route-car1':'Keluar di Seoansan IC','route-car1s':'Arah Ansan/Siheung','route-car2':'Belok kanan di persimpangan','route-car2s':'Nav: cari "KOSME Training Center"','route-car2t':'🅿️ Parkir kampus / Lot 2','route-to':' arah','route-from-gate':'🟢 Dari gerbang utama','splash-guide':'📖 Panduan W-SSUP','help-guide-btn':'📖 Panduan','help-guide':'Panduan pengguna'}
+};
+var CAMPUS_PIN_L={
+'인화1관':{ko:'인화1관',en:'Inhwa 1',zh:'仁和1馆',ja:'仁和1館',id:'Inhwa 1'},
+'인화2관':{ko:'인화2관',en:'Inhwa 2',zh:'仁和2馆',ja:'仁和2館',id:'Inhwa 2'},
+'교류동':{ko:'교류동·식당',en:'Gyoryu·Cafeteria',zh:'交流栋·餐厅',ja:'交流棟·食堂',id:'Gyoryu·Kantin'},
+'실험동':{ko:'실험동',en:'Lab Bldg',zh:'实验栋',ja:'実験棟',id:'Gedung Lab'},
+'봉사관':{ko:'봉사관',en:'Bongsa Hall',zh:'奉仕馆',ja:'奉仕館',id:'Gedung Bongsa'},
+'창의관':{ko:'창의관',en:'Changui Hall',zh:'创意馆',ja:'創意館',id:'Gedung Changui'},
+'대강당':{ko:'대강당',en:'Grand Hall',zh:'大礼堂',ja:'大講堂',id:'Aula Besar'},
+'운동장':{ko:'운동장',en:'Sports Field',zh:'运动场',ja:'運動場',id:'Lapangan'},
+'정문':{ko:'정문',en:'Main Gate',zh:'正门',ja:'正門',id:'Gerbang Utama'},
+'주차장':{ko:'주차장',en:'Parking',zh:'停车场',ja:'駐車場',id:'Parkir'},
+'제2주차장':{ko:'제2주차장',en:'Parking Lot 2',zh:'第2停车场',ja:'第2駐車場',id:'Parkir 2'}
+};
+var CAMPUS_BLD_I18N={
+'인화1관':{ko:{name:'인화1관',desc:'캠퍼스 후방 좌측. 특수과정·실습 강의 진행.',rooms:['1F 강의실','2F 강의실','3F 강의실','4F 강의실']},en:{name:'Inhwa 1',desc:'Rear left of campus. Special & practice courses.',rooms:['1F Classroom','2F Classroom','3F Classroom','4F Classroom']},zh:{name:'仁和1馆',desc:'校园后方左侧。特殊课程·实操讲座。',rooms:['1F教室','2F教室','3F教室','4F教室']},ja:{name:'仁和1館',desc:'キャンパス後方左側。特殊·実習講義。',rooms:['1F教室','2F教室','3F教室','4F教室']},id:{name:'Inhwa 1',desc:'Kiri belakang kampus. Kursus khusus & praktik.',rooms:['Kelas 1F','Kelas 2F','Kelas 3F','Kelas 4F']}},
+'인화2관':{ko:{name:'인화2관',desc:'캠퍼스 좌측 인화2관. 실습·실험 과정 전용.',rooms:['1F','2F','3F','4F']},en:{name:'Inhwa 2',desc:'Left side of campus. Practice & lab courses.',rooms:['1F','2F','3F','4F']},zh:{name:'仁和2馆',desc:'校园左侧。实操·实验课程专用。',rooms:['1F','2F','3F','4F']},ja:{name:'仁和2館',desc:'キャンパス左側。実習·実験専用。',rooms:['1F','2F','3F','4F']},id:{name:'Inhwa 2',desc:'Sisi kiri kampus. Kursus praktik & lab.',rooms:['1F','2F','3F','4F']}},
+'교류동':{ko:{name:'교류동',desc:'캠퍼스 좌측 교류동. 구내식당·매점 위치.',rooms:['식당 (1F)','매점','회의실']},en:{name:'Gyoryu Bldg',desc:'Left side. Cafeteria & shop.',rooms:['Cafeteria (1F)','Shop','Meeting room']},zh:{name:'交流栋',desc:'校园左侧。内含餐厅·便利店。',rooms:['餐厅(1F)','便利店','会议室']},ja:{name:'交流棟',desc:'キャンパス左側。食堂·売店。',rooms:['食堂(1F)','売店','会議室']},id:{name:'Gedung Gyoryu',desc:'Sisi kiri. Kantin & toko.',rooms:['Kantin (1F)','Toko','Ruang rapat']}},
+'실험동':{ko:{name:'실험동',desc:'교류동 인근 실험·실습동. 실기 위주 과정 진행.',rooms:['실험실','실습실']},en:{name:'Lab Building',desc:'Near Gyoryu. Hands-on practice courses.',rooms:['Lab','Practice room']},zh:{name:'实验栋',desc:'交流栋附近。实操为主课程。',rooms:['实验室','实训室']},ja:{name:'実験棟',desc:'交流棟近く。実技中心。',rooms:['実験室','実習室']},id:{name:'Gedung Lab',desc:'Dekat Gyoryu. Kursus praktik.',rooms:['Lab','Ruang praktik']}},
+'봉사관':{ko:{name:'봉사관',desc:'연수원 메인 건물. 숙소·행정·강의실 통합. 정문에서 바로 보이는 건물.',rooms:['1F 고객센터','1F 다목적실','2F 행정실','2F 강의실','3F~4F 객실','B1F 헬스장']},en:{name:'Bongsa Hall',desc:'Main building. Dorms, admin & classrooms. Visible from main gate.',rooms:['1F Customer center','1F Multi-purpose','2F Admin','2F Classrooms','3~4F Rooms','B1F Gym']},zh:{name:'奉仕馆',desc:'主楼。宿舍·行政·教室。正门可见。',rooms:['1F客服中心','1F多功能室','2F行政室','2F教室','3~4F客房','B1F健身房']},ja:{name:'奉仕館',desc:'メイン建物。寮·行政·教室。正門から見える。',rooms:['1F顧客センター','1F多目的室','2F行政','2F教室','3~4F客室','B1Fジム']},id:{name:'Gedung Bongsa',desc:'Gedung utama. Asrama, admin & kelas.',rooms:['1F Pusat layanan','1F Multi-fungsi','2F Admin','2F Kelas','3~4F Kamar','B1F Gym']}},
+'창의관':{ko:{name:'창의관',desc:'우측 메인 강의 건물. KOSME 창업사관학교 현판.',rooms:['1F 로비','2F 대형강의실','3F 강의실','3F 회의실']},en:{name:'Changui Hall',desc:'Main lecture building on the right.',rooms:['1F Lobby','2F Large classroom','3F Classrooms','3F Meeting rooms']},zh:{name:'创意馆',desc:'右侧主教学楼。',rooms:['1F大厅','2F大教室','3F教室','3F会议室']},ja:{name:'創意館',desc:'右側メイン講義棟。',rooms:['1Fロビー','2F大教室','3F教室','3F会議室']},id:{name:'Gedung Changui',desc:'Gedung kuliah utama di kanan.',rooms:['1F Lobi','2F Kelas besar','3F Kelas','3F Rapat']}},
+'대강당':{ko:{name:'대강당',desc:'창의관 인근. 입교식·수료식·대형 행사 진행.',rooms:['대강당 홀','무대','로비']},en:{name:'Grand Hall',desc:'Near Changui. Opening & graduation ceremonies.',rooms:['Main hall','Stage','Lobby']},zh:{name:'大礼堂',desc:'创意馆附近。入学式·结业式。',rooms:['大礼堂','舞台','大厅']},ja:{name:'大講堂',desc:'創意館近く。入学式·修了式。',rooms:['大講堂','舞台','ロビー']},id:{name:'Aula Besar',desc:'Dekat Changui. Upacara pembukaan & kelulusan.',rooms:['Aula','Panggung','Lobi']}},
+'운동장':{ko:{name:'운동장',desc:'캠퍼스 우측 끝 야외 운동장.',rooms:['풋살장','다목적 운동장']},en:{name:'Sports Field',desc:'Outdoor field at far right of campus.',rooms:['Futsal field','Multi-purpose field']},zh:{name:'运动场',desc:'校园最右侧户外运动场。',rooms:['五人制足球场','多功能运动场']},ja:{name:'運動場',desc:'キャンパス右端の屋外運動場。',rooms:['フットサル場','多目的運動場']},id:{name:'Lapangan Olahraga',desc:'Lapangan luar di ujung kanan kampus.',rooms:['Lapangan futsal','Lapangan multi']}},
+'정문':{ko:{name:'정문',desc:'연수원 정문. 수위실. 셔틀버스 정류장(정문 안쪽).',rooms:['수위실','방문증 발급','셔틀 정류장']},en:{name:'Main Gate',desc:'Main entrance. Security office. Shuttle stop inside gate.',rooms:['Security','Visitor pass','Shuttle stop']},zh:{name:'正门',desc:'研修院正门。门卫室。班车站(门内)。',rooms:['门卫室','访客证','班车站']},ja:{name:'正門',desc:'研修院正門。警備室。シャトル停(門内)。',rooms:['警備室','訪問証','シャトル']},id:{name:'Gerbang Utama',desc:'Pintu masuk utama. Pos keamanan. Halte shuttle.',rooms:['Keamanan','Kartu tamu','Shuttle']}},
+'주차장':{ko:{name:'주차장',desc:'캠퍼스 우측 외부 주차장.',rooms:['외부주차','장애인구역']},en:{name:'Parking',desc:'External parking on the right.',rooms:['Outdoor parking','Accessible zone']},zh:{name:'停车场',desc:'校园右侧外部停车场。',rooms:['室外停车','无障碍区']},ja:{name:'駐車場',desc:'キャンパス右側の外部駐車場。',rooms:['屋外駐車','障害者区域']},id:{name:'Parkir',desc:'Parkir luar di sisi kanan.',rooms:['Parkir luar','Area disabilitas']}},
+'제2주차장':{ko:{name:'제2주차장',desc:'정문 좌측 제2주차장.',rooms:['외부주차']},en:{name:'Parking Lot 2',desc:'Lot 2 on the left of main gate.',rooms:['Outdoor parking']},zh:{name:'第2停车场',desc:'正门左侧第2停车场。',rooms:['室外停车']},ja:{name:'第2駐車場',desc:'正門左側の第2駐車場。',rooms:['屋外駐車']},id:{name:'Parkir 2',desc:'Lot 2 di kiri gerbang utama.',rooms:['Parkir luar']}}
+};
+var VIEW_FAQ_DATA=[
+{q:{ko:'🏠 기숙사 귀관 시간이 언제예요?',en:'🏠 What is the dorm curfew?',zh:'🏠 宿舍归馆时间是？',ja:'🏠 寮の帰館時間は？',id:'🏠 Jam malam asrama?'},a:{ko:'평일 오후 11시입니다. 귀관 이후에는 외출이 제한됩니다.',en:'Weekdays 11:00 PM. Going out is restricted after curfew.',zh:'平日晚上11点。归馆后限制外出。',ja:'平日23時です。帰館後は外出制限があります。',id:'Sen-Jum jam 23:00. Keluar dibatasi setelah jam malam.'}},
+{q:{ko:'🛏️ 방 배정은 어떻게 되나요?',en:'🛏️ How are rooms assigned?',zh:'🛏️ 房间如何分配？',ja:'🛏️ 部屋の割り当ては？',id:'🛏️ Bagaimana penugasan kamar?'},a:{ko:'기본 1인 1실로 운영됩니다. 문의사항은 고객센터(031-490-1472)로 연락해 주세요.',en:'Basically one person per room. Contact 031-490-1472 for inquiries.',zh:'基本单人单间。请咨询客服031-490-1472。',ja:'基本1人1室です。お問い合わせは031-490-1472へ。',id:'Umumnya 1 orang 1 kamar. Hubungi 031-490-1472.'}},
+{q:{ko:'👕 세탁기·건조기는 어디 있나요?',en:'👕 Where are washers & dryers?',zh:'👕 洗衣机烘干机在哪？',ja:'👕 洗濯機·乾燥機はどこ？',id:'👕 Di mana mesin cuci?'},a:{ko:'인화1관·인화2관 각 층 세탁실에 세탁기·건조기가 있습니다. 무료로 이용 가능하며 세제는 개인 지참 부탁드립니다.',en:'On each floor of Inhwa 1 & 2 dorms. Free; bring your own detergent.',zh:'仁和1·2馆各层洗衣房。免费使用，请自备洗涤剂。',ja:'仁和1·2館各階の洗濯室にあります。無料、洗剤は持参。',id:'Di setiap lantai asrama Inhwa 1 & 2. Gratis, bawa deterjen sendiri.'}},
+{q:{ko:'🅿️ 주차는 어디에 하나요?',en:'🅿️ Where can I park?',zh:'🅿️ 在哪里停车？',ja:'🅿️ 駐車場はどこ？',id:'🅿️ Parkir di mana?'},a:{ko:'원내 주차장을 이용하시면 됩니다. 만차 시 후문 건너편 제2주차장 이용 가능합니다.',en:'Use on-site parking. If full, use Lot 2 across the rear gate.',zh:'使用院内停车场。满位时可使用后门对面第2停车场。',ja:'構内駐車場をご利用ください。満車時は後門向かい第2駐車場。',id:'Gunakan parkir kampus. Jika penuh, gunakan Lot 2.'}},
+{q:{ko:'🚭 흡연은 어디서 할 수 있나요?',en:'🚭 Where can I smoke?',zh:'🚭 在哪里吸烟？',ja:'🚭 喫煙はどこで？',id:'🚭 Di mana boleh merokok?'},a:{ko:'지정 흡연구역 외 전 구역 금연입니다. 흡연구역은 각 건물 외부 지정 장소를 이용해 주세요.',en:'No smoking except in designated outdoor areas.',zh:'除指定吸烟区外全面禁烟。请使用各建筑外指定区域。',ja:'指定喫煙区域以外は全面禁煙です。',id:'Dilarang merokok kecuali di area yang ditentukan.'}},
+{q:{ko:'🏋️ 헬스장·탁구장 이용 시간은?',en:'🏋️ Gym & table tennis hours?',zh:'🏋️ 健身房乒乓球使用时间？',ja:'🏋️ ジム·卓球の利用時間は？',id:'🏋️ Jam gym & tenis meja?'},a:{ko:'인화2관에 위치하며 자유롭게 이용 가능합니다. 운동장은 24시간 개방이나 야간 조명은 22:00에 소등됩니다.',en:'In Inhwa 2, open freely. Sports field open 24h; lights off at 22:00.',zh:'位于仁和2馆，可自由使用。运动场24小时开放，夜间灯光22:00关闭。',ja:'仁和2館にあり自由利用可。運動場は24時間、照明は22時消灯。',id:'Di Inhwa 2, bebas digunakan. Lapangan 24 jam, lampu mati 22:00.'}},
+{q:{ko:'📚 강의실은 어디에 있나요?',en:'📚 Where are the classrooms?',zh:'📚 教室在哪里？',ja:'📚 教室はどこ？',id:'📚 Di mana ruang kelas?'},a:{ko:'창의관(주 강의동) 1~4층에 강의실이 있습니다. 스마트실습실·세미나실도 창의관 내에 있으며, 수료식·특강은 별도 대강당에서 진행됩니다.',en:'Changui Hall 1~4F. Smart labs & seminars also in Changui. Ceremonies in Grand Hall.',zh:'创意馆(主教学楼)1~4层。智能实训室·研讨室也在创意馆内，典礼在大礼堂。',ja:'創意館1~4階に教室。スマート実習室も創意館内、式典は大講堂。',id:'Changui Hall lantai 1~4. Lab smart & seminar di Changui. Upacara di Aula Besar.'}}
+];
+function getCampusLoc(key){
+  var base=CAMPUS_BLD[key];if(!base)return null;
+  var tr=(CAMPUS_BLD_I18N[key]&&CAMPUS_BLD_I18N[key][appLang])||(CAMPUS_BLD_I18N[key]&&CAMPUS_BLD_I18N[key].ko)||{};
+  var pin=(CAMPUS_PIN_L[key]&&CAMPUS_PIN_L[key][appLang])||key;
+  return {desc:tr.desc||base.desc,name:tr.name||pin,rooms:tr.rooms||base.rooms,photo:base.photo};
+}
+function renderViewFaq(){
+  var el=document.getElementById('view-faq-list');if(!el)return;
+  var lang=appLang||'ko';
+  el.innerHTML=VIEW_FAQ_DATA.map(function(item){
+    var q=(item.q[lang]||item.q.ko),a=(item.a[lang]||item.a.ko);
+    return '<details class="faq-item"><summary class="faq-q"><span>'+q+'</span><span class="faq-arr">▼</span></summary><div class="faq-a">'+a+'</div></details>';
+  }).join('');
+}
+function renderViewRoute(){
+  var lang=appLang||'ko';
+  var addr=document.getElementById('route-addr');if(addr)addr.innerHTML=VL('route-addr');
+  var tabs=document.querySelectorAll('.rtab');
+  var tabKeys=['route-tab-bus','route-tab-siwoo','route-tab-car'];
+  tabs.forEach(function(t,i){if(tabKeys[i])t.textContent=VL(tabKeys[i]);});
+  var map=[['route-bus1','route-bus1s'],['route-bus2','route-bus2s','route-bus2t'],['route-siwoo1','route-siwoo1s'],['route-siwoo2','route-siwoo2t'],['route-car1','route-car1s'],['route-car2','route-car2s','route-car2t']];
+  var panels=[['rt-bus',0,2],['rt-siwoo',2,2],['rt-car',4,2]];
+  panels.forEach(function(p){
+    var panel=document.getElementById(p[0]);if(!panel)return;
+    var rows=panel.querySelectorAll('.rstep-row');
+    for(var i=0;i<p[1];i++){
+      var idx=p[1]+i,m=map[idx];if(!rows[i]||!m)continue;
+      var mains=rows[i].querySelectorAll('.rmain,.rsub,.rtime');
+      if(mains[0]&&m[0])mains[0].textContent=VL(m[0]);
+      if(mains[1]&&m[1])mains[1].textContent=VL(m[1]);
+      if(mains[2]&&m[2])mains[2].textContent=VL(m[2]);
+    }
+  });
+  var shtBtn=document.getElementById('sht-toggle-btn');
+  if(shtBtn){var open=document.getElementById('sht-img')&&document.getElementById('sht-img').style.display!=='none';shtBtn.innerHTML=VL(open?'route-sht-close':'route-sht-open');}
+  var shtT=document.getElementById('sht-title');if(shtT)shtT.textContent=VL('route-sht');
+  var shtTo=document.getElementById('sht-to-lbl');if(shtTo)shtTo.textContent=VL('route-sht-to');
+  var shtFrom=document.getElementById('sht-from-lbl');if(shtFrom)shtFrom.textContent=VL('route-sht-from');
+  var shtNote=document.getElementById('sht-note');if(shtNote)shtNote.textContent=VL('route-sht-note');
+}
+function applyReportLang(){
+  var ids={'rep-ai-lbl':'rep-ai','rep-or-lbl':'rep-or','rep-submit-btn':'rep-submit'};
+  for(var id in ids){var el=document.getElementById(id);if(el)el.textContent=VL(ids[id]);}
+  var cam=document.getElementById('lbl-camera-txt');if(cam)cam.textContent=VL((!('ontouchstart' in window)&&navigator.maxTouchPoints===0)?'rep-file':'rep-camera');
+  var alb=document.getElementById('lbl-album-txt');if(alb)alb.textContent=VL('rep-album');
+  var hint=document.getElementById('rep-ai-hint');if(hint)hint.textContent=VL('rep-ai-hint');
+  var ta=document.getElementById('reptxt');if(ta)ta.placeholder=VL('rep-ph');
+  var cats=['rep-cat1','rep-cat2','rep-cat3','rep-cat4','rep-cat5','rep-cat6'];
+  document.querySelectorAll('.repty').forEach(function(b,i){if(cats[i])b.textContent=VL(cats[i]);});
+}
 function applyViewPickLang(l){
   var lang=l||appLang;
   document.querySelectorAll('[data-wf]').forEach(function(btn){
@@ -1699,12 +1791,27 @@ function applyViewPickLang(l){
     var nm=card.querySelector('.bld-name');if(nm)nm.textContent=d.n;
     var sb=card.querySelector('.bld-sub');if(sb)sb.textContent=d.s;
   });
+  document.querySelectorAll('.cmap-pin[data-name]').forEach(function(pin){
+    var k=pin.getAttribute('data-name');
+    var lbl=pin.querySelector('.pin-lbl');
+    if(lbl&&CAMPUS_PIN_L[k])lbl.textContent=CAMPUS_PIN_L[k][lang]||CAMPUS_PIN_L[k].ko||k;
+  });
+  var heroTitle=document.getElementById('view-hero-title');if(heroTitle)heroTitle.textContent=VL('view-hero-title');
+  ['view-tag-loc','view-tag-shuttle'].forEach(function(id){
+    var el=document.getElementById(id);if(el)el.textContent=VL(id);
+  });
+  var pinBtn=document.getElementById('pin-edit-btn');
+  if(pinBtn)pinBtn.textContent=pinBtn.getAttribute('data-edit')==='1'?VL('pin-edit-done'):VL('pin-edit');
+  var pinBar=document.getElementById('pin-edit-bar');if(pinBar)pinBar.textContent=VL('pin-edit-bar');
   var navBtn=document.getElementById('bld-modal-nav-btn');
   if(navBtn){var d=UI_STRINGS[lang]||UI_STRINGS.ko;navBtn.textContent=d['bld-nav-btn']||'🗺️ 지도에서 길찾기';}
   var qrBtn=document.getElementById('view-qr-btn');
   if(qrBtn){var d2=UI_STRINGS[lang]||UI_STRINGS.ko;qrBtn.textContent=d2['view-qr-scan']||'📷 QR 스캔';}
   var helpBtn=document.getElementById('help-btn');
-  if(helpBtn)helpBtn.title=(UI_STRINGS[lang]||UI_STRINGS.ko)['help-guide']||'사용 가이드';
+  if(helpBtn){helpBtn.title=VL('help-guide');var ht=helpBtn.querySelector('[data-i18n]')||helpBtn;if(helpBtn.hasAttribute('data-i18n'))helpBtn.textContent=VL('help-guide-btn');}
+  applyReportLang();renderViewRoute();renderViewFaq();
+  var openPin=document.getElementById('cbs-name')&&document.getElementById('cbs-name').dataset.last;
+  if(openPin&&typeof showCampusPin==='function')showCampusPin(openPin);
 }
 
 
@@ -1985,35 +2092,35 @@ var ONBOARD_L={
     {ico:'💬',title:'TALK — AI에게 질문하기',desc:'궁금한 건 무엇이든 물어보세요!',feats:['✅ 출석·수료·셔틀 등 빠른 질문 칩','🎤 음성으로 질문하기 (마이크 버튼)','📋 자주 묻는 질문 TOP 7 확인','🌐 5개국어 답변 지원'],action:'talk'},
     {ico:'✦',title:'PICK — 맞춤 강좌 추천',desc:'업종·직무에 맞는 교육과정을 AI가 추천해요.',feats:['🤖 자연어로 상황 설명 후 추천','🏭 업종·직무·연차 직접 선택','📅 강의 일정표도 확인 가능'],action:'pick'},
     {ico:'◎',title:'VIEW — 캠퍼스·시설 안내',desc:'연수원 안에서 길을 잃지 마세요!',feats:['🗺️ 건물별 도보 길찾기','🏢 시설 정보·사진 확인','📸 현장 불편 신고 (AI 사진 분석)','🚌 오는 길·셔틀 시간표'],action:'view'},
-    {ico:'💡',title:'이제 시작해볼까요?',desc:'언제든 우측 상단 ? 버튼으로 이 가이드를 다시 볼 수 있어요.',feats:['하단 탭으로 TALK · PICK · VIEW 전환','🌐 언어 버튼으로 5개국어 변경','📞 긴급연락·오늘식단 등 빠른 메뉴 활용'],action:''}
+    {ico:'💡',title:'이제 시작해볼까요?',desc:'언제든 우측 상단 📖 가이드 버튼으로 이 팝업을 다시 볼 수 있어요.',feats:['하단 탭으로 TALK · PICK · VIEW 전환','🌐 언어 버튼으로 5개국어 변경','📞 긴급연락·오늘식단 등 빠른 메뉴 활용'],action:''}
   ]},
   en:{next:'Next',prev:'Back',skip:'Skip',done:'Let\'s go! 🎉',tryBtn:'Try it →',steps:[
     {ico:'👋',title:'Welcome to W-SSUP!',desc:'Your 24/7 AI training center assistant.',tabs:[{ico:'💬',nm:'TALK',sub:'Instant answers'},{ico:'✦',nm:'PICK',sub:'Course rec'},{ico:'◎',nm:'VIEW',sub:'Campus info'}],feats:[]},
     {ico:'💬',title:'TALK — Ask AI Anything',desc:'Get instant answers to your questions!',feats:['✅ Quick chips for attendance, shuttle, etc.','🎤 Voice input (mic button)','📋 TOP 7 FAQ at a glance','🌐 Answers in 5 languages'],action:'talk'},
     {ico:'✦',title:'PICK — Course Recommendations',desc:'AI recommends courses for your industry & role.',feats:['🤖 Describe your situation in natural language','🏭 Select industry, role & years','📅 View course schedules'],action:'pick'},
     {ico:'◎',title:'VIEW — Campus & Facilities',desc:'Never get lost on campus!',feats:['🗺️ Walking directions to each building','🏢 Facility info & photos','📸 Report issues (AI photo analysis)','🚌 Directions & shuttle times'],action:'view'},
-    {ico:'💡',title:'Ready to start?',desc:'Tap the ? button anytime to see this guide again.',feats:['Switch tabs at the bottom: TALK · PICK · VIEW','🌐 Change language (5 languages)','📞 Quick access to emergency & meals'],action:''}
+    {ico:'💡',title:'Ready to start?',desc:'Tap the 📖 Guide button anytime to see this popup again.',feats:['Switch tabs at the bottom: TALK · PICK · VIEW','🌐 Change language (5 languages)','📞 Quick access to emergency & meals'],action:''}
   ]},
   zh:{next:'下一步',prev:'上一步',skip:'跳过',done:'开始使用！🎉',tryBtn:'试试看 →',steps:[
     {ico:'👋',title:'欢迎使用 W-SSUP！',desc:'研修院AI助手24小时为您服务。',tabs:[{ico:'💬',nm:'TALK',sub:'即时回答'},{ico:'✦',nm:'PICK',sub:'课程推荐'},{ico:'◎',nm:'VIEW',sub:'设施介绍'}],feats:[]},
     {ico:'💬',title:'TALK — 向AI提问',desc:'有任何问题随时提问！',feats:['✅ 出勤·班车等快速问题按钮','🎤 语音输入（麦克风按钮）','📋 常见问题TOP 7','🌐 支持5种语言'],action:'talk'},
     {ico:'✦',title:'PICK — 定制课程推荐',desc:'AI根据行业和职务推荐课程。',feats:['🤖 用自然语言描述情况后推荐','🏭 选择行业·职务·年限','📅 查看课程时间表'],action:'pick'},
     {ico:'◎',title:'VIEW — 校园·设施指南',desc:'在研修院内不迷路！',feats:['🗺️ 各建筑步行导航','🏢 设施信息和照片','📸 现场问题报告（AI照片分析）','🚌 来园路线·班车时刻'],action:'view'},
-    {ico:'💡',title:'准备好了吗？',desc:'随时点击右上角 ? 按钮重新查看指南。',feats:['底部标签切换 TALK · PICK · VIEW','🌐 切换5种语言','📞 紧急联系·今日菜单等快捷功能'],action:''}
+    {ico:'💡',title:'准备好了吗？',desc:'随时点击右上角 📖 指南按钮重新查看弹窗。',feats:['底部标签切换 TALK · PICK · VIEW','🌐 切换5种语言','📞 紧急联系·今日菜单等快捷功能'],action:''}
   ]},
   ja:{next:'次へ',prev:'戻る',skip:'スキップ',done:'始めましょう！🎉',tryBtn:'試してみる →',steps:[
     {ico:'👋',title:'W-SSUPへようこそ！',desc:'研修院AIアシスタントが24時間サポートします。',tabs:[{ico:'💬',nm:'TALK',sub:'すぐ回答'},{ico:'✦',nm:'PICK',sub:'講座推薦'},{ico:'◎',nm:'VIEW',sub:'施設案内'}],feats:[]},
     {ico:'💬',title:'TALK — AIに質問',desc:'何でもお気軽にどうぞ！',feats:['✅ 出席·シャトル等のクイックボタン','🎤 音声入力（マイクボタン）','📋 よくある質問TOP 7','🌐 5言語対応'],action:'talk'},
     {ico:'✦',title:'PICK — 講座おすすめ',desc:'業種·職務に合った講座をAIが推薦。',feats:['🤖 自然言語で状況を説明','🏭 業種·職務·年次を選択','📅 講義時間割の確認'],action:'pick'},
     {ico:'◎',title:'VIEW — キャンパス·施設案内',desc:'研修院内で迷わない！',feats:['🗺️ 建物別徒歩ナビ','🏢 施設情報·写真','📸 不便申告（AI写真分析）','🚌 アクセス·シャトル時刻'],action:'view'},
-    {ico:'💡',title:'準備はいいですか？',desc:'右上の ? ボタンでいつでも再表示できます。',feats:['下部タブで TALK · PICK · VIEW 切替','🌐 5言語切替','📞 緊急連絡·今日の食事など'],action:''}
+    {ico:'💡',title:'準備はいいですか？',desc:'右上の 📖 ガイドボタンでいつでも再表示できます。',feats:['下部タブで TALK · PICK · VIEW 切替','🌐 5言語切替','📞 緊急連絡·今日の食事など'],action:''}
   ]},
   id:{next:'Lanjut',prev:'Kembali',skip:'Lewati',done:'Mulai! 🎉',tryBtn:'Coba sekarang →',steps:[
     {ico:'👋',title:'Selamat datang di W-SSUP!',desc:'Asisten AI pusat pelatihan 24 jam.',tabs:[{ico:'💬',nm:'TALK',sub:'Jawaban instan'},{ico:'✦',nm:'PICK',sub:'Rekomendasi'},{ico:'◎',nm:'VIEW',sub:'Info kampus'}],feats:[]},
     {ico:'💬',title:'TALK — Tanya AI',desc:'Tanyakan apa saja!',feats:['✅ Chip cepat: absensi, shuttle, dll.','🎤 Input suara (tombol mikrofon)','📋 FAQ TOP 7','🌐 Jawaban dalam 5 bahasa'],action:'talk'},
     {ico:'✦',title:'PICK — Rekomendasi Kursus',desc:'AI merekomendasikan kursus sesuai industri & jabatan.',feats:['🤖 Jelaskan situasi dalam bahasa alami','🏭 Pilih industri, jabatan & tahun','📅 Lihat jadwal kursus'],action:'pick'},
     {ico:'◎',title:'VIEW — Kampus & Fasilitas',desc:'Jangan tersesat di kampus!',feats:['🗺️ Navigasi berjalan ke setiap gedung','🏢 Info & foto fasilitas','📸 Laporkan masalah (analisis foto AI)','🚌 Akses & jadwal shuttle'],action:'view'},
-    {ico:'💡',title:'Siap mulai?',desc:'Tekan tombol ? kapan saja untuk melihat panduan ini lagi.',feats:['Ganti tab di bawah: TALK · PICK · VIEW','🌐 Ganti bahasa (5 bahasa)','📞 Kontak darurat & menu hari ini'],action:''}
+    {ico:'💡',title:'Siap mulai?',desc:'Tekan tombol 📖 Panduan kapan saja untuk melihat popup ini lagi.',feats:['Ganti tab di bawah: TALK · PICK · VIEW','🌐 Ganti bahasa (5 bahasa)','📞 Kontak darurat & menu hari ini'],action:''}
   ]}
 };
 function OL(){return ONBOARD_L[appLang]||ONBOARD_L.ko;}
@@ -2032,6 +2139,9 @@ function showOnboarding(force){
     document.body.appendChild(ov);
   }
   renderOnboardStep();
+  var hb=document.getElementById('help-btn');
+  try{if(!localStorage.getItem('w_onboarded')&&hb)hb.classList.add('pulse');}catch(e){if(hb)hb.classList.add('pulse');}
+  ov.style.display='flex';
 }
 function renderOnboardStep(){
   var ov=document.getElementById('onboard-overlay');
@@ -2094,6 +2204,7 @@ function onboardTry(action){
   else if(action==='view'){go('view',document.getElementById('tab-view'));}
 }
 function dismissOnboarding(){
+  var hb=document.getElementById('help-btn');if(hb)hb.classList.remove('pulse');
   try{localStorage.setItem('w_onboarded','1');}catch(e){}
   var ov=document.getElementById('onboard-overlay');
   if(ov){ov.style.animation='fadeOut .25s forwards';setTimeout(function(){ov.remove();},250);}
@@ -2161,7 +2272,9 @@ window.addEventListener('load',function(){
   }
   // 저장된 이름 있으면 스플래시 스킵
   applyViewPickLang(appLang);
-
+  setTimeout(function(){
+    try{if(!localStorage.getItem('w_onboarded')&&typeof showOnboarding==='function')showOnboarding();}catch(e){if(typeof showOnboarding==='function')showOnboarding();}
+  },1500);
 });
 
 /* 불편 신고 */
@@ -2175,7 +2288,7 @@ function doRep(){
   if(!txt||!txt.value.trim()){
     if(ok){
       ok.style.cssText='display:block!important;text-align:center;padding:14px;margin-top:10px;background:#FFF3CD;border-radius:12px;color:#856404;font-size:16px;font-weight:800;border:1.5px solid #FFEEBA;';
-      ok.textContent='⚠️ 불편 내용을 입력해주세요';
+      ok.textContent=VL('rep-err');
       setTimeout(function(){ok.style.cssText='display:none!important;';},3000);
     }
     return;
@@ -2184,7 +2297,7 @@ function doRep(){
   document.querySelectorAll('.repty').forEach(function(b){b.classList.remove('sel');});
   if(ok){
     ok.style.cssText='display:block!important;text-align:center;padding:14px;margin-top:10px;background:#E6FCF5;border-radius:12px;color:#0CA678;font-size:16px;font-weight:800;border:1.5px solid #96F2D7;';
-    ok.textContent='✅ 접수 완료! 담당자가 빠르게 확인할게요 😊';
+    ok.textContent=VL('rep-ok');
     setTimeout(function(){ok.style.cssText='display:none!important;';},5000);
   }
 }
@@ -2242,7 +2355,7 @@ function buildCarousel(imgs){
   '</div>';
 }
 function showBld(id){
-  var d=BLD_INFO[id]; if(!d)return;
+  var d=getBldLoc(id)||BLD_INFO[id]; if(!d)return;
   var gallery=document.getElementById('bld-modal-gallery');
   var imgs=d.imgs||[];
   if(imgs.length>0){
@@ -2656,7 +2769,13 @@ function applyUILang(l){
   if(nlph)nlph.placeholder=d['nl-input-ph']||UI_STRINGS.ko['nl-input-ph'];
   var snph=document.getElementById('uname-input');
   if(snph)snph.placeholder=d['splash-name-ph']||UI_STRINGS.ko['splash-name-ph'];
+  document.querySelectorAll('[data-i18n-ph]').forEach(function(el){
+    var k=el.getAttribute('data-i18n-ph');
+    if(d[k]!==undefined)el.placeholder=d[k];
+    else if(VIEW_L[l]&&VIEW_L[l][k]!==undefined)el.placeholder=VIEW_L[l][k];
+  });
   applyPickOptLang(l);
+  if(typeof applyViewPickLang==='function')applyViewPickLang(l);
 }
 function setLang(l,btn){
   appLang=l;
@@ -3124,17 +3243,17 @@ function togglePinEdit(btn){
   const hint=document.getElementById('map-hint');
   if(editing){
     btn.removeAttribute('data-edit');
-    btn.textContent='✏️ 핀 편집';
+    btn.textContent=VL('pin-edit');
     btn.style.background='';btn.style.color='';
     bar.classList.remove('on');
-    hint.textContent='핀을 눌러 건물 정보 확인';
+    var mh=document.getElementById('map-hint');if(mh){var u=UI_STRINGS[appLang]||UI_STRINGS.ko;mh.textContent=u['view-map-hint']||'핀을 눌러 건물 정보 확인';}
     savePinPositions();
   } else {
     btn.setAttribute('data-edit','1');
-    btn.textContent='✅ 편집 완료';
+    btn.textContent=VL('pin-edit-done');
     btn.style.background='var(--blue)';btn.style.color='#fff';
     bar.classList.add('on');
-    hint.textContent='드래그로 핀 이동 중...';
+    hint.textContent=VL('pin-edit-bar');
   }
   document.querySelectorAll('.cmap-pin').forEach(p=>{
     p.setAttribute('data-editing', editing?'':'1');
@@ -3149,7 +3268,7 @@ function savePinPositions(){
   });
   if(result.length){
     navigator.clipboard.writeText(result.join('\n')).catch(()=>{});
-    alert('핀 위치가 클립보드에 복사됐어요!\n개발자에게 붙여넣기로 전달해주세요 😊');
+    alert(VL('pin-saved'));
   }
 }
 
@@ -3215,7 +3334,7 @@ function savePinPositions(){
   document.querySelectorAll('.cmap-pin[data-name]').forEach(function(p){
     if(p.dataset.name===key||name.includes(p.dataset.name)||p.dataset.name.includes(name))p.classList.add('dest');
   });
-  const r=ROUTE_DATA[key];
+  const r=getRouteLoc(key)||ROUTE_DATA[key];
   const pts=r.pts;
   const dest=r.dest;
   const pStr=pts.map(p=>p[0]+','+p[1]).join(' ');
@@ -3253,16 +3372,16 @@ function savePinPositions(){
   if(card&&r.steps){
     const stepsHtml=r.steps.map((s,i)=>{
       const ico=i===0?'🟢':i===r.steps.length-1?'🔴':'▸';
-      return '<div class="route-step"><div class="route-step-ico">'+ico+'</div><div class="route-step-txt">'+s+'</div></div>';
+      return '<div class="route-step"><div class="route-step-ico">'+ico+'</div><div class="route-step-txt">'+(s.dir||s)+'</div></div>';
     }).join('');
-    card.innerHTML='<div class="route-nav-head"><div class="route-nav-title">📍 '+key+' 가는 길</div><div class="route-nav-time">🟢 정문 출발</div></div>'+stepsHtml;
+    var loc=getCampusLoc(key);var dispName=(loc&&loc.name)||key;card.innerHTML='<div class="route-nav-head"><div class="route-nav-title">📍 '+dispName+VL('route-to')+'</div><div class="route-nav-time">'+VL('route-from-gate')+'</div></div>'+stepsHtml;
     card.classList.add('on');
   }
   document.querySelector('.cmap-wrap')?.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 
 function showCampusPin(name){
-  const d=CAMPUS_BLD[name];
+  const d=getCampusLoc(name)||CAMPUS_BLD[name];
   if(!d)return;
   const sheet=document.getElementById('campus-bld-sheet');
   // 건물 사진
@@ -3274,7 +3393,7 @@ function showCampusPin(name){
   } else if(photoWrap){
     photoWrap.style.display='none';
   }
-  document.getElementById('cbs-name').textContent=name;
+  document.getElementById('cbs-name').textContent=d.name||name;
   document.getElementById('cbs-desc').textContent=d.desc;
   const rm=document.getElementById('cbs-rooms');
   rm.innerHTML=d.rooms.map(r=>`<span class="bld-sh-room">${r}</span>`).join('');
@@ -3286,7 +3405,7 @@ function showCampusPin(name){
   const fp=typeof FLOOR_PLANS!=='undefined'?FLOOR_PLANS[name]:null;
   const fpSheet=document.getElementById('fp-sheet');
   if(fp&&fpSheet){
-    document.getElementById('fp-bld-nm').textContent=name;
+    document.getElementById('fp-bld-nm').textContent=d.name||name;
     const tabs=document.getElementById('fp-tabs');
     tabs.innerHTML=fp.map((f,i)=>`<button class="fp-tab${i===0?' on':''}" onclick="showFloor('${name}',${i},this)">${f.label}</button>`).join('');
     const imgWrap=document.getElementById('fp-img-wrap');
@@ -3331,7 +3450,7 @@ function showFloor(bld,fl,btn){
       if(!d)return;
       const sheet=document.getElementById('campus-bld-sheet');
       if(!sheet)return;
-      document.getElementById('cbs-name').textContent=name;
+      document.getElementById('cbs-name').textContent=d.name||name;
       document.getElementById('cbs-desc').textContent=d.desc;
       const rm=document.getElementById('cbs-rooms');
       if(rm)rm.innerHTML=d.rooms.map(r=>`<span class="bld-sh-room">${r}</span>`).join('');
