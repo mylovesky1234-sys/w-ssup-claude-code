@@ -932,7 +932,10 @@ details[open] .faq-arr{transform:rotate(180deg);}
         <div class="nl-pick-box">
           <div style="font-size:16px;font-weight:800;color:#5A3FA0;margin-bottom:2px;">🤖 자연어로 추천받기 <span style="background:#E0D6FF;border-radius:8px;padding:2px 7px;font-size:15px;font-weight:700;color:var(--indigo);">AI</span></div>
           <div style="font-size:15px;color:var(--t2);margin-bottom:4px;" data-i18n="pick-nl-hint">본인 상황을 자유롭게 입력하면 AI가 맞춤 과정을 추천해드려요</div>
-          <textarea class="nl-pick-ta" id="nl-input" placeholder="예) 저는 제조업 품질담당자이고 AI를 처음 접합니다. 현장 개선에 도움이 되는 과정을 추천해주세요."></textarea>
+          <div style="position:relative;">
+            <textarea class="nl-pick-ta" id="nl-input" placeholder="예) 저는 제조업 품질담당자이고 AI를 처음 접합니다. 현장 개선에 도움이 되는 과정을 추천해주세요." style="padding-right:44px;"></textarea>
+            <button id="nlMicBtn" onclick="toggleNlMic()" title="음성 입력" style="position:absolute;right:8px;bottom:10px;width:34px;height:34px;border:none;border-radius:50%;background:var(--blue-lt);color:var(--blue);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;">🎤</button>
+          </div>
           <button class="nl-pbtn" data-i18n="pick-nl-btn" onclick="doNLPick()">✦ AI 추천 받기</button>
           <div id="nl-result" style="margin-top:10px;"></div>
         </div>
@@ -1492,7 +1495,8 @@ function ssupPickCards(courses, resEl, intro){
     +'<div style="font-size:14px;color:var(--t2);">ssup.kosmes.or.kr · 실시간 개강 일정 반영</div></div>'
     +'<div style="margin-left:auto;font-size:12px;font-weight:700;color:#0CA678;background:#E6FCF5;padding:3px 8px;border-radius:20px;">✓ 연결됨</div>'
     +'</div>';
-  var footer='<a href="https://ssup.kosmes.or.kr" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px;background:var(--surf);border:1.5px solid var(--border);border-radius:14px;font-size:15px;font-weight:800;color:var(--blue);text-decoration:none;margin-top:4px;">📋 SSUP 전체 과정 보기 →</a>';
+  var footer='<a href="https://ssup.kosmes.or.kr" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px;background:var(--surf);border:1.5px solid var(--border);border-radius:14px;font-size:15px;font-weight:800;color:var(--blue);text-decoration:none;margin-top:4px;">📋 SSUP 전체 과정 보기 →</a>'
+    +'<div style="font-size:13px;color:var(--t2);text-align:center;padding:8px 4px 0;">※ 데모용 과정입니다. 실제 과정과 다를 수 있으며, 정확한 일정은 SSUP 홈페이지를 확인해주세요.</div>';
   resEl.innerHTML = header + courses.slice(0,3).map(function(c,i){
     var g='linear-gradient(135deg,'+colors[i][0]+','+colors[i][1]+')';
     var badgeHtml=c.badge?'<span style="background:rgba(255,255,255,.25);color:#fff;font-size:13px;font-weight:700;padding:2px 8px;border-radius:10px;margin-left:8px;">'+c.badge+'</span>':'';
@@ -1898,6 +1902,33 @@ function stopStt(){
   if(mb)mb.classList.remove('active');
   var inp=document.getElementById('txtin');
   if(inp)inp.placeholder='궁금한 점을 입력하세요...';
+}
+var _nlStt=null;
+function toggleNlMic(){
+  if(_nlStt){stopNlStt();return;}
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){alert('이 브라우저는 음성 인식을 지원하지 않습니다.\nChrome 사용을 권장해요.');return;}
+  _nlStt=new SR();
+  _nlStt.lang='ko-KR'; _nlStt.continuous=false; _nlStt.interimResults=true;
+  var btn=document.getElementById('nlMicBtn');
+  if(btn){btn.textContent='🔴';btn.style.background='#FFE3E3';btn.style.color='#E03131';}
+  var inp=document.getElementById('nl-input');
+  var prev=inp.value;
+  inp.placeholder='🎤 듣는 중...';
+  _nlStt.onresult=function(e){
+    var t=Array.from(e.results).map(function(r){return r[0].transcript;}).join('');
+    inp.value=t;
+  };
+  _nlStt.onend=function(){stopNlStt();};
+  _nlStt.onerror=function(e){stopNlStt();if(e.error!=='no-speech')alert('음성 인식 오류: '+e.error);};
+  _nlStt.start();
+}
+function stopNlStt(){
+  if(_nlStt){try{_nlStt.stop();}catch(e){}; _nlStt=null;}
+  var btn=document.getElementById('nlMicBtn');
+  if(btn){btn.textContent='🎤';btn.style.background='';btn.style.color='';}
+  var inp=document.getElementById('nl-input');
+  if(inp)inp.placeholder='예) 저는 제조업 품질담당자이고 AI를 처음 접합니다. 현장 개선에 도움이 되는 과정을 추천해주세요.';
 }
 
 /* ── TALK 핵심 함수 ── */
